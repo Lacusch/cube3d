@@ -7,7 +7,7 @@ SOURCE = src/main.c \
 		src/parcing.c
 OBJECT = $(SOURCE:.c=.o)
 
-NAME = cub3d
+NAME = cub3D
 
 all: $(NAME)
 
