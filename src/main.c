@@ -3,10 +3,11 @@
 // See README in the root project for more information.
 // -----------------------------------------------------------------------------
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
 #include "../lib/MLX42/include/MLX42/MLX42.h"
+#include "../includes/cube3d.h"
+
 #define WIDTH 512
 #define HEIGHT 512
 
@@ -28,20 +29,23 @@ void hook(void* param)
 		img->instances[0].x += 5;
 }
 
-int32_t	main(void)
+int32_t	main(int ac, char** av)
 {
-	mlx_t* mlx;
 
-	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
-		return(EXIT_FAILURE);
+	if (check_arg(ac, av))
+		return (1);
+	// mlx_t* mlx;
 
-	img = mlx_new_image(mlx, 128, 128);
-	memset(img->pixels, 255, img->width * img->height * sizeof(int));
-	mlx_image_to_window(mlx, img, 0, 0);
+	// if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
+	// 	return(EXIT_FAILURE);
 
-	mlx_loop_hook(mlx, &hook, mlx);
-	mlx_loop(mlx);
+	// img = mlx_new_image(mlx, 128, 128);
+	// memset(img->pixels, 255, img->width * img->height * sizeof(int));
+	// mlx_image_to_window(mlx, img, 0, 0);
 
-	mlx_terminate(mlx);
+	// mlx_loop_hook(mlx, &hook, mlx);
+	// mlx_loop(mlx);
+
+	// mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
 }
