@@ -8,8 +8,8 @@
 #include "../lib/MLX42/include/MLX42/MLX42.h"
 #include "../includes/cube3d.h"
 
-#define WIDTH 512
-#define HEIGHT 512
+#define WIDTH 1920
+#define HEIGHT 1080
 
 static mlx_image_t* img;
 
@@ -29,23 +29,31 @@ void hook(void* param)
 		img->instances[0].x += 5;
 }
 
+static int ft_error(void)
+{
+	fprintf(stderr, "%s", mlx_strerror(mlx_errno));
+	return (EXIT_FAILURE);
+}
+
 int32_t	main(int ac, char** av)
 {
+	mlx_t*			mlx;
+	mlx_texture_t*	texture;
 
 	if (check_arg(ac, av))
 		return (1);
-	mlx_t* mlx;
-
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
-		return(EXIT_FAILURE);
-
+		return (ft_error());
 	img = mlx_new_image(mlx, 128, 128);
-	memset(img->pixels, 255, img->width * img->height * sizeof(int));
+	memset(img->pixels, 255, img->width * img->height * sizeof(int32_t));
 	mlx_image_to_window(mlx, img, 0, 0);
-
+	texture = mlx_load_png("./textures/wood.png");
+	if (!texture)
+        return (ft_error());
+	img = mlx_texture_to_image(mlx, texture);
+	mlx_image_to_window(mlx, img, 0, 0);
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
-
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
 }
