@@ -3,7 +3,9 @@ CFLAGS = -Wall -Wextra -Werror
 GLFW3 = lib/MLX42/build/_deps/glfw-build/src/libglfw3.a
 LIBMLX42 = lib/MLX42/build/libmlx42.a
 FRAMEWORK = -framework Cocoa -framework OpenGL -framework IOKit
-SOURCE = src/main.c \
+SOURCE = src/free.c \
+		src/init.c \
+		src/main.c \
 		src/parcing.c
 OBJECT = $(SOURCE:.c=.o)
 
@@ -37,7 +39,7 @@ fclean:
 re: fclean all
 
 run: $(NAME)
-	@echo "Running $(NAME) with example map:"
+	@echo "Running $(NAME) with example map"
 	@./$(NAME) maps./example.cub && \
 	echo "Thanks for playing!"
 .PHONY:
