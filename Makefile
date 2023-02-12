@@ -32,13 +32,19 @@ $(LIBFT):
 $(NAME): $(LIBFT) $(LIBMLX42) $(OBJECT)
 	@$(CC) $(LIBFT) $(OBJECT) $(LIBMLX42) $(GLFW3) $(FRAMEWORK) -o $(NAME)
 	@echo "$(NAME) created."
+
 clean:
 	@echo "Cleaning."
-	@make clean -C ./lib/MLX42/build/_deps/glfw-build
-	@make clean -C ./lib/MLX42/build
 	@rm -rf src/*.o
 	@make clean -C lib/libft
-fclean: 
+ifneq (,$(wildcard ./lib/MLX42/build))
+	@make clean -C ./lib/MLX42/build/_deps/glfw-build
+	@make clean -C ./lib/MLX42/build
+else
+	
+endif
+
+fclean: clean
 	@echo "Removing executable."
 	@rm -rf src/*.o
 	@make fclean -C lib/libft
