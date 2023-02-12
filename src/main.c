@@ -6,8 +6,8 @@
 #include <memory.h>
 #include "../includes/cube3d.h"
 
-#define WIDTH 1920
-#define HEIGHT 1080
+#define WIDTH 1024
+#define HEIGHT 512
 
 static mlx_image_t* img;
 
@@ -33,28 +33,70 @@ static int ft_error(void)
 	return (EXIT_FAILURE);
 }
 
+static void draw_background(mlx_image_t* img)
+{
+
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < WIDTH)
+	{
+		j = 0;
+		while (j < HEIGHT)
+		{
+			mlx_put_pixel(img, i, j, 0xFF0000FF);
+			j++;
+		}
+		i++;
+	}
+}
+
+static char	**muck_map(void)
+{
+	int		i;
+	char	**res;
+
+	i = 0;
+	res = malloc(sizeof(char *) * 11);
+	while (i < 10)
+	{
+		res[i] = ft_strdup("1000000001");
+		i++;
+	}
+	res[i] = NULL;
+}
+
 int32_t	main(int ac, char** av)
 {
 	t_cube3d		data;
 	mlx_t*			mlx;
-	mlx_texture_t*	texture;
+	char 			**map;
+	// mlx_texture_t*	texture;
 
 	init_data(&data);
 	if (check_arg(ac, av))
 		return (1);
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 		return (ft_error());
-	img = mlx_new_image(mlx, 128, 128);
+
+	img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	mlx_image_to_window(mlx, img, 0, 0);
+	draw_background(img);
+	img = mlx_new_image(mlx, 8, 8);
 	ft_memset(img->pixels, 255, img->width * img->height * sizeof(int32_t));
 	mlx_image_to_window(mlx, img, 0, 0);
-	texture = mlx_load_png("./textures/wood.png");
-	if (!texture)
-        return (ft_error());
-	img = mlx_texture_to_image(mlx, texture);
-	mlx_image_to_window(mlx, img, 0, 0);
+	map = muck_map();
+
+	// texture = mlx_load_png("./textures/wood.png");
+	// if (!texture)
+    //     return (ft_error());
+	// img = mlx_texture_to_image(mlx, texture);
+
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	data_free(&data);
+
 	return (EXIT_SUCCESS);
 }
