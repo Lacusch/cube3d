@@ -8,7 +8,7 @@ SOURCE = src/free.c \
 		src/main.c \
 		src/parcing.c
 OBJECT = $(SOURCE:.c=.o)
-
+LIBFT = lib/libft/libft.a
 NAME = cub3D
 
 all: $(NAME)
@@ -25,17 +25,24 @@ $(LIBMLX42):
 	make -C lib/MLX42/build; \
 	fi
 
-$(NAME): $(LIBMLX42) $(OBJECT)
-	@$(CC) $(OBJECT) $(LIBMLX42) $(GLFW3) $(FRAMEWORK) -o $(NAME)
+$(LIBFT):
+	git submodule update --init --recursive --remote
+	@make -C lib/libft
+
+$(NAME): $(LIBFT) $(LIBMLX42) $(OBJECT)
+	@$(CC) $(LIBFT) $(OBJECT) $(LIBMLX42) $(GLFW3) $(FRAMEWORK) -o $(NAME)
 	@echo "$(NAME) created."
 clean:
 	@echo "Cleaning."
-	@make clean -C /Users/slaszlo-/42/cube3d/lib/MLX42/build/_deps/glfw-build
-	@make clean -C /Users/slaszlo-/42/cube3d/lib/MLX42/build
+	@make clean -C ./lib/MLX42/build/_deps/glfw-build
+	@make clean -C ./lib/MLX42/build
 	@rm -rf src/*.o
-fclean:
+	@make clean -C lib/libft
+fclean: 
 	@echo "Removing executable."
-	@rm -rf lib/MLX42/build $(GLFW3) $(LIBMLX42) $(NAME)
+	@rm -rf src/*.o
+	@make fclean -C lib/libft
+	@rm -rf ./lib/MLX42/build $(GLFW3) $(LIBMLX42) $(NAME)
 re: fclean all
 
 run: $(NAME)

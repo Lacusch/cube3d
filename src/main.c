@@ -35,7 +35,7 @@ static int ft_error(void)
 
 int32_t	main(int ac, char** av)
 {
-	t_cube3d	data;
+	t_cube3d		data;
 	mlx_t*			mlx;
 	mlx_texture_t*	texture;
 
@@ -45,7 +45,7 @@ int32_t	main(int ac, char** av)
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 		return (ft_error());
 	img = mlx_new_image(mlx, 128, 128);
-	memset(img->pixels, 255, img->width * img->height * sizeof(int32_t));
+	ft_memset(img->pixels, 255, img->width * img->height * sizeof(int32_t));
 	mlx_image_to_window(mlx, img, 0, 0);
 	texture = mlx_load_png("./textures/wood.png");
 	if (!texture)

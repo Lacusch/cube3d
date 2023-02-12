@@ -1,18 +1,13 @@
 
 #include "../includes/cube3d.h"
 
-/*
-Add libft and use ft_strlen instead of strlen !	
-*/
-#include <string.h>
-
 bool	check_extension(char	*av1, char	*extension)
 {
 	int	file_size;
 	int	extension_size;
 
-	file_size = strlen(av1);
-	extension_size = strlen(extension);
+	file_size = ft_strlen(av1);
+	extension_size = ft_strlen(extension);
 	while (extension_size > 0)
 	{
 		if (av1[file_size--] != extension[extension_size--])
