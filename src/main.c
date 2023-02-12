@@ -3,9 +3,7 @@
 // See README in the root project for more information.
 // -----------------------------------------------------------------------------
 
-#include <stdlib.h>
 #include <memory.h>
-#include "../lib/MLX42/include/MLX42/MLX42.h"
 #include "../includes/cube3d.h"
 
 #define WIDTH 1920
@@ -37,9 +35,11 @@ static int ft_error(void)
 
 int32_t	main(int ac, char** av)
 {
+	t_cube3d	data;
 	mlx_t*			mlx;
 	mlx_texture_t*	texture;
 
+	init_data(&data);
 	if (check_arg(ac, av))
 		return (1);
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
@@ -55,5 +55,6 @@ int32_t	main(int ac, char** av)
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
+	data_free(&data);
 	return (EXIT_SUCCESS);
 }
