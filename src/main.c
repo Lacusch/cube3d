@@ -33,38 +33,72 @@ static int ft_error(void)
 	return (EXIT_FAILURE);
 }
 
-static void draw_background(mlx_image_t* img)
+static void paint_pixels(int i, int j, mlx_image_t* img, int is_wall)
 {
+	int x;
+	int	y;
 
-	int	i;
-	int	j;
+	x = 0;
+	y = 0;
+	while (x < 64)
+	{
+		y = 0;
+		while (y < 64)
+		{
+			if (is_wall)
+				mlx_put_pixel(img, (i * 63) + x, (j * 63) + y, 0xFFFFFFFF);
+			else 
+				mlx_put_pixel(img, (i * 63) + x, (j * 63) + y, 0x000000FF);
+			y++;
+		}
+		x++;
+	}
+	return ;
+}
+
+static void draw_background(mlx_image_t* img, char **map)
+{
+	int i;
+	int j;
 
 	i = 0;
-	while (i < WIDTH)
+	while (i < 8)
 	{
 		j = 0;
-		while (j < HEIGHT)
+		while (j < 8)
 		{
-			mlx_put_pixel(img, i, j, 0xFF0000FF);
+			if (map[j][i] == '1')
+			{
+				paint_pixels(i, j, img, 1);
+				printf("1");
+			}
+			else
+			{
+				printf("0");
+				paint_pixels(i, j, img, 0);
+			}
 			j++;
 		}
+		printf("\n");
 		i++;
 	}
 }
 
 static char	**muck_map(void)
 {
-	int		i;
 	char	**res;
 
-	i = 0;
-	res = malloc(sizeof(char *) * 11);
-	while (i < 10)
-	{
-		res[i] = ft_strdup("1000000001");
-		i++;
-	}
-	res[i] = NULL;
+	res = malloc(sizeof(char *) * 9);
+	res[0] = ft_strdup("11111111");
+	res[1] = ft_strdup("10000001");
+	res[2] = ft_strdup("10011101");
+	res[3] = ft_strdup("10000001");
+	res[4] = ft_strdup("10000001");
+	res[5] = ft_strdup("10000001");
+	res[6] = ft_strdup("10000001");
+	res[7] = ft_strdup("11111111");
+	res[8] = NULL;
+	return (res);
 }
 
 int32_t	main(int ac, char** av)
@@ -72,6 +106,7 @@ int32_t	main(int ac, char** av)
 	t_cube3d		data;
 	mlx_t*			mlx;
 	char 			**map;
+	
 	// mlx_texture_t*	texture;
 
 	init_data(&data);
@@ -81,13 +116,14 @@ int32_t	main(int ac, char** av)
 		return (ft_error());
 
 	img = mlx_new_image(mlx, WIDTH, HEIGHT);
-	mlx_image_to_window(mlx, img, 0, 0);
-	draw_background(img);
-	img = mlx_new_image(mlx, 8, 8);
-	ft_memset(img->pixels, 255, img->width * img->height * sizeof(int32_t));
-	mlx_image_to_window(mlx, img, 0, 0);
 	map = muck_map();
+	mlx_image_to_window(mlx, img, 0, 0);
+	draw_background(img, map);
+	img = mlx_new_image(mlx, 8, 8);
+	ft_memset(img->pixels, 0x000000FF, img->width * img->height * sizeof(int32_t));
+	mlx_image_to_window(mlx, img, WIDTH/3, HEIGHT/2);
 
+	// mlx_put_pixel(img, i, j, 0xFF0000FF);
 	// texture = mlx_load_png("./textures/wood.png");
 	// if (!texture)
     //     return (ft_error());
