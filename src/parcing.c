@@ -12,7 +12,7 @@ bool	check_extension(char	*av1, char	*extension)
 	{
 		if (av1[file_size--] != extension[extension_size--])
 		{
-			printf("Error\nWrong file extention\n");
+			write(2, WRONG_EXTENSION, ft_strlen(WRONG_EXTENSION));
 			return (true);
 		}
 	}
@@ -29,12 +29,12 @@ bool	check_arg(int ac, char **av)
 		if (ac > 2)
 		{
 			parce_error = true;
-			printf("Error\nToo many arguments\n");
+			write(2, TO_MANY_ARGS, ft_strlen(TO_MANY_ARGS));
 		}
 		else
 		{
 			parce_error = true;
-			printf("Error\nNo arguments\n");
+			write(2, NO_ARGS, ft_strlen(NO_ARGS));
 		}
 	}
 	else if (check_extension(av[1], ".cub"))

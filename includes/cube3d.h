@@ -10,7 +10,7 @@
 
 #include "../lib/MLX42/include/MLX42/MLX42.h"
 #include "../lib/libft/libft.h"
-
+#include "errors.h"
 //Declarations
 
 typedef struct s_cube3d
