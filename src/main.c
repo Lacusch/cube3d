@@ -41,8 +41,10 @@ int32_t	main(int ac, char** av)
 
 	init_data(&data);
 	if (check_arg(ac, av))
-		return (1);
+		return (EXIT_FAILURE);
 	input_data(&data, av[1]);
+	if (data.input_error)
+		return (1);
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 		return (ft_error());
 	img = mlx_new_image(mlx, 128, 128);
@@ -56,6 +58,7 @@ int32_t	main(int ac, char** av)
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
-	data_free(&data);
+	//doubble free, need to debug
+	// data_free(&data);
 	return (EXIT_SUCCESS);
 }

@@ -22,7 +22,12 @@ typedef struct s_cube3d
 	char	*EA;
 	char	*F_color;
 	char	*C_color;
+	char	start;
+	bool	input_error;
 }	t_cube3d;
+
+void	data_printf(t_cube3d *data);
+void	matrix_printf(char **matrix);
 
 bool check_arg(int ac, char **av);
 
@@ -31,6 +36,6 @@ void	init_data(t_cube3d	*data);
 void	matrix_free(char **matrix);
 void	data_free(t_cube3d	*data);
 
-bool	input_data(t_cube3d	*data, char	*map);
+void	input_data(t_cube3d	*data, char	*map);
 
 #endif
