@@ -12,7 +12,7 @@ bool	check_extension(char	*av1, char	*extension)
 	{
 		if (av1[file_size--] != extension[extension_size--])
 		{
-			write(2, WRONG_EXTENSION, ft_strlen(WRONG_EXTENSION));
+			write(STDERR_FILENO, WRONG_EXTENSION, ft_strlen(WRONG_EXTENSION));
 			return (true);
 		}
 	}
@@ -29,12 +29,12 @@ bool	check_arg(int ac, char **av)
 		if (ac > 2)
 		{
 			parce_error = true;
-			write(2, TO_MANY_ARGS, ft_strlen(TO_MANY_ARGS));
+			write(STDERR_FILENO, TO_MANY_ARGS, ft_strlen(TO_MANY_ARGS));
 		}
 		else
 		{
 			parce_error = true;
-			write(2, NO_ARGS, ft_strlen(NO_ARGS));
+			write(STDERR_FILENO, NO_ARGS, ft_strlen(NO_ARGS));
 		}
 	}
 	else if (check_extension(av[1], ".cub"))
