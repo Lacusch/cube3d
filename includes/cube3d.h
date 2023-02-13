@@ -29,5 +29,6 @@ bool	check_arg(int ac, char **av);
 void	init_data(t_cube3d	*data);
 void	matrix_free(char **matrix);
 void	data_free(t_cube3d	*data);
+void    ft_pixel_put(mlx_image_t *img, int x, int y, int color);
 
 #endif

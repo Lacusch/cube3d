@@ -33,6 +33,7 @@ static int ft_error(void)
 	return (EXIT_FAILURE);
 }
 
+
 static void paint_pixels(int i, int j, mlx_image_t* img, int is_wall)
 {
 	int x;
@@ -41,14 +42,14 @@ static void paint_pixels(int i, int j, mlx_image_t* img, int is_wall)
 	x = 0;
 	y = 0;
 	while (x < 64)
-	{
+	{ 
 		y = 0;
 		while (y < 64)
 		{
 			if (is_wall)
-				mlx_put_pixel(img, (i * 63) + x, (j * 63) + y, 0xFFFFFFFF);
+				ft_pixel_put(img, (i * 63) + x, (j * 63) + y, 0xFFFFFFFF);
 			else 
-				mlx_put_pixel(img, (i * 63) + x, (j * 63) + y, 0x000000FF);
+				ft_pixel_put(img, (i * 63) + x, (j * 63) + y, 0x000000FF);
 			y++;
 		}
 		x++;
@@ -101,38 +102,28 @@ static char	**muck_map(void)
 	return (res);
 }
 
+
 int32_t	main(int ac, char** av)
 {
 	t_cube3d		data;
 	mlx_t*			mlx;
 	char 			**map;
 	
-	// mlx_texture_t*	texture;
-
 	init_data(&data);
 	if (check_arg(ac, av))
 		return (1);
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 		return (ft_error());
-
 	img = mlx_new_image(mlx, WIDTH, HEIGHT);
-	map = muck_map();
-	mlx_image_to_window(mlx, img, 0, 0);
+	map = muck_map();	
 	draw_background(img, map);
+	mlx_image_to_window(mlx, img, 0, 0);
 	img = mlx_new_image(mlx, 8, 8);
 	ft_memset(img->pixels, 0x000000FF, img->width * img->height * sizeof(int32_t));
-	mlx_image_to_window(mlx, img, WIDTH/3, HEIGHT/2);
-
-	// mlx_put_pixel(img, i, j, 0xFF0000FF);
-	// texture = mlx_load_png("./textures/wood.png");
-	// if (!texture)
-    //     return (ft_error());
-	// img = mlx_texture_to_image(mlx, texture);
-
+	mlx_image_to_window(mlx, img, 0, 0);
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	data_free(&data);
-
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,8 @@ FRAMEWORK = -framework Cocoa -framework OpenGL -framework IOKit
 SOURCE = src/free.c \
 		src/init.c \
 		src/main.c \
-		src/parcing.c
+		src/parcing.c \
+		src/draw.c
 OBJECT = $(SOURCE:.c=.o)
 LIBFT = lib/libft/libft.a
 NAME = cub3D
