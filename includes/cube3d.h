@@ -31,4 +31,6 @@ void	init_data(t_cube3d	*data);
 void	matrix_free(char **matrix);
 void	data_free(t_cube3d	*data);
 
+bool	input_data(t_cube3d	*data, char	*map);
+
 #endif

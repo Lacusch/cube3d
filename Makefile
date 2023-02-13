@@ -5,6 +5,7 @@ LIBMLX42 = lib/MLX42/build/libmlx42.a
 FRAMEWORK = -framework Cocoa -framework OpenGL -framework IOKit
 SOURCE = src/free.c \
 		src/init.c \
+		src/input.c \
 		src/main.c \
 		src/parcing.c
 OBJECT = $(SOURCE:.c=.o)
@@ -53,7 +54,7 @@ re: fclean all
 
 run: $(NAME)
 	@echo "Running $(NAME) with example map"
-	@./$(NAME) maps./example.cub && \
+	@./$(NAME) maps/expamle.cub && \
 	echo "Thanks for playing!"
 .PHONY:
 	all clean fclean re run

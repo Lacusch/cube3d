@@ -42,6 +42,7 @@ int32_t	main(int ac, char** av)
 	init_data(&data);
 	if (check_arg(ac, av))
 		return (1);
+	input_data(&data, av[1]);
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 		return (ft_error());
 	img = mlx_new_image(mlx, 128, 128);
