@@ -27,38 +27,39 @@ void hook(void* param)
 		img->instances[0].x += 5;
 }
 
-static int ft_error(void)
-{
-	fprintf(stderr, "%s", mlx_strerror(mlx_errno));
-	return (EXIT_FAILURE);
-}
+// static int ft_error(void)
+// {
+// 	fprintf(stderr, "%s", mlx_strerror(mlx_errno));
+// 	return (EXIT_FAILURE);
+// }
 
 int32_t	main(int ac, char** av)
 {
 	t_cube3d		data;
-	mlx_t*			mlx;
-	mlx_texture_t*	texture;
+	// mlx_t*			mlx;
+	// mlx_texture_t*	texture;
 
 	init_data(&data);
 	if (check_arg(ac, av))
 		return (EXIT_FAILURE);
 	input_data(&data, av[1]);
 	if (data.input_error)
-		return (1);
-	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
-		return (ft_error());
-	img = mlx_new_image(mlx, 128, 128);
-	ft_memset(img->pixels, 255, img->width * img->height * sizeof(int32_t));
-	mlx_image_to_window(mlx, img, 0, 0);
-	texture = mlx_load_png("./textures/wood.png");
-	if (!texture)
-        return (ft_error());
-	img = mlx_texture_to_image(mlx, texture);
-	mlx_image_to_window(mlx, img, 0, 0);
-	mlx_loop_hook(mlx, &hook, mlx);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
+		return (EXIT_FAILURE);
+	// if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
+	// 	return (ft_error());
+	// img = mlx_new_image(mlx, 128, 128);
+	// ft_memset(img->pixels, 255, img->width * img->height * sizeof(int32_t));
+	// mlx_image_to_window(mlx, img, 0, 0);
+	// texture = mlx_load_png("./textures/wood.png");
+	// if (!texture)
+    //     return (ft_error());
+	// img = mlx_texture_to_image(mlx, texture);
+	// mlx_image_to_window(mlx, img, 0, 0);
+	// mlx_loop_hook(mlx, &hook, mlx);
+	// mlx_loop(mlx);
+	// mlx_terminate(mlx);
 	//doubble free, need to debug
-	// data_free(&data);
+	data_free(&data);
+	system("leaks cub3D");
 	return (EXIT_SUCCESS);
 }

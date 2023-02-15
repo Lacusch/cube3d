@@ -37,5 +37,7 @@ void	matrix_free(char **matrix);
 void	data_free(t_cube3d	*data);
 
 void	input_data(t_cube3d	*data, char	*map);
+void	missing_meta(t_cube3d	*data);
+bool	invalid_meta(t_cube3d	*data);
 
 #endif

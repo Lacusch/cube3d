@@ -4,6 +4,8 @@
 void	check_buffer(char	*line, t_cube3d	*data);
 bool	meta_full(t_cube3d	*data);
 int		ft_line(char *map);
+bool	is_whilespace(char	*c);
+void	handle_no(t_cube3d *data, char	*line);
 
 void	input_data(t_cube3d	*data, char	*map)
 {
@@ -14,39 +16,56 @@ void	input_data(t_cube3d	*data, char	*map)
 	buff = NULL;
 	fd = open(map, O_RDWR);
 	buff = get_next_line(fd);
-	check_buffer(buff, data);
 	//get_data
 	while (buff && !data->input_error && !meta_full(data))
 	{
 		check_buffer(buff, data);
 		free(buff);
+		buff = NULL;
 		buff = get_next_line(fd);
 		i++;
 	}
-	//get_map
-	char	*tmp;
-	tmp = ft_strdup("");
-	
-	while (buff && !data->input_error)
+	if (!meta_full(data))
 	{
-		buff = ft_strjoin(buff, ft_strdup("9"));
-		tmp = ft_strjoin(tmp, buff);
-		check_buffer(buff, data);
 		free(buff);
-		buff = get_next_line(fd);
+		close(fd);
+		missing_meta(data);
+		return ;
 	}
-	printf("map line is %d\n", ft_line(map) - i);
-	data->map = ft_split(tmp, '9');
+	if (invalid_meta(data))
+	{
+		//write a function that takes a functuib
+		free(buff);
+		close(fd);
+		return ;
+	}
+	//get_map
+	// char	*tmp;
+	// tmp = ft_strdup("");
+	
+	// while (buff && !data->input_error)
+	// {
+	// 	buff = ft_strjoin(buff, ("9"));
+	// 	tmp = ft_strjoin(tmp, buff);
+	// 	check_buffer(buff, data);
+	// 	free(buff);
+	// 	buff = get_next_line(fd);
+	// }
+	// printf("map line is %d\n", ft_line(map) - i);
+	// data->map = ft_split(tmp, '9');
+	// free(tmp);
 	data_printf(data);
 	free(buff);
+	// free(tmp);
 	close (fd);
 	(void)data;
 }
 
 void	check_buffer(char	*line, t_cube3d	*data)
 {
+
 	if (line[0] == 'N' && line[1] == 'O')
-		data->NO = ft_strdup(line + 3);
+		handle_no(data, line);
 	else if (line[0] == 'S' && line[1] == 'O')
 		data->SO = ft_strdup(line + 3);
 	else if (line[0] == 'W' && line[1] == 'E')
@@ -90,4 +109,24 @@ int	ft_line(char *map)
 	free(tmp);
 	close(fd);
 	return (i);
+}
+
+bool	is_whilespace(char	*c)
+{
+	if (*c == ' ' | *c == '\t')
+		return (true);
+	return (false);
+}
+
+void handle_no(t_cube3d *data, char	*line)
+{
+	while (is_whilespace(line + 2) == true && line)
+		line++;
+	if (*line == '\0')
+	{
+		data->input_error = true;
+		return ;
+	}
+	data->NO = ft_strdup(line + 2);
+	data->NO[ft_strlen(data->NO) + 1] = '\0';
 }
