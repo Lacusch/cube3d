@@ -1,8 +1,9 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 GLFW3 = lib/MLX42/build/_deps/glfw-build/src/libglfw3.a
 LIBMLX42 = lib/MLX42/build/libmlx42.a
 FRAMEWORK = -framework Cocoa -framework OpenGL -framework IOKit
+EXAMPLE_MAP = maps/pdf_example.cub
 SOURCE = src/debug.c \
 		src/free.c \
 		src/init.c \
@@ -21,7 +22,7 @@ $(LIBMLX42):
     else \
 	echo "Creating Makefiles." && \
 	sleep 1 && \
-	cmake -S lib/MLX42/ -B lib/MLX42/build && \
+	cmake -S lib/MLX42/ -B lib/MLX42/build -DGLFW_FETCH=1 && \
 	echo "Building glfw3 and MLX42." && \
 	sleep 1; \
 	make -C lib/MLX42/build; \
@@ -39,12 +40,6 @@ clean:
 	@echo "Cleaning."
 	@rm -rf src/*.o
 	@make clean -C lib/libft
-ifneq (,$(wildcard ./lib/MLX42/build))
-	@make clean -C ./lib/MLX42/build/_deps/glfw-build
-	@make clean -C ./lib/MLX42/build
-else
-	
-endif
 
 fclean: clean
 	@echo "Removing executable."
@@ -54,8 +49,8 @@ fclean: clean
 re: fclean all
 
 run: $(NAME)
-	@echo "Running $(NAME) with: \"pdf_example.cub\""
-	@./$(NAME) maps/pdf_example.cub && \
+	@echo "Running $(NAME) with: $(EXAMPLE_MAP)"
+	@./$(NAME) $(EXAMPLE_MAP) && \
 	echo "Thanks for playing!"
 .PHONY:
 	all clean fclean re run

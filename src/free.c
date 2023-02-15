@@ -25,14 +25,14 @@ void	data_free(t_cube3d	*data)
 	if (data->NO != NULL)
 		free(data->NO);
 	if (data->SO != NULL)
-		free(data->NO);
+		free(data->SO);
 	if (data->WE != NULL)
-		free(data->NO);
+		free(data->WE);
 	if (data->EA != NULL)
-		free(data->NO);
+		free(data->EA);
 	if (data->F_color != NULL)
-		free(data->NO);
+		free(data->F_color);
 	if (data->C_color != NULL)
-		free(data->NO);
+		free(data->C_color);
 	init_data(data);
 }
