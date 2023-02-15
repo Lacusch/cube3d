@@ -3,11 +3,13 @@ CFLAGS = -Wall -Wextra -Werror
 GLFW3 = lib/MLX42/build/_deps/glfw-build/src/libglfw3.a
 LIBMLX42 = lib/MLX42/build/libmlx42.a
 FRAMEWORK = -framework Cocoa -framework OpenGL -framework IOKit
-SOURCE = src/free.c \
-		src/init.c \
-		src/main.c \
-		src/parcing.c \
-		src/draw.c
+SOURCE = src/free.c			\
+		src/init.c 			\
+		src/main.c 			\
+		src/parcing.c 		\
+		src/draw.c			\
+		src/raycasting.c 	\
+		src/utils.c		
 OBJECT = $(SOURCE:.c=.o)
 LIBFT = lib/libft/libft.a
 NAME = cub3D
