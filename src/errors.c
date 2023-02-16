@@ -9,6 +9,7 @@
 # define FC_ERROR "Floor color texture\n"
 # define CC_ERROR "Celling color texture\n"
 
+bool	check_texture_extention(t_cube3d	*data);
 
 bool	check_extension(char	*av1, char	*extension)
 {
@@ -51,30 +52,46 @@ bool	check_arg(int ac, char **av)
 	return (parce_error);
 }
 
-void	missing_meta(t_cube3d	*data)
+void	missing_meta(void	*data)
 {
+	t_cube3d *tmp;
+
+	tmp = (t_cube3d*)data;
 	write(STDERR_FILENO, META_ERROR, ft_strlen(META_ERROR));
-	if (data->NO == NULL)
+	if (tmp->NO == NULL)
 		write(STDERR_FILENO, NO_ERROR, ft_strlen(NO_ERROR));
-	else if (!data->SO)
+	else if (!tmp->SO)
 		write(STDERR_FILENO, SO_ERROR, ft_strlen(SO_ERROR));
-	else if (!data->WE)
+	else if (!tmp->WE)
 		write(STDERR_FILENO, WE_ERROR, ft_strlen(WE_ERROR));
-	else if (!data->EA)
+	else if (!tmp->EA)
 		write(STDERR_FILENO, EA_ERROR, ft_strlen(EA_ERROR));
-	if (data->F_color == NULL)
+	if (tmp->F_color == NULL)
 		write(STDERR_FILENO, FC_ERROR, ft_strlen(FC_ERROR));
-	else if (!data->C_color)
+	else if (!tmp->C_color)
 		write(STDERR_FILENO, CC_ERROR, ft_strlen(CC_ERROR));
-	data->input_error = true;
-	data_free(data);
+	tmp->input_error = true;
+	data_free(tmp);
 }
 
 bool	invalid_meta(t_cube3d	*data)
 {
+	if (check_texture_extention(data))
+		return (true);
 	//is_everything .png
 	//can I open it
 	//is color good format?
 	(void)data;
+	return (false);
+}
+
+bool	check_texture_extention(t_cube3d	*data)
+{
+	if (check_extension(data->NO, ".png"))
+	{
+		write(STDERR_FILENO, data->NO, ft_strlen(data->NO));
+		write(STDERR_FILENO, " does not end in .png\n", ft_strlen(" does not end in .png\n"));
+		return (true);
+	}
 	return (false);
 }

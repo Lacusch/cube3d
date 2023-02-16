@@ -6,6 +6,7 @@ bool	meta_full(t_cube3d	*data);
 int		ft_line(char *map);
 bool	is_whilespace(char	*c);
 void	handle_no(t_cube3d *data, char	*line);
+void	run_error_func(char	*buff, int fd, void(*func)(void*), void	*data);
 
 void	input_data(t_cube3d	*data, char	*map)
 {
@@ -26,19 +27,17 @@ void	input_data(t_cube3d	*data, char	*map)
 		i++;
 	}
 	if (!meta_full(data))
-	{
-		free(buff);
-		close(fd);
-		missing_meta(data);
-		return ;
-	}
-	if (invalid_meta(data))
+		run_error_func(buff, fd, missing_meta, (void*)data);
+	else if (invalid_meta(data))
 	{
 		//write a function that takes a functuib
 		free(buff);
 		close(fd);
+		data->input_error = true;
 		return ;
 	}
+	else
+	{
 	//get_map
 	// char	*tmp;
 	// tmp = ft_strdup("");
@@ -54,10 +53,11 @@ void	input_data(t_cube3d	*data, char	*map)
 	// printf("map line is %d\n", ft_line(map) - i);
 	// data->map = ft_split(tmp, '9');
 	// free(tmp);
-	data_printf(data);
+	// data_printf(data);
 	free(buff);
 	// free(tmp);
-	close (fd);
+	// close (fd);
+	}
 	(void)data;
 }
 
@@ -120,6 +120,7 @@ bool	is_whilespace(char	*c)
 
 void handle_no(t_cube3d *data, char	*line)
 {
+	int i = 0;
 	while (is_whilespace(line + 2) == true && line)
 		line++;
 	if (*line == '\0')
@@ -128,5 +129,15 @@ void handle_no(t_cube3d *data, char	*line)
 		return ;
 	}
 	data->NO = ft_strdup(line + 2);
-	data->NO[ft_strlen(data->NO) + 1] = '\0';
+	while (data->NO[i] != '\n')
+		i++;
+	data->NO[i] = '\0';
+}
+
+void	run_error_func(char	*buff, int fd, void(*func)(void*), void	*data)
+{
+	free(buff);
+	buff = NULL;
+	close(fd);
+	func(data);
 }

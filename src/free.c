@@ -34,5 +34,5 @@ void	data_free(t_cube3d	*data)
 		free(data->F_color);
 	if (data->C_color != NULL)
 		free(data->C_color);
-	init_data(data);
+	// init_data(data);
 }

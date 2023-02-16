@@ -29,7 +29,7 @@ typedef struct s_cube3d
 void	data_printf(t_cube3d *data);
 void	matrix_printf(char **matrix);
 
-bool check_arg(int ac, char **av);
+bool	check_arg(int ac, char **av);
 
 void	init_data(t_cube3d	*data);
 
@@ -37,7 +37,8 @@ void	matrix_free(char **matrix);
 void	data_free(t_cube3d	*data);
 
 void	input_data(t_cube3d	*data, char	*map);
-void	missing_meta(t_cube3d	*data);
+void	missing_meta(void	*data);
 bool	invalid_meta(t_cube3d	*data);
+bool	check_extension(char	*av1, char	*extension);
 
 #endif
