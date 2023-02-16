@@ -23,16 +23,21 @@ void	data_free(t_cube3d	*data)
 	if (data->map != NULL)
 		matrix_free(data->map);
 	if (data->NO != NULL)
-		free(data->NO);
+		str_free(data->NO);
 	if (data->SO != NULL)
-		free(data->SO);
+		str_free(data->SO);
 	if (data->WE != NULL)
-		free(data->WE);
+		str_free(data->WE);
 	if (data->EA != NULL)
-		free(data->EA);
+		str_free(data->EA);
 	if (data->F_color != NULL)
-		free(data->F_color);
+		str_free(data->F_color);
 	if (data->C_color != NULL)
-		free(data->C_color);
-	// init_data(data);
+		str_free(data->C_color);
+}
+
+void	str_free(char	*str)
+{
+	free(str);
+	str = NULL;
 }

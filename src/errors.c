@@ -1,15 +1,19 @@
 
 #include "../includes/cube3d.h"
 
-# define META_ERROR "Error\nMissing parameter: "
-# define NO_ERROR "Nordern Wall texture\n"
-# define SO_ERROR "Southern Wall texture\n"
-# define WE_ERROR "Western Wall texture\n"
-# define EA_ERROR "Eastern Wall texture\n"
-# define FC_ERROR "Floor color texture\n"
-# define CC_ERROR "Celling color texture\n"
+# define	META_ERROR	"Error\nMissing parameter: "
+# define	NO_ERROR 	"Nordern Wall texture\n"
+# define	SO_ERROR 	"Southern Wall texture\n"
+# define	WE_ERROR 	"Western Wall texture\n"
+# define	EA_ERROR 	"Eastern Wall texture\n"
+# define	FC_ERROR 	"Floor color texture\n"
+# define	CC_ERROR 	"Celling color texture\n"
+# define	NOT_PNG		" does not end in .png\n"
+# define	NO_FILE		"Error\nCan't open file "
 
 bool	check_texture_extention(t_cube3d	*data);
+bool	check_can_open(t_cube3d	*data);
+bool	open_error(char	*file);
 
 bool	check_extension(char	*av1, char	*extension)
 {
@@ -76,12 +80,11 @@ void	missing_meta(void	*data)
 
 bool	invalid_meta(t_cube3d	*data)
 {
-	if (check_texture_extention(data))
+	if (check_texture_extention(data) || !check_can_open(data))
+	{
+		data->input_error = true;
 		return (true);
-	//is_everything .png
-	//can I open it
-	//is color good format?
-	(void)data;
+	}
 	return (false);
 }
 
@@ -90,8 +93,53 @@ bool	check_texture_extention(t_cube3d	*data)
 	if (check_extension(data->NO, ".png"))
 	{
 		write(STDERR_FILENO, data->NO, ft_strlen(data->NO));
-		write(STDERR_FILENO, " does not end in .png\n", ft_strlen(" does not end in .png\n"));
+		write(STDERR_FILENO, NOT_PNG, ft_strlen(NOT_PNG));
+		return (true);
+	}
+	else if (check_extension(data->SO, ".png"))
+	{
+		write(STDERR_FILENO, data->SO, ft_strlen(data->SO));
+		write(STDERR_FILENO, NOT_PNG, ft_strlen(NOT_PNG));
+		return (true);
+	}
+	else if (check_extension(data->WE, ".png"))
+	{
+		write(STDERR_FILENO, data->WE, ft_strlen(data->WE));
+		write(STDERR_FILENO, NOT_PNG, ft_strlen(NOT_PNG));
+		return (true);
+	}
+	else if (check_extension(data->EA, ".png"))
+	{
+		write(STDERR_FILENO, data->EA, ft_strlen(data->EA));
+		write(STDERR_FILENO, NOT_PNG, ft_strlen(NOT_PNG));
 		return (true);
 	}
 	return (false);
+}
+
+bool	check_can_open(t_cube3d	*data)
+{
+	int fd;
+
+	fd = open(data->NO, O_RDONLY);
+	if (fd == -1)
+		return(!open_error(data->NO));
+	fd = open(data->SO, O_RDONLY);
+	if (fd == -1)
+		return(!open_error(data->SO));
+	fd = open(data->EA, O_RDONLY);
+	if (fd == -1)
+		return(!open_error(data->EA));
+	fd = open(data->WE, O_RDONLY);
+	if (fd == -1)
+		return(!open_error(data->WE));
+	return (true);
+}
+
+bool	open_error(char	*file)
+{
+	write(STDERR_FILENO, NO_FILE, 22);
+	write(STDERR_FILENO, file, ft_strlen(file));
+	write(STDERR_FILENO, "\n", 1);
+	return (true);
 }

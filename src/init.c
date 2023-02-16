@@ -12,4 +12,7 @@ void	init_data(t_cube3d	*data)
 	data->C_color = NULL;
 	data->input_error = false;
 	data->start = '\0';
+	data->f_color[0] = -1;
+	data->f_color[1] = -1;
+	data->f_color[2] = -1;
 }
