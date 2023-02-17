@@ -12,6 +12,7 @@ void	handle_we(t_cube3d *data, char	*line);
 void	handle_ea(t_cube3d *data, char	*line);
 void	handle_color(t_cube3d	*data, char *buff);
 bool	valid_rgb(int	number);
+void	get_sub_rgb(int	start, t_cube3d	*data, char	*buff, int loop);
 
 void	input_data(t_cube3d	*data, char	*map)
 {
@@ -194,7 +195,7 @@ void	handle_color(t_cube3d	*data, char *buff)
 {
 	int	i;
 	int i2;
-	char	*tmp;
+	// char	*tmp;
 	i = 1;
 	i2 = 0;
 	//3 loops for the 3 ints (or recursion)
@@ -202,22 +203,21 @@ void	handle_color(t_cube3d	*data, char *buff)
 	{
 		while (is_whilespace(&buff[i]) == true && buff[i])
 			i++;
-		printf("buffer is %s\n", &(buff[i]));
-		printf("buffer [i] is %c\n", buff[i]);
-		while (i2 < 3 && ft_isdigit(buff[i + i2]))
-			i2++;
-		printf("i2 is %i\n", i2);
-		tmp = ft_substr(buff, i, i2);
-		printf("tmp is %s\n", tmp);
-		data->f_color[0] = ft_atoi(tmp);
-		free(tmp);
-		printf("color is %i\n", data->f_color[0]);
-		if (valid_rgb(data->f_color[0]))
-		{
-			printf("%i is invalid RGB\n", data->f_color[0]);
-			data->input_error = true;
-			return ;
-		}
+		get_sub_rgb(i, data, buff, 0);
+		// while (i2 < 3 && ft_isdigit(buff[i + i2]))
+		// 	i2++;
+		// printf("i2 is %i\n", i2);
+		// tmp = ft_substr(buff, i, i2);
+		// printf("tmp is %s\n", tmp);
+		// data->f_color[0] = ft_atoi(tmp);
+		// free(tmp);
+		// printf("color is %i\n", data->f_color[0]);
+		// if (valid_rgb(data->f_color[0]))
+		// {
+		// 	printf("%i is invalid RGB\n", data->f_color[0]);
+		// 	data->input_error = true;
+		// 	return ;
+		// }
 	}
 	else if (buff[0] == 'C')
 	{
@@ -229,7 +229,34 @@ void	handle_color(t_cube3d	*data, char *buff)
 
 bool	valid_rgb(int	number)
 {
-	if (number <= 0 && number <= 255)
+	if (number >= 0 && number <= 255)
 		return (true);
 	return (false);
+}
+
+void	get_sub_rgb(int	start, t_cube3d	*data, char	*buff, int loop)
+{
+	int	i2;
+	char	*tmp;
+
+	tmp = NULL;
+	i2 = 0;
+	if (loop != 0)
+		buff++;
+	while (i2 < 3 && ft_isdigit(buff[start + i2]))
+			i2++;
+		// printf("i2 is %i\n", i2);
+		tmp = ft_substr(buff, start, i2);
+		// printf("tmp is %s\n", tmp);
+		data->f_color[loop] = ft_atoi(tmp);
+		free(tmp);
+		// printf("color is %i\n", data->f_color[loop]);
+		if (!valid_rgb(data->f_color[loop]))
+		{
+			printf("%i is invalid RGB\n", data->f_color[loop]);
+			data->input_error = true;
+			return ;
+		}
+	if (loop != 2 && !data->input_error)
+		get_sub_rgb(start + i2, data, buff, ++loop);
 }

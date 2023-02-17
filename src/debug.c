@@ -9,6 +9,7 @@ void	data_printf(t_cube3d *data)
 	printf("EA is %s\n", data->EA);	
 	// printf("Floor is: %s\n", data->F_color);	
 	// printf("Ceiling is: %s\n", data->C_color);	
+	printf("Floor color is %i %i %i\n", data->f_color[0], data->f_color[1], data->f_color[2]);
 	printf("Map is: \n");
 	matrix_printf(data->map);
 	printf("\n");

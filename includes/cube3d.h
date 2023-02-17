@@ -25,6 +25,7 @@ typedef struct s_cube3d
 	char	start;
 	bool	input_error;
 	int		f_color[3];
+	int		c_color[3];
 }	t_cube3d;
 
 void	data_printf(t_cube3d *data);
