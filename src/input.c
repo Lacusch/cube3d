@@ -57,7 +57,8 @@ void	input_data(t_cube3d	*data, char	*map)
 	// printf("map line is %d\n", ft_line(map) - i);
 	// data->map = ft_split(tmp, '9');
 	// free(tmp);
-	data_printf(data);
+	if (!data->input_error)
+		data_printf(data);
 	free(buff);
 	// free(tmp);
 	// close (fd);
@@ -245,6 +246,12 @@ void	get_rgb_floor(int	start, t_cube3d	*data, char	*buff, int loop)
 	i2 = 0;
 	if (loop != 0)
 		buff++;
+	if (*buff == '-')
+	{
+		printf("%i is invalid RGB, can not be negative\n", data->f_color[loop]);
+		data->input_error = true;
+		return ;
+	}
 	while (i2 < 3 && ft_isdigit(buff[start + i2]) && buff)
 			i2++;
 		// printf("i2 is %i\n", i2);
@@ -270,9 +277,14 @@ void	invalid_rgb(char	*str, t_cube3d	*data, int loop)
 	start = 0;
 	str++;
 
-	// valid possible characters
 	while (is_whilespace(str) && str)
 		str++;
+	if (ft_strlen(str) > 12 && loop == 0)
+	{
+		data->input_error = true;
+		printf("rgb string is too long\n");
+		return ;
+	}
 	while (start < 3 && ft_isdigit(str[start]))
 		start++;
 	char	*tmp;
@@ -281,16 +293,17 @@ void	invalid_rgb(char	*str, t_cube3d	*data, int loop)
 	free(tmp);
 	if (test < 0 || test > 255)
 		data->input_error = true;
-	else if (loop < 3 && data->input_error)
+	else if (loop < 3 && !data->input_error)
 	{
 		printf("recursion\n");
-		invalid_rgb(str + (start + 1), data, ++loop);
+		loop++;
+		invalid_rgb(str + (start + 1), data, loop);
 	}
 }
 
 void	get_rgb_celling(int	start, t_cube3d	*data, char	*buff, int loop)
 {
-	int	i2;
+	int		i2;
 	char	*tmp;
 
 	tmp = NULL;
