@@ -25,6 +25,10 @@ void    ft_pixel_put(mlx_image_t *img, int x, int y, int color)
 	int BPP;
 
 	BPP = sizeof(int32_t);
+	if (x < 0 || x > (int)img->width)
+		return ;
+	if (y < 0 || y > (int)img->height)
+		return ;
 	ft_memset(img->pixels + (BPP * img->width * y) + (x * BPP), get_r(color), 1);
 	ft_memset(img->pixels + (BPP * img->width * y + 1)+ (x * BPP), get_g(color), 1);
 	ft_memset(img->pixels + (BPP * img->width * y + 2)+ (x * BPP), get_b(color), 1);

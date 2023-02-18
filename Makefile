@@ -8,7 +8,6 @@ SOURCE = src/free.c			\
 		src/main.c 			\
 		src/parcing.c 		\
 		src/draw.c			\
-		src/raycasting.c 	\
 		src/utils.c		
 OBJECT = $(SOURCE:.c=.o)
 LIBFT = lib/libft/libft.a

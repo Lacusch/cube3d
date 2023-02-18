@@ -32,6 +32,5 @@ void	data_free(t_cube3d	*data);
 void    ft_pixel_put(mlx_image_t *img, int x, int y, int color);
 void	ft_draw_line(mlx_image_t *img, int x0, int y0, int x1, int y1, int color);
 int		is_same_str(char *str1, char *str2);
-void	raycasting(mlx_image_t* img, char ***map);
 
 #endif
