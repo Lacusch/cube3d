@@ -1,16 +1,6 @@
 
 #include "../includes/cube3d.h"
 
-#define META_ERROR		"Error\nMissing parameter: "
-#define NO_ERROR		"Nordern Wall texture\n"
-#define SO_ERROR		"Southern Wall texture\n"
-#define WE_ERROR		"Western Wall texture\n"
-#define EA_ERROR		"Eastern Wall texture\n"
-#define FC_ERROR		"Floor color texture\n"
-#define CC_ERROR		"Celling color texture\n"
-#define NOT_PNG			" does not end in .png\n"
-#define NO_FILE			"Error\nCan't open file "
-
 bool	check_texture_extention(t_cube3d	*data);
 bool	check_can_open(t_cube3d	*data);
 bool	open_error(char	*file);
@@ -62,13 +52,13 @@ void	missing_meta(void	*data)
 
 	tmp = (t_cube3d *)data;
 	write(STDERR_FILENO, META_ERROR, ft_strlen(META_ERROR));
-	if (tmp->NO == NULL)
+	if (tmp->no == NULL)
 		write(STDERR_FILENO, NO_ERROR, ft_strlen(NO_ERROR));
-	else if (!tmp->SO)
+	else if (!tmp->so)
 		write(STDERR_FILENO, SO_ERROR, ft_strlen(SO_ERROR));
-	else if (!tmp->WE)
+	else if (!tmp->we)
 		write(STDERR_FILENO, WE_ERROR, ft_strlen(WE_ERROR));
-	else if (!tmp->EA)
+	else if (!tmp->ea)
 		write(STDERR_FILENO, EA_ERROR, ft_strlen(EA_ERROR));
 	if (color_fine(tmp->f_color) == false)
 		write(STDERR_FILENO, FC_ERROR, ft_strlen(FC_ERROR));
@@ -90,27 +80,27 @@ bool	invalid_meta(t_cube3d	*data)
 
 bool	check_texture_extention(t_cube3d	*data)
 {
-	if (check_extension(data->NO, ".png"))
+	if (check_extension(data->no, ".png"))
 	{
-		write(STDERR_FILENO, data->NO, ft_strlen(data->NO));
+		write(STDERR_FILENO, data->no, ft_strlen(data->no));
 		write(STDERR_FILENO, NOT_PNG, ft_strlen(NOT_PNG));
 		return (true);
 	}
-	else if (check_extension(data->SO, ".png"))
+	else if (check_extension(data->so, ".png"))
 	{
-		write(STDERR_FILENO, data->SO, ft_strlen(data->SO));
+		write(STDERR_FILENO, data->so, ft_strlen(data->so));
 		write(STDERR_FILENO, NOT_PNG, ft_strlen(NOT_PNG));
 		return (true);
 	}
-	else if (check_extension(data->WE, ".png"))
+	else if (check_extension(data->we, ".png"))
 	{
-		write(STDERR_FILENO, data->WE, ft_strlen(data->WE));
+		write(STDERR_FILENO, data->we, ft_strlen(data->we));
 		write(STDERR_FILENO, NOT_PNG, ft_strlen(NOT_PNG));
 		return (true);
 	}
-	else if (check_extension(data->EA, ".png"))
+	else if (check_extension(data->ea, ".png"))
 	{
-		write(STDERR_FILENO, data->EA, ft_strlen(data->EA));
+		write(STDERR_FILENO, data->ea, ft_strlen(data->ea));
 		write(STDERR_FILENO, NOT_PNG, ft_strlen(NOT_PNG));
 		return (true);
 	}
@@ -121,18 +111,18 @@ bool	check_can_open(t_cube3d	*data)
 {
 	int	fd;
 
-	fd = open(data->NO, O_RDONLY);
+	fd = open(data->no, O_RDONLY);
 	if (fd == -1)
-		return (!open_error(data->NO));
-	fd = open(data->SO, O_RDONLY);
+		return (!open_error(data->no));
+	fd = open(data->so, O_RDONLY);
 	if (fd == -1)
-		return (!open_error(data->SO));
-	fd = open(data->EA, O_RDONLY);
+		return (!open_error(data->so));
+	fd = open(data->ea, O_RDONLY);
 	if (fd == -1)
-		return (!open_error(data->EA));
-	fd = open(data->WE, O_RDONLY);
+		return (!open_error(data->ea));
+	fd = open(data->we, O_RDONLY);
 	if (fd == -1)
-		return (!open_error(data->WE));
+		return (!open_error(data->we));
 	return (true);
 }
 

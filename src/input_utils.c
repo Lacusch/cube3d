@@ -51,7 +51,7 @@ void	terminate_str(char	*str)
 
 bool	meta_full(t_cube3d	*data)
 {
-	if (data->NO && data->SO && data->WE && data->EA \
+	if (data->no && data->so && data->we && data->ea \
 		&& color_fine(data->f_color) && color_fine(data->c_color))
 		return (true);
 	return (false);

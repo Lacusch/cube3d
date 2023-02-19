@@ -3,10 +3,10 @@
 
 void	data_printf(t_cube3d *data)
 {
-	printf("NO is %s\n", data->NO);
-	printf("SO is %s\n", data->SO);
-	printf("WE is %s\n", data->WE);
-	printf("EA is %s\n", data->EA);
+	printf("NO is %s\n", data->no);
+	printf("SO is %s\n", data->so);
+	printf("WE is %s\n", data->we);
+	printf("EA is %s\n", data->ea);
 	printf("Floor color is %i %i %i\n", data->f_color[0], \
 		data->f_color[1], data->f_color[2]);
 	printf("Celling color is %i %i %i\n", data->c_color[0], \

@@ -22,14 +22,14 @@ void	data_free(t_cube3d	*data)
 {
 	if (data->map != NULL)
 		matrix_free(data->map);
-	if (data->NO != NULL)
-		str_free(data->NO);
-	if (data->SO != NULL)
-		str_free(data->SO);
-	if (data->WE != NULL)
-		str_free(data->WE);
-	if (data->EA != NULL)
-		str_free(data->EA);
+	if (data->no != NULL)
+		str_free(data->no);
+	if (data->so != NULL)
+		str_free(data->so);
+	if (data->we != NULL)
+		str_free(data->we);
+	if (data->ea != NULL)
+		str_free(data->ea);
 }
 
 void	str_free(char	*str)

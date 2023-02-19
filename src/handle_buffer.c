@@ -13,10 +13,10 @@ void	handle_no(t_cube3d *data, char	*line)
 		data->input_error = true;
 		return ;
 	}
-	data->NO = ft_strdup(line + 2);
-	while (data->NO[i] != '\n')
+	data->no = ft_strdup(line + 2);
+	while (data->no[i] != '\n')
 		i++;
-	data->NO[i] = '\0';
+	data->no[i] = '\0';
 }
 
 void	handle_so(t_cube3d *data, char	*line)
@@ -31,10 +31,10 @@ void	handle_so(t_cube3d *data, char	*line)
 		data->input_error = true;
 		return ;
 	}
-	data->SO = ft_strdup(line + 2);
-	while (data->SO[i] != '\n')
+	data->so = ft_strdup(line + 2);
+	while (data->so[i] != '\n')
 		i++;
-	data->SO[i] = '\0';
+	data->so[i] = '\0';
 }
 
 void	handle_we(t_cube3d *data, char	*line)
@@ -49,10 +49,10 @@ void	handle_we(t_cube3d *data, char	*line)
 		data->input_error = true;
 		return ;
 	}
-	data->WE = ft_strdup(line + 2);
-	while (data->WE[i] != '\n')
+	data->we = ft_strdup(line + 2);
+	while (data->we[i] != '\n')
 		i++;
-	data->WE[i] = '\0';
+	data->we[i] = '\0';
 }
 
 void	handle_ea(t_cube3d *data, char	*line)
@@ -67,10 +67,10 @@ void	handle_ea(t_cube3d *data, char	*line)
 		data->input_error = true;
 		return ;
 	}
-	data->EA = ft_strdup(line + 2);
-	while (data->EA[i] != '\n')
+	data->ea = ft_strdup(line + 2);
+	while (data->ea[i] != '\n')
 		i++;
-	data->EA[i] = '\0';
+	data->ea[i] = '\0';
 }
 
 void	handle_color(t_cube3d	*data, char *buff)
