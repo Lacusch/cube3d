@@ -13,5 +13,8 @@
 # define CC_ERROR			"Celling color texture\n"
 # define NOT_PNG			" does not end in .png\n"
 # define NO_FILE			"Error\nCan't open file "
-
+# define RGB_LONG			"Error\nRGB string is too long\n"
+# define INVALID_CHAR		"Error\nInvalid character in RGB\n"
+# define INVALID_RGB		"Error\nInvalid RGB\n"
 #endif
+ 

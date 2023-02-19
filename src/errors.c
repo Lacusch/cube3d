@@ -142,32 +142,8 @@ void	run_error_func(char	*buff, int fd, void (*func)(void*), void	*data)
 	func(data);
 }
 
-void	invalid_rgb(char	*str, t_cube3d	*data, int loop)
+bool	invalid_error(void)
 {
-	int		start;
-	int		test;
-	char	*tmp;
-
-	start = 0;
-	str++;
-	while (is_whilespace(str) && str)
-		str++;
-	if (ft_strlen(str) > 12 && loop == 0)
-	{
-		data->input_error = true;
-		printf("rgb string is too long\n");
-		return ;
-	}
-	while (start < 3 && ft_isdigit(str[start]))
-		start++;
-	tmp = ft_substr(str, 0, start);
-	test = ft_atoi(tmp);
-	free(tmp);
-	if (test < 0 || test > 255)
-		data->input_error = true;
-	else if (loop < 3 && !data->input_error)
-	{
-		loop++;
-		invalid_rgb(str + (start + 1), data, loop);
-	}
+	write(STDERR_FILENO, INVALID_CHAR, 32);
+	return (false);
 }
