@@ -52,7 +52,18 @@ void	terminate_str(char	*str)
 bool	meta_full(t_cube3d	*data)
 {
 	if (data->NO && data->SO && data->WE && data->EA \
-		&& data->F_color && data->C_color)
+		&& color_fine(data->f_color) && color_fine(data->c_color))
 		return (true);
 	return (false);
+}
+
+bool	color_fine(int	color[3])
+{
+	if (!valid_nb(color[0]))
+		return (false);
+	if (!valid_nb(color[1]))
+		return (false);
+	if (!valid_nb(color[2]))
+		return (false);
+	return (true);
 }

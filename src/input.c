@@ -52,14 +52,14 @@ void	check_buffer(char	*line, t_cube3d	*data)
 			data->input_error = true;
 		else
 		{
-			data->F_color = ft_strdup(line + 2);
+			// data->F_color = ft_strdup(line + 2);
 			handle_color(data, line);
 		}
 	}
 	else if (line[0] == 'C')
 	{
 		handle_color(data, line);
-		data->C_color = ft_strdup(line + 2);
+		// data->C_color = ft_strdup(line + 2);
 	}
 }
 

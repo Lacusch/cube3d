@@ -70,9 +70,9 @@ void	missing_meta(void	*data)
 		write(STDERR_FILENO, WE_ERROR, ft_strlen(WE_ERROR));
 	else if (!tmp->EA)
 		write(STDERR_FILENO, EA_ERROR, ft_strlen(EA_ERROR));
-	if (tmp->F_color == NULL)
+	if (color_fine(tmp->f_color) == false)
 		write(STDERR_FILENO, FC_ERROR, ft_strlen(FC_ERROR));
-	else if (!tmp->C_color)
+	else if (color_fine(tmp->c_color) == false)
 		write(STDERR_FILENO, CC_ERROR, ft_strlen(CC_ERROR));
 	tmp->input_error = true;
 	data_free(tmp);

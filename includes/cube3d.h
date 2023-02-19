@@ -65,4 +65,6 @@ void	check_buffer(char	*line, t_cube3d	*data);
 void	get_rgb_floor(int	start, t_cube3d	*data, char	*buff, int loop);
 void	get_rgb_celling(int	start, t_cube3d	*data, char	*buff, int loop);
 bool	could_be_valid(char	*str);
+bool	color_fine(int	color[3]);
+
 #endif
