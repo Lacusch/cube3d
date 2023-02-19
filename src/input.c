@@ -150,7 +150,7 @@ bool	could_be_valid(char	*str)
 			break ;
 	}
 	total++;
-	int first = total;
+	int	first = total;
 	while (total < first + 3)
 	{
 		if (ft_isdigit(str[total]) || str[total] == ',')
@@ -161,7 +161,7 @@ bool	could_be_valid(char	*str)
 			return (false);
 		}
 		if (str[total] == ',')
-			break;
+			break ;
 	}
 	total++;
 	int	secund = total;

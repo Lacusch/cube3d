@@ -1,15 +1,15 @@
 
 #include "../includes/cube3d.h"
 
-# define	META_ERROR	"Error\nMissing parameter: "
-# define	NO_ERROR 	"Nordern Wall texture\n"
-# define	SO_ERROR 	"Southern Wall texture\n"
-# define	WE_ERROR 	"Western Wall texture\n"
-# define	EA_ERROR 	"Eastern Wall texture\n"
-# define	FC_ERROR 	"Floor color texture\n"
-# define	CC_ERROR 	"Celling color texture\n"
-# define	NOT_PNG		" does not end in .png\n"
-# define	NO_FILE		"Error\nCan't open file "
+#define META_ERROR		"Error\nMissing parameter: "
+#define NO_ERROR		"Nordern Wall texture\n"
+#define SO_ERROR		"Southern Wall texture\n"
+#define WE_ERROR		"Western Wall texture\n"
+#define EA_ERROR		"Eastern Wall texture\n"
+#define FC_ERROR		"Floor color texture\n"
+#define CC_ERROR		"Celling color texture\n"
+#define NOT_PNG			" does not end in .png\n"
+#define NO_FILE			"Error\nCan't open file "
 
 bool	check_texture_extention(t_cube3d	*data);
 bool	check_can_open(t_cube3d	*data);
@@ -58,9 +58,9 @@ bool	check_arg(int ac, char **av)
 
 void	missing_meta(void	*data)
 {
-	t_cube3d *tmp;
+	t_cube3d	*tmp;
 
-	tmp = (t_cube3d*)data;
+	tmp = (t_cube3d *)data;
 	write(STDERR_FILENO, META_ERROR, ft_strlen(META_ERROR));
 	if (tmp->NO == NULL)
 		write(STDERR_FILENO, NO_ERROR, ft_strlen(NO_ERROR));
@@ -119,20 +119,20 @@ bool	check_texture_extention(t_cube3d	*data)
 
 bool	check_can_open(t_cube3d	*data)
 {
-	int fd;
+	int	fd;
 
 	fd = open(data->NO, O_RDONLY);
 	if (fd == -1)
-		return(!open_error(data->NO));
+		return (!open_error(data->NO));
 	fd = open(data->SO, O_RDONLY);
 	if (fd == -1)
-		return(!open_error(data->SO));
+		return (!open_error(data->SO));
 	fd = open(data->EA, O_RDONLY);
 	if (fd == -1)
-		return(!open_error(data->EA));
+		return (!open_error(data->EA));
 	fd = open(data->WE, O_RDONLY);
 	if (fd == -1)
-		return(!open_error(data->WE));
+		return (!open_error(data->WE));
 	return (true);
 }
 
@@ -144,7 +144,7 @@ bool	open_error(char	*file)
 	return (true);
 }
 
-void	run_error_func(char	*buff, int fd, void(*func)(void*), void	*data)
+void	run_error_func(char	*buff, int fd, void (*func)(void*), void	*data)
 {
 	free(buff);
 	buff = NULL;
@@ -154,11 +154,12 @@ void	run_error_func(char	*buff, int fd, void(*func)(void*), void	*data)
 
 void	invalid_rgb(char	*str, t_cube3d	*data, int loop)
 {
-	int	start;
-	int test;
+	int		start;
+	int		test;
+	char	*tmp;
+
 	start = 0;
 	str++;
-
 	while (is_whilespace(str) && str)
 		str++;
 	if (ft_strlen(str) > 12 && loop == 0)
@@ -169,7 +170,6 @@ void	invalid_rgb(char	*str, t_cube3d	*data, int loop)
 	}
 	while (start < 3 && ft_isdigit(str[start]))
 		start++;
-	char	*tmp;
 	tmp = ft_substr(str, 0, start);
 	test = ft_atoi(tmp);
 	free(tmp);

@@ -57,7 +57,7 @@ bool	meta_full(t_cube3d	*data)
 	return (false);
 }
 
-bool	color_fine(int	color[3])
+bool	color_fine(int color[3])
 {
 	if (!valid_nb(color[0]))
 		return (false);
