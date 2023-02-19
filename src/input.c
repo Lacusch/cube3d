@@ -2,13 +2,7 @@
 #include "../includes/cube3d.h"
 
 void	check_buffer(char	*line, t_cube3d	*data);
-void	handle_no(t_cube3d *data, char	*line);
 void	run_error_func(char	*buff, int fd, void(*func)(void*), void	*data);
-void	handle_so(t_cube3d *data, char	*line);
-void	handle_we(t_cube3d *data, char	*line);
-void	handle_ea(t_cube3d *data, char	*line);
-void	handle_color(t_cube3d	*data, char *buff);
-void	get_rgb_floor(int	start, t_cube3d	*data, char	*buff, int loop);
 void	invalid_rgb(char	*str, t_cube3d	*data, int loop);
 void	get_rgb_celling(int	start, t_cube3d	*data, char	*buff, int loop);
 bool	could_be_valid(char	*str);
@@ -91,72 +85,6 @@ void	check_buffer(char	*line, t_cube3d	*data)
 	}
 }
 
-
-
-
-void handle_no(t_cube3d *data, char	*line)
-{
-	int i = 0;
-	while (is_whilespace(line + 2) == true && line)
-		line++;
-	if (*line == '\0')
-	{
-		data->input_error = true;
-		return ;
-	}
-	data->NO = ft_strdup(line + 2);
-	while (data->NO[i] != '\n')
-		i++;
-	data->NO[i] = '\0';
-}
-
-void handle_so(t_cube3d *data, char	*line)
-{
-	int i = 0;
-	while (is_whilespace(line + 2) == true && line)
-		line++;
-	if (*line == '\0')
-	{
-		data->input_error = true;
-		return ;
-	}
-	data->SO = ft_strdup(line + 2);
-	while (data->SO[i] != '\n')
-		i++;
-	data->SO[i] = '\0';
-}
-
-void handle_we(t_cube3d *data, char	*line)
-{
-	int i = 0;
-	while (is_whilespace(line + 2) == true && line)
-		line++;
-	if (*line == '\0')
-	{
-		data->input_error = true;
-		return ;
-	}
-	data->WE = ft_strdup(line + 2);
-	while (data->WE[i] != '\n')
-		i++;
-	data->WE[i] = '\0';
-}
-
-void handle_ea(t_cube3d *data, char	*line)
-{
-	int i = 0;
-	while (is_whilespace(line + 2) == true && line)
-		line++;
-	if (*line == '\0')
-	{
-		data->input_error = true;
-		return ;
-	}
-	data->EA = ft_strdup(line + 2);
-	while (data->EA[i] != '\n')
-		i++;
-	data->EA[i] = '\0';
-}
 void	run_error_func(char	*buff, int fd, void(*func)(void*), void	*data)
 {
 	free(buff);
@@ -165,29 +93,6 @@ void	run_error_func(char	*buff, int fd, void(*func)(void*), void	*data)
 	func(data);
 }
 
-void	handle_color(t_cube3d	*data, char *buff)
-{
-	int	i;
-	int i2;
-	// char	*tmp;
-	i = 1;
-	i2 = 0;
-	//3 loops for the 3 ints (or recursion)
-	if (buff[0] == 'F')
-	{
-		while (is_whilespace(&buff[i]) == true && buff[i])
-			i++;
-		get_rgb_floor(i, data, buff, 0);
-	}
-	else if (buff[0] == 'C')
-	{
-		while (is_whilespace(&buff[i]) == true && buff[i])
-			i++;
-		get_rgb_celling(i, data, buff, 0);
-	}
-	(void)buff;
-	(void)data;
-}
 
 void	get_rgb_floor(int	start, t_cube3d	*data, char	*buff, int loop)
 {

@@ -6,6 +6,7 @@ FRAMEWORK = -framework Cocoa -framework OpenGL -framework IOKit
 EXAMPLE_MAP = maps/pdf_example.cub
 SOURCE = src/debug.c \
 		src/free.c \
+		src/handle_buffer.c \
 		src/init.c \
 		src/input_utils.c \
 		src/input.c \
