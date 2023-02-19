@@ -4,6 +4,9 @@
 bool	invalid_error(void);
 void	get_map(t_cube3d	*data, char	*buff, int fd);
 void	free_close(char	*buff, int fd);
+void	invalid_error2(t_cube3d	*data);
+void	set_error(t_cube3d	*data);
+void	digit_check(t_cube3d	*data, int loop, int start, char	*str);
 
 void	input_data(t_cube3d	*data, char	*map)
 {
@@ -40,21 +43,12 @@ void	check_buffer(char	*line, t_cube3d	*data)
 		handle_we(data, line);
 	else if (line[0] == 'E' && line[1] == 'A')
 		handle_ea(data, line);
-	else if (line[0] == 'F')
+	else if (line[0] == 'F' || line[0] == 'C')
 	{
-		terminate_str(line);
-		if (could_be_valid(line) == false)
-			data->input_error = true;
-		else
-			handle_color(data, line);
-	}
-	else if (line[0] == 'C')
-	{
-		terminate_str(line);
-		if (could_be_valid(line) == false)
-			data->input_error = true;
-		else
-			handle_color(data, line);
+		could_be_valid(line, data);
+		if (data->input_error == true)
+			return ;
+		handle_color(data, line);
 	}
 }
 
@@ -104,58 +98,6 @@ void	get_rgb_celling(int start, t_cube3d *data, char *buff, int loop)
 		get_rgb_celling(start + i2, data, buff, ++loop);
 }
 
-bool	could_be_valid(char	*str)
-{
-	int	total;
-	int	size;
-
-	total = 0;
-	size = 0;
-	if (*str == 'F' || *str == 'C')
-		str++;
-	else
-		return (false);
-	while (*str == ' ' && *str)
-		str++;
-	if (ft_strlen(str) > (size_t)11)
-	{
-		printf("%s", RGB_LONG);
-		return (false);
-	}
-	while (total < 4 && str[total] != '\0')
-	{
-		if (ft_isdigit(str[total]) || str[total] == ',')
-			total++;
-		else
-			return (invalid_error());
-		if (str[total] == ',')
-			break ;
-	}
-	total++;
-	int	first = total;
-	while (total < first + 3)
-	{
-		if (ft_isdigit(str[total]) || str[total] == ',')
-			total++;
-		else
-			return (invalid_error());
-		if (str[total] == ',')
-			break ;
-	}
-	total++;
-	int	secund = total;
-	while (total < secund + 3)
-	{
-		if (ft_isdigit(str[total]) || str[total] == ',' || str[total] == '\0')
-			total++;
-		else
-			return (invalid_error());
-		if (str[total] == ',')
-			break ;
-	}
-	return (true);
-}
-
 void	get_map(t_cube3d	*data, char	*buff, int fd)
 {
 	if (!data->input_error)
@@ -181,4 +123,62 @@ void	invalid_rgb(t_cube3d	*data)
 {
 	write(STDERR_FILENO, INVALID_RGB, 19);
 	data->input_error = true;
+}
+
+void	could_be_valid(char	*str, t_cube3d	*data)
+{
+	int	total;
+	int	size;
+
+	total = 0;
+	size = 0;
+	terminate_str(str);
+	if (*str == 'F' || *str == 'C')
+		str++;
+	else
+		return (set_error(data));
+	while (*str == ' ' && *str)
+		str++;
+	if (ft_strlen(str) > (size_t)11)
+	{
+		printf("%s", RGB_LONG);
+		return (set_error(data));
+	}
+	digit_check(data, 0, 0, str);
+}
+
+void	invalid_error2(t_cube3d	*data)
+{
+	write(STDERR_FILENO, INVALID_CHAR, 32);
+	data->input_error = true;
+}
+
+void	set_error(t_cube3d	*data)
+{
+	data->input_error = true;
+}
+
+void	digit_check(t_cube3d	*data, int loop, int start, char	*str)
+{
+	int	total;
+
+	total = start;
+	while (total < start + 4 && str[total] != '\0')
+	{
+		if (ft_isdigit(str[total]) || str[total] == ',')
+			total++;
+		else
+			return (invalid_error2(data));
+		if (str[total] == ',')
+			break ;
+	}
+	if (str[total] == '\0')
+		return ;
+	if (ft_isdigit(str[total]) || str[total] == ',')
+		total++;
+	else
+		return (invalid_error2(data));
+	loop++;
+	if (loop < 3)
+		digit_check(data, loop, total, str);
 }

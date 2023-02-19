@@ -62,7 +62,7 @@ void	input_data(t_cube3d	*data, char	*map);
 void	check_buffer(char	*line, t_cube3d	*data);
 void	get_rgb_floor(int start, t_cube3d	*data, char *buff, int loop);
 void	get_rgb_celling(int start, t_cube3d	*data, char *buff, int loop);
-bool	could_be_valid(char *str);
+void	could_be_valid(char	*str, t_cube3d	*data);
 bool	color_fine(int color[3]);
 bool	invalid_error(void);
 void	invalid_rgb(t_cube3d	*data);
