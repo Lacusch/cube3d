@@ -1,18 +1,13 @@
 
 #include "../includes/cube3d.h"
 
-void	check_buffer(char	*line, t_cube3d	*data);
-void	run_error_func(char	*buff, int fd, void(*func)(void*), void	*data);
-void	invalid_rgb(char	*str, t_cube3d	*data, int loop);
-void	get_rgb_celling(int	start, t_cube3d	*data, char	*buff, int loop);
-bool	could_be_valid(char	*str);
-
 void	input_data(t_cube3d	*data, char	*map)
 {
 	int		fd;
 	char	*buff;
+	int		i;
 
-	int i = 0;
+	i = 0;
 	buff = NULL;
 	fd = open(map, O_RDWR);
 	buff = get_next_line(fd);
@@ -25,7 +20,7 @@ void	input_data(t_cube3d	*data, char	*map)
 		i++;
 	}
 	if (!meta_full(data) && data->input_error == false)
-		run_error_func(buff, fd, missing_meta, (void*)data);
+		run_error_func(buff, fd, missing_meta, (void *)data);
 	else if (invalid_meta(data) && data->input_error == false)
 	{
 		free(buff);
@@ -33,32 +28,15 @@ void	input_data(t_cube3d	*data, char	*map)
 	}
 	else
 	{
-	//get_map
-	// char	*tmp;
-	// tmp = ft_strdup("");
-	
-	// while (buff && !data->input_error)
-	// {
-	// 	buff = ft_strjoin(buff, ("9"));
-	// 	tmp = ft_strjoin(tmp, buff);
-	// 	check_buffer(buff, data);
-	// 	free(buff);
-	// 	buff = get_next_line(fd);
-	// }
-	// printf("map line is %d\n", ft_line(map) - i);
-	// data->map = ft_split(tmp, '9');
-	// free(tmp);
-	if (!data->input_error)
-		data_printf(data);
-	free(buff);
-	// free(tmp);
-	// close (fd);
+		printf("get_map here\n");
+		if (!data->input_error)
+			data_printf(data);
+		free(buff);
 	}
 }
 
 void	check_buffer(char	*line, t_cube3d	*data)
 {
-//Handle color well
 	if (line[0] == 'N' && line[1] == 'O')
 		handle_no(data, line);
 	else if (line[0] == 'S' && line[1] == 'O')
@@ -74,8 +52,8 @@ void	check_buffer(char	*line, t_cube3d	*data)
 			data->input_error = true;
 		else
 		{
-		data->F_color = ft_strdup(line + 2);
-		handle_color(data, line);
+			data->F_color = ft_strdup(line + 2);
+			handle_color(data, line);
 		}
 	}
 	else if (line[0] == 'C')
@@ -85,18 +63,9 @@ void	check_buffer(char	*line, t_cube3d	*data)
 	}
 }
 
-void	run_error_func(char	*buff, int fd, void(*func)(void*), void	*data)
+void	get_rgb_floor(int start, t_cube3d	*data, char *buff, int loop)
 {
-	free(buff);
-	buff = NULL;
-	close(fd);
-	func(data);
-}
-
-
-void	get_rgb_floor(int	start, t_cube3d	*data, char	*buff, int loop)
-{
-	int	i2;
+	int		i2;
 	char	*tmp;
 
 	tmp = NULL;
@@ -111,54 +80,20 @@ void	get_rgb_floor(int	start, t_cube3d	*data, char	*buff, int loop)
 	}
 	while (i2 < 3 && ft_isdigit(buff[start + i2]) && buff)
 			i2++;
-		// printf("i2 is %i\n", i2);
-		tmp = ft_substr(buff, start, i2);
-		// printf("tmp is %s\n", tmp);
-		data->f_color[loop] = ft_atoi(tmp);
-		free(tmp);
-		// printf("color is %i\n", data->f_color[loop]);
-		if (!valid_nb(data->f_color[loop]))
-		{
-			printf("%i is invalid RGB\n", data->f_color[loop]);
-			data->input_error = true;
-			return ;
-		}
+	tmp = ft_substr(buff, start, i2);
+	data->f_color[loop] = ft_atoi(tmp);
+	free(tmp);
+	if (!valid_nb(data->f_color[loop]))
+	{
+		printf("%i is invalid RGB\n", data->f_color[loop]);
+		data->input_error = true;
+		return ;
+	}
 	if (loop != 2 && !data->input_error)
 		get_rgb_floor(start + i2, data, buff, ++loop);
 }
 
-void	invalid_rgb(char	*str, t_cube3d	*data, int loop)
-{
-	int	start;
-	int test;
-	start = 0;
-	str++;
-
-	while (is_whilespace(str) && str)
-		str++;
-	if (ft_strlen(str) > 12 && loop == 0)
-	{
-		data->input_error = true;
-		printf("rgb string is too long\n");
-		return ;
-	}
-	while (start < 3 && ft_isdigit(str[start]))
-		start++;
-	char	*tmp;
-	tmp = ft_substr(str, 0, start);
-	test = ft_atoi(tmp);
-	free(tmp);
-	if (test < 0 || test > 255)
-		data->input_error = true;
-	else if (loop < 3 && !data->input_error)
-	{
-		printf("recursion\n");
-		loop++;
-		invalid_rgb(str + (start + 1), data, loop);
-	}
-}
-
-void	get_rgb_celling(int	start, t_cube3d	*data, char	*buff, int loop)
+void	get_rgb_celling(int start, t_cube3d *data, char *buff, int loop)
 {
 	int		i2;
 	char	*tmp;
@@ -169,15 +104,15 @@ void	get_rgb_celling(int	start, t_cube3d	*data, char	*buff, int loop)
 		buff++;
 	while (i2 < 3 && ft_isdigit(buff[start + i2]) && buff)
 			i2++;
-		tmp = ft_substr(buff, start, i2);
-		data->c_color[loop] = ft_atoi(tmp);
-		free(tmp);
-		if (!valid_nb(data->c_color[loop]))
-		{
-			printf("%i is invalid RGB\n", data->c_color[loop]);
-			data->input_error = true;
-			return ;
-		}
+	tmp = ft_substr(buff, start, i2);
+	data->c_color[loop] = ft_atoi(tmp);
+	free(tmp);
+	if (!valid_nb(data->c_color[loop]))
+	{
+		printf("%i is invalid RGB\n", data->c_color[loop]);
+		data->input_error = true;
+		return ;
+	}
 	if (loop != 2 && !data->input_error)
 		get_rgb_celling(start + i2, data, buff, ++loop);
 }
@@ -185,7 +120,7 @@ void	get_rgb_celling(int	start, t_cube3d	*data, char	*buff, int loop)
 bool	could_be_valid(char	*str)
 {
 	int	total;
-	int size;
+	int	size;
 
 	total = 0;
 	size = 0;
@@ -200,7 +135,7 @@ bool	could_be_valid(char	*str)
 		printf("string too big\n");
 		return (false);
 	}
-	while (total < 4 && str[total] !='\0')
+	while (total < 4 && str[total] != '\0')
 	{
 		if (ft_isdigit(str[total]) || str[total] == ',')
 			total++;
@@ -210,7 +145,7 @@ bool	could_be_valid(char	*str)
 			return (false);
 		}
 		if (str[total] == ',')
-			break;
+			break ;
 	}
 	total++;
 	int first = total;
@@ -227,7 +162,7 @@ bool	could_be_valid(char	*str)
 			break;
 	}
 	total++;
-	int secund = total;
+	int	secund = total;
 	while (total < secund + 3)
 	{
 		if (ft_isdigit(str[total]) || str[total] == ',' || str[total] == '\0')
@@ -238,7 +173,7 @@ bool	could_be_valid(char	*str)
 			return (false);
 		}
 		if (str[total] == ',')
-			break;
+			break ;
 	}
 	return (true);
 }
