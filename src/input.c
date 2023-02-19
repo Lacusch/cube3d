@@ -2,21 +2,16 @@
 #include "../includes/cube3d.h"
 
 void	check_buffer(char	*line, t_cube3d	*data);
-bool	meta_full(t_cube3d	*data);
-int		ft_line(char *map);
-bool	is_whilespace(char	*c);
 void	handle_no(t_cube3d *data, char	*line);
 void	run_error_func(char	*buff, int fd, void(*func)(void*), void	*data);
 void	handle_so(t_cube3d *data, char	*line);
 void	handle_we(t_cube3d *data, char	*line);
 void	handle_ea(t_cube3d *data, char	*line);
 void	handle_color(t_cube3d	*data, char *buff);
-bool	valid_nb(int	number);
 void	get_rgb_floor(int	start, t_cube3d	*data, char	*buff, int loop);
 void	invalid_rgb(char	*str, t_cube3d	*data, int loop);
 void	get_rgb_celling(int	start, t_cube3d	*data, char	*buff, int loop);
 bool	could_be_valid(char	*str);
-void	terminate_str(char	*str);
 
 void	input_data(t_cube3d	*data, char	*map)
 {
@@ -96,43 +91,8 @@ void	check_buffer(char	*line, t_cube3d	*data)
 	}
 }
 
-bool	meta_full(t_cube3d	*data)
-{
-	if (data->NO && data->SO && data->WE && data->EA && data->F_color && data->C_color)
-		return (true);
-	return (false);
-}
 
-int	ft_line(char *map)
-{
-	int		i;
-	char	*tmp;
-	int		fd;
 
-	i = 0;
-	fd = open(map, O_RDONLY);
-	if (fd == -1)
-	{
-		printf("the file desriptor is:%i\n", fd);
-		return (1);
-	}
-	tmp = get_next_line(fd);
-	while (tmp != NULL)
-	{
-		i++;
-		tmp = get_next_line(fd);
-	}
-	free(tmp);
-	close(fd);
-	return (i);
-}
-
-bool	is_whilespace(char	*c)
-{
-	if (*c == ' ' | *c == '\t')
-		return (true);
-	return (false);
-}
 
 void handle_no(t_cube3d *data, char	*line)
 {
@@ -227,13 +187,6 @@ void	handle_color(t_cube3d	*data, char *buff)
 	}
 	(void)buff;
 	(void)data;
-}
-
-bool	valid_nb(int	number)
-{
-	if (number >= 0 && number <= 255)
-		return (true);
-	return (false);
 }
 
 void	get_rgb_floor(int	start, t_cube3d	*data, char	*buff, int loop)
@@ -372,7 +325,7 @@ bool	could_be_valid(char	*str)
 	int secund = total;
 	while (total < secund + 3)
 	{
-		if (ft_isdigit(str[total]) || str[total] == ',')
+		if (ft_isdigit(str[total]) || str[total] == ',' || str[total] == '\0')
 			total++;
 		else
 		{
@@ -383,14 +336,4 @@ bool	could_be_valid(char	*str)
 			break;
 	}
 	return (true);
-}
-
-void	terminate_str(char	*str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0' && str[i] != '\n')
-		i++;
-	str[i] = '\0';
 }

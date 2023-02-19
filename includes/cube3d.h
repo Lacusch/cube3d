@@ -44,4 +44,9 @@ void	missing_meta(void	*data);
 bool	invalid_meta(t_cube3d	*data);
 bool	check_extension(char	*av1, char	*extension);
 
+bool	is_whilespace(char	*c);
+int		ft_line(char *map);
+bool	valid_nb(int	number);
+void	terminate_str(char	*str);
+bool	meta_full(t_cube3d	*data);
 #endif

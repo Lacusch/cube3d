@@ -7,6 +7,7 @@ EXAMPLE_MAP = maps/pdf_example.cub
 SOURCE = src/debug.c \
 		src/free.c \
 		src/init.c \
+		src/input_utils.c \
 		src/input.c \
 		src/main.c \
 		src/errors.c
