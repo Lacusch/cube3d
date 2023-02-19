@@ -28,9 +28,11 @@ void	input_data(t_cube3d	*data, char	*map)
 	}
 	else
 	{
-		printf("get_map here\n");
 		if (!data->input_error)
+		{
+			printf("get_map here\n");
 			data_printf(data);
+		}
 		free(buff);
 	}
 }
@@ -51,15 +53,15 @@ void	check_buffer(char	*line, t_cube3d	*data)
 		if (could_be_valid(line) == false)
 			data->input_error = true;
 		else
-		{
-			// data->F_color = ft_strdup(line + 2);
 			handle_color(data, line);
-		}
 	}
 	else if (line[0] == 'C')
 	{
-		handle_color(data, line);
-		// data->C_color = ft_strdup(line + 2);
+		terminate_str(line);
+		if (could_be_valid(line) == false)
+			data->input_error = true;
+		else
+			handle_color(data, line);
 	}
 }
 

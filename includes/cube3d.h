@@ -20,8 +20,6 @@ typedef struct s_cube3d
 	char	*SO;
 	char	*WE;
 	char	*EA;
-	char	*F_color;
-	char	*C_color;
 	char	start;
 	bool	input_error;
 	int		f_color[3];

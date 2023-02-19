@@ -30,10 +30,6 @@ void	data_free(t_cube3d	*data)
 		str_free(data->WE);
 	if (data->EA != NULL)
 		str_free(data->EA);
-	if (data->F_color != NULL)
-		str_free(data->F_color);
-	if (data->C_color != NULL)
-		str_free(data->C_color);
 }
 
 void	str_free(char	*str)
