@@ -15,6 +15,8 @@ bool	valid_nb(int	number);
 void	get_rgb_floor(int	start, t_cube3d	*data, char	*buff, int loop);
 void	invalid_rgb(char	*str, t_cube3d	*data, int loop);
 void	get_rgb_celling(int	start, t_cube3d	*data, char	*buff, int loop);
+bool	could_be_valid(char	*str);
+void	terminate_str(char	*str);
 
 void	input_data(t_cube3d	*data, char	*map)
 {
@@ -78,12 +80,9 @@ void	check_buffer(char	*line, t_cube3d	*data)
 		handle_ea(data, line);
 	else if (line[0] == 'F')
 	{
-		invalid_rgb(line, data, 0);
-		if (data->input_error)
-		{
-			printf("invalid rgb for floor color\n");
+		terminate_str(line);
+		if (could_be_valid(line) == false)
 			data->input_error = true;
-		}
 		else
 		{
 		data->F_color = ft_strdup(line + 2);
@@ -323,4 +322,75 @@ void	get_rgb_celling(int	start, t_cube3d	*data, char	*buff, int loop)
 		}
 	if (loop != 2 && !data->input_error)
 		get_rgb_celling(start + i2, data, buff, ++loop);
+}
+
+bool	could_be_valid(char	*str)
+{
+	int	total;
+	int size;
+
+	total = 0;
+	size = 0;
+	if (*str == 'F' || *str == 'C')
+		str++;
+	else
+		return (false);
+	while (*str == ' ' && *str)
+		str++;
+	if (ft_strlen(str) > (size_t)11)
+	{
+		printf("string too big\n");
+		return (false);
+	}
+	while (total < 4 && str[total] !='\0')
+	{
+		if (ft_isdigit(str[total]) || str[total] == ',')
+			total++;
+		else
+		{
+			printf("invalid character\n");
+			return (false);
+		}
+		if (str[total] == ',')
+			break;
+	}
+	total++;
+	int first = total;
+	while (total < first + 3)
+	{
+		if (ft_isdigit(str[total]) || str[total] == ',')
+			total++;
+		else
+		{
+			printf("invalid character\n");
+			return (false);
+		}
+		if (str[total] == ',')
+			break;
+	}
+	total++;
+	int secund = total;
+	while (total < secund + 3)
+	{
+		if (ft_isdigit(str[total]) || str[total] == ',')
+			total++;
+		else
+		{
+			printf("invalid character\n");
+			return (false);
+		}
+		if (str[total] == ',')
+			break;
+	}
+	return (true);
+}
+
+void	terminate_str(char	*str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0' && str[i] != '\n')
+		i++;
+	str[i] = '\0';
 }
