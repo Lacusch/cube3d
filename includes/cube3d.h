@@ -86,4 +86,10 @@ void	double_color(t_cube3d	*data, char	*line);
 
 void	check_map(t_cube3d	*data);
 
+bool	invalid_line(char	*str, t_cube3d	*data);
+bool	invalid_char_map(void);
+bool	duplicate_player(void);
+void	no_player(t_cube3d	*data);
+void	map_valid_chars(t_cube3d	*data);
+
 #endif

@@ -22,4 +22,8 @@
 # define DO_EA_ERROR		"Error\nEastern texture already defined\n"
 # define DO_F_ERROR			"Error\nDuplicate Floor color\n"
 # define DO_C_ERROR			"Error\nDuplicate Celling color\n"
+# define WRONG_CHAR_MAP		"Error\ninvalid character in map\n"
+# define TO_MANY_PLAYER		"Error\nDuplicate player\n"
+# define NO_PLAYER			"Error\nNo player\n"
+
 #endif
