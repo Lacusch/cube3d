@@ -12,17 +12,17 @@ int32_t	main(int ac, char **av)
 	init_data(&data);
 	if (check_arg(ac, av))
 	{
-		system("leaks cub3D");
+		// system("leaks cub3D");
 		return (EXIT_FAILURE);
 	}
 	input_data(&data, av[1]);
 	if (data.input_error)
 	{
 		data_free(&data);
-		system("leaks cub3D");
+		// system("leaks cub3D");
 		return (EXIT_FAILURE);
 	}
 	data_free(&data);
-	system("leaks cub3D");
+	// system("leaks cub3D");
 	return (EXIT_SUCCESS);
 }
