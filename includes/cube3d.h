@@ -66,5 +66,16 @@ void	could_be_valid(char	*str, t_cube3d	*data);
 bool	color_fine(int color[3]);
 bool	invalid_error(void);
 void	invalid_rgb(t_cube3d	*data);
+void	get_map(t_cube3d	*data, char	*buff, int fd);
+bool	check_texture_extention(t_cube3d	*data);
+bool	check_can_open(t_cube3d	*data);
+bool	open_error(char	*file);
+
+bool	invalid_error(void);
+void	get_map(t_cube3d	*data, char	*buff, int fd);
+void	free_close(char	*buff, int fd);
+void	invalid_error2(t_cube3d	*data);
+void	set_error(t_cube3d	*data);
+void	digit_check(t_cube3d	*data, int loop, int start, char	*str);
 
 #endif

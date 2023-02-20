@@ -26,7 +26,6 @@ void	matrix_printf(char **matrix)
 	while (matrix[i] != NULL)
 	{
 		printf("%s", matrix[i]);
-		matrix[i] = NULL;
 		i++;
 	}
 	matrix = NULL;

@@ -1,13 +1,6 @@
 
 #include"../includes/cube3d.h"
 
-bool	is_whilespace(char	*c)
-{
-	if (*c == ' ' | *c == '\t')
-		return (true);
-	return (false);
-}
-
 int	ft_line(char *map)
 {
 	int		i;

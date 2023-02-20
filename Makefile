@@ -6,12 +6,15 @@ FRAMEWORK = -framework Cocoa -framework OpenGL -framework IOKit
 EXAMPLE_MAP = maps/pdf_example.cub
 SOURCE = src/debug.c \
 		src/free.c \
+		src/get_map.c \
 		src/handle_buffer.c \
 		src/init.c \
 		src/input_utils.c \
 		src/input.c \
+		src/input2.c \
 		src/main.c \
-		src/errors.c
+		src/errors.c \
+		src/errors2.c 
 OBJECT = $(SOURCE:.c=.o)
 LIBFT = lib/libft/libft.a
 NAME = cub3D

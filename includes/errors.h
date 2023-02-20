@@ -17,4 +17,3 @@
 # define INVALID_CHAR		"Error\nInvalid character in RGB\n"
 # define INVALID_RGB		"Error\nInvalid RGB\n"
 #endif
- 

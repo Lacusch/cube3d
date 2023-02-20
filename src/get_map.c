@@ -1,16 +1,27 @@
-	//get_map
-	// char	*tmp;
-	// tmp = ft_strdup("");
-	
-	// while (buff && !data->input_error)
-	// {
-	// 	buff = ft_strjoin(buff, ("9"));
-	// 	tmp = ft_strjoin(tmp, buff);
-	// 	check_buffer(buff, data);
-	// 	free(buff);
-	// 	buff = get_next_line(fd);
-	// }
-	// printf("map line is %d\n", ft_line(map) - i);
-	// data->map = ft_split(tmp, '9');
-	// free(tmp);
-	
+#include "../includes/cube3d.h"
+
+void	get_map(t_cube3d	*data, char	*buff, int fd)
+{
+	char	*tmp;
+	char	*tmp2;
+
+	if (!data->input_error)
+	{
+		printf("get_map here\n");
+		check_buffer(buff, data);
+		tmp = ft_strdup("");
+		while (buff && !data->input_error)
+		{
+			tmp2 = tmp;
+			tmp = ft_strjoin(tmp2, buff);
+			free(tmp2);
+			free(buff);
+			buff = get_next_line(fd);
+		}
+		data->map = ft_split(tmp, '\0');
+		free(tmp);
+		data_printf(data);
+	}
+	free(buff);
+	close(fd);
+}
