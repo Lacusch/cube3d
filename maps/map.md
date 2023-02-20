@@ -19,8 +19,8 @@ map and are up to you to handle.
 2. If you find a Number before all the elements are filled, thrown an error.
 3. Check if the map is closed or not
 
-- [ ] check for dublicates (in meta)
-- [ ] scan the map
+- [x] check for dublicates (in meta)
+- [x] scan the map
 - [ ] fill the empty space with some recognisable `char` (-1)
 - [ ] check if The map has only valid characters
 - [ ] check if the map is closed of or not

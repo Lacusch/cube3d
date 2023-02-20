@@ -84,4 +84,6 @@ void	double_we(t_cube3d	*data);
 void	double_ea(t_cube3d	*data);
 void	double_color(t_cube3d	*data, char	*line);
 
+void	check_map(t_cube3d	*data);
+
 #endif

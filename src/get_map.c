@@ -20,9 +20,15 @@ void	get_map(t_cube3d	*data, char	*buff, int fd)
 		}
 		data->map = ft_split(tmp, '\0');
 		free(tmp);
+		free(buff);
+		close(fd);
 	}
+	check_map(data);
 	if (!data->input_error)
 		data_printf(data);
-	free(buff);
-	close(fd);
+}
+
+void	check_map(t_cube3d	*data)
+{
+	(void)data;
 }
