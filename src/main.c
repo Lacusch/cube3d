@@ -18,6 +18,7 @@ int32_t	main(int ac, char **av)
 	input_data(&data, av[1]);
 	if (data.input_error)
 	{
+		data_free(&data);
 		system("leaks cub3D");
 		return (EXIT_FAILURE);
 	}
