@@ -1,5 +1,7 @@
 #include "../includes/cube3d.h"
 
+void	test_map(t_cube3d	*data);
+
 void	get_map(t_cube3d	*data, char	*buff, int fd)
 {
 	char	*tmp;
@@ -31,6 +33,8 @@ void	get_map(t_cube3d	*data, char	*buff, int fd)
 void	check_map(t_cube3d	*data)
 {
 	map_valid_chars(data);
+	test_map(data);
+	// fill_map(data->map);
 	if (data->input_error)
 		return ;
 	(void)data;
@@ -53,4 +57,20 @@ void	map_valid_chars(t_cube3d	*data)
 	}
 	if (data->start == '\0')
 		no_player(data);
+}
+
+void	test_map(t_cube3d	*data)
+{
+	// char	**matrix;
+
+	// matrix = matrix_dub(data->map);
+	// matrix_printf(matrix);
+	// matrix_free(matrix);
+
+	/*
+	Duplicate the map
+	Get each line to the same lenght (fill it with -1)
+	Get length and width
+	Flood fill (4 way)
+	*/
 }

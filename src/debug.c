@@ -28,5 +28,34 @@ void	matrix_printf(char **matrix)
 		printf("%s\n", matrix[i]);
 		i++;
 	}
-	matrix = NULL;
+}
+
+char	**matrix_dub(char	**matrix)
+{
+	int		i;
+	char	**env;
+
+	i = 0;
+	if (matrix == NULL || matrix[i] == NULL)
+		return (NULL);
+	env = malloc(sizeof(char *) * (matrix_size(matrix) + 1));
+	if (env == NULL)
+		return (NULL);
+	while (matrix[i] != NULL)
+	{
+		env[i] = ft_strdup(matrix[i]);
+		i++;
+	}
+	env[i] = NULL;
+	return (env);
+}
+
+int	matrix_size(char	**matrix)
+{
+	int	i;
+
+	i = 0;
+	while (matrix[i] != NULL)
+		i++;
+	return (i);
 }
