@@ -349,6 +349,30 @@ void	draw(mlx_t	*mlx)
 	printf("5\n");
 }
 
+static void handle_movement(enum keys key)
+{
+	float co;
+	float ca;
+	float pa_cpy;
+
+	pa_cpy = pa;
+	if (key == MLX_KEY_S)
+		pa_cpy += PI;
+	if (key == MLX_KEY_A)
+		pa_cpy -= PI / 2;
+	if (key == MLX_KEY_D)
+		pa_cpy += PI / 2;
+	if (pa_cpy < 0)
+		pa_cpy += (2 * PI);
+	if (pa_cpy > (2 * PI))
+		pa_cpy -= (2 * PI);
+	co = sin(pa_cpy);
+	ca = cos(pa_cpy);
+	px += ca * 10;
+	py += co * 10; 
+}
+
+
 void hook(void* param)
 {
 	mlx_t* mlx = param;
@@ -357,13 +381,13 @@ void hook(void* param)
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 	if (mlx_is_key_down(mlx, MLX_KEY_W))
-		py -= 5;
+		handle_movement(MLX_KEY_W);
 	if (mlx_is_key_down(mlx, MLX_KEY_S))
-		py += 5;
+		handle_movement(MLX_KEY_S);
 	if (mlx_is_key_down(mlx, MLX_KEY_A))
-		px -= 5;
+		handle_movement(MLX_KEY_A);
 	if (mlx_is_key_down(mlx, MLX_KEY_D))
-		px += 5;
+		handle_movement(MLX_KEY_D);
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
 	{
 		pa -= 0.05;
@@ -408,7 +432,7 @@ int32_t	main(int ac, char** av)
 	img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	map_cube_size(mlx);
 	printf("%i x %i\n", cube_size_x, cube_size_y);
-	pa = P3 - DR;
+	pa = 0;
 	px = mlx->width / 2;
 	py = mlx->height / 2;
 	pdx = cos(pa);
