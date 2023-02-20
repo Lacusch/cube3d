@@ -18,7 +18,7 @@ void	get_map(t_cube3d	*data, char	*buff, int fd)
 			free(buff);
 			buff = get_next_line(fd);
 		}
-		data->map = ft_split(tmp, '\0');
+		data->map = ft_split(tmp, '\n');
 		free(tmp);
 		free(buff);
 		close(fd);
