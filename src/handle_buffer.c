@@ -6,6 +6,8 @@ void	handle_no(t_cube3d *data, char	*line)
 	int	i;
 
 	i = 0;
+	if (data->no != NULL)
+		return (double_no(data));
 	while (is_whilespace(line + 2) == true && line)
 		line++;
 	if (*line == '\0')
@@ -24,6 +26,8 @@ void	handle_so(t_cube3d *data, char	*line)
 	int	i;
 
 	i = 0;
+	if (data->so != NULL)
+		return (double_so(data));
 	while (is_whilespace(line + 2) == true && line)
 		line++;
 	if (*line == '\0')
@@ -42,6 +46,8 @@ void	handle_we(t_cube3d *data, char	*line)
 	int	i;
 
 	i = 0;
+	if (data->we != NULL)
+		return (double_we(data));
 	while (is_whilespace(line + 2) == true && line)
 		line++;
 	if (*line == '\0')
@@ -60,6 +66,8 @@ void	handle_ea(t_cube3d *data, char	*line)
 	int	i;
 
 	i = 0;
+	if (data->ea != NULL)
+		return (double_ea(data));
 	while (is_whilespace(line + 2) == true && line)
 		line++;
 	if (*line == '\0')
@@ -80,13 +88,14 @@ void	handle_color(t_cube3d	*data, char *buff)
 
 	i = 1;
 	i2 = 0;
-	if (buff[0] == 'F')
+	double_color(data, buff);
+	if (buff[0] == 'F' && data->input_error != true)
 	{
 		while (is_whilespace(&buff[i]) == true && buff[i])
 			i++;
 		get_rgb_floor(i, data, buff, 0);
 	}
-	else if (buff[0] == 'C')
+	else if (buff[0] == 'C' && data->input_error != true)
 	{
 		while (is_whilespace(&buff[i]) == true && buff[i])
 			i++;

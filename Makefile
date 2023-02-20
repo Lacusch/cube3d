@@ -14,7 +14,8 @@ SOURCE = src/debug.c \
 		src/input2.c \
 		src/main.c \
 		src/errors.c \
-		src/errors2.c 
+		src/errors2.c \
+		src/errors3.c 
 OBJECT = $(SOURCE:.c=.o)
 LIBFT = lib/libft/libft.a
 NAME = cub3D

@@ -16,4 +16,10 @@
 # define RGB_LONG			"Error\nRGB string is too long\n"
 # define INVALID_CHAR		"Error\nInvalid character in RGB\n"
 # define INVALID_RGB		"Error\nInvalid RGB\n"
+# define DO_NO_ERROR		"Error\nNorthern texture already defined\n"
+# define DO_SO_ERROR		"Error\nSouthern texture already defined\n"
+# define DO_WE_ERROR		"Error\nWestern texture already defined\n"
+# define DO_EA_ERROR		"Error\nEastern texture already defined\n"
+# define DO_F_ERROR			"Error\nDuplicate Floor color\n"
+# define DO_C_ERROR			"Error\nDuplicate Celling color\n"
 #endif

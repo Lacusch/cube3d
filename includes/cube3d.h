@@ -78,4 +78,10 @@ void	invalid_error2(t_cube3d	*data);
 void	set_error(t_cube3d	*data);
 void	digit_check(t_cube3d	*data, int loop, int start, char	*str);
 
+void	double_no(t_cube3d	*data);
+void	double_so(t_cube3d	*data);
+void	double_we(t_cube3d	*data);
+void	double_ea(t_cube3d	*data);
+void	double_color(t_cube3d	*data, char	*line);
+
 #endif
