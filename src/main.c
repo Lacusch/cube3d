@@ -6,7 +6,7 @@
 #include <memory.h>
 #include "../includes/cube3d.h"
 
-#define WIDTH 1080
+#define WIDTH 1680
 #define HEIGHT 1020
 #define PI 3.1415926535
 #define P2 PI / 2
@@ -20,13 +20,14 @@ static int cube_size_x = 0;
 static int cube_size_y = 0;
 static int g_width = 0;
 static int g_height = 0;
-// static int gdof = 0;
+static int wall_color = 0;
 static float px = 0;
 static float py = 0;
 static float pdx = 0;
 static float pdy = 0;
 static float pa = 0;
 static char	**map;
+static int	mode = 0;
 
 static int ft_error(void)
 {
@@ -51,13 +52,6 @@ static int map_cube_size(mlx_t *mlx)
 	cube_size_x = mlx->width /  map_size_x;
 	cube_size_y = mlx->height / map_size_y;
 	return (changed);
-	// if (cube_size_x > cube_size_y)
-	// 	gdof = cube_size_x;
-	// else if (cube_size_y > cube_size_x)
-	// 	gdof = cube_size_y;
-	// else
-	// 	gdof = cube_size_x;
-	// gdof = map_size_x;
 }
 
 static void paint_pixels(mlx_t *mlx, int i, int j, mlx_image_t* img, int is_wall)
@@ -118,10 +112,10 @@ static char	**muck_map(void)
 	char	**res;
 
 	res = malloc(sizeof(char **) * (map_size_y + 1));
-	res[0] = "  111111111111111111";
-	res[1] = "  100010000000010001";
-	res[2] = "  100010000000010001";
-	res[3] = "11000010001010010001";
+	res[0] = "111111111111111111";
+	res[1] = "100010000000010001";
+	res[2] = "100010000000010001";
+	res[3] = "11000010001010010011";
 	res[4] = "10000010000000000001";
 	res[5] = "10000010000000010001";
 	res[6] = "10000010001000000001";
@@ -166,7 +160,7 @@ static float dist(float ax, float ay, float bx, float by)
 	return (sqrt(a + b));
 }
 
-static void draw_rays_3d(void)
+static void draw_rays_3d(mlx_t *mlx)
 {
 	int		r = 0;
 	int		iter = 0;
@@ -201,7 +195,7 @@ static void draw_rays_3d(void)
 	float vx;	
 	float vy;
 
-	while (r < 60)
+	while (r < 120)
 	{
 		dof = 0;
 		iter = 0;
@@ -293,40 +287,64 @@ static void draw_rays_3d(void)
 				dof += 1;
 			} 
 		}
+		// vertical wall hit
 		if (disV < disH)
 		{
+			if (ra > P2 && ra < P3)
+				wall_color = 0xA020F0FF;   // purple
+			else 
+				wall_color = 0xFF2E2EFF;   // red
 			rx = vx;
 			ry = vy;
 			disT = disV;
 		}
+		// horizontal wall hit
 		else if (disH < disV)
 		{
+			if (ra >= 0 && ra <= PI)
+				wall_color = 0xFFFF00FF;  // yellow 
+			else
+				wall_color = 0x00FF00FF;  // green
 			rx = hx;
 			ry = hy;
 			disT = disH;
-		}	
-		ft_draw_line(img, px, py, (int)rx, (int)ry, 0x00FF0001);
+		}
+		if (mode == 1)	
+			ft_draw_line(img, px, py, (int)rx, (int)ry, 0x00FF0001);
 		(void) ca;
 		(void) lineH;
 		(void) lineO;
 		// ------------------------------
+
 		// draw 3d
-		// ca = pa - ra;
-		// if (ca < 0)
-		// 	ca += (2 * PI);
-		// if (ca > (2 * PI))
-		// 	ca -= (2 * PI);
-		// disT = disT * cos(ca);
-		// lineH = (64 * 400) / disT;
-		// if (lineH > 320)
-		// 	lineH = 320;
-		// lineO = 160 - lineH / 2;
-		// while (iter < 16)
-		// {
-		// 	ft_draw_line(img, (r * 16) + iter, lineO, (r * 16) + iter, lineH + lineO, 0x00FF00FF);
-		// 	iter++; 
-		// }
-		ra += DR;
+		// FIX FISHEYE
+		ca = pa - ra;
+		if (ca < 0)
+			ca += (2 * PI);
+		if (ca > (2 * PI))
+			ca -= (2 * PI);
+		disT = disT * cos(ca);
+		lineH = (cube_size_y * mlx->height * 0.625) / disT;
+		if (lineH > mlx->height)
+		{
+			lineH = mlx->height;
+			lineO = 0;
+		}
+		else
+			lineO = mlx->height * 0.35 - lineH/2;
+		int iter_len = mlx->width / 120;
+		
+		while(iter < iter_len)
+		{
+			if (mode == 0)
+			{
+				ft_draw_line(img, (r * iter_len) + iter, 0, (r * iter_len) + iter, lineO, 0x87CEEB);
+				ft_draw_line(img, (r * iter_len) + iter, lineO, (r * iter_len) + iter, lineH + lineO, wall_color);
+				ft_draw_line(img, (r * iter_len) + iter, mlx->width, (r * iter_len) + iter, lineO + lineH, 0x808080FF);
+			}
+			iter++;
+		}
+		ra += DR / 2;
 		if (ra < 0)
 			ra += (2 * PI);
 		if (ra > (2 * PI))
@@ -337,16 +355,12 @@ static void draw_rays_3d(void)
 
 void	draw(mlx_t	*mlx)
 {
-	printf("1\n");
 	ft_memset(img->pixels, 0, mlx->width * mlx->height * sizeof(int32_t));
 	mlx_image_to_window(mlx, img, 0, 0);
-	printf("2\n");
-	draw_background(mlx, img, map);
-	printf("3\n");
-	draw_rays_3d();
-	printf("4\n");
+	if (mode == 1)
+		draw_background(mlx, img, map);
+	draw_rays_3d(mlx);
 	mlx_image_to_window(mlx, img, 0, 0);
-	printf("5\n");
 }
 
 static void handle_movement(enum keys key)
@@ -368,8 +382,8 @@ static void handle_movement(enum keys key)
 		pa_cpy -= (2 * PI);
 	co = sin(pa_cpy);
 	ca = cos(pa_cpy);
-	px += ca * 10;
-	py += co * 10; 
+	px += ca * 20;
+	py += co * 20; 
 }
 
 
@@ -378,6 +392,10 @@ void hook(void* param)
 	mlx_t* mlx = param;
 
 	printf("listening from hook\n");
+	if (mlx_is_key_down(mlx, MLX_KEY_M))
+		mode = 0;
+	if (mlx_is_key_down(mlx, MLX_KEY_N))
+		mode = 1;
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 	if (mlx_is_key_down(mlx, MLX_KEY_W))
@@ -393,18 +411,20 @@ void hook(void* param)
 		pa -= 0.05;
 		if (pa < 0)
 			pa += 2 * PI;
-		pdx = cos(pa);
-		pdy = sin(pa);
+		pdx = cos(pa) * 5;
+		pdy = sin(pa) * 5;
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 	{
 		pa += 0.05;
 		if (pa > 2 * PI)
 			pa -= 2 * PI;
-		pdx = cos(pa);
-		pdy = sin(pa);
+		pdx = cos(pa) * 5;
+		pdy = sin(pa) * 5;
 	}
-	if (mlx_is_key_down(mlx, MLX_KEY_W) ||
+	if (mlx_is_key_down(mlx, MLX_KEY_M) ||
+		mlx_is_key_down(mlx, MLX_KEY_N) ||
+		mlx_is_key_down(mlx, MLX_KEY_W) ||
 		mlx_is_key_down(mlx, MLX_KEY_S) ||
 		mlx_is_key_down(mlx, MLX_KEY_A) ||
 		mlx_is_key_down(mlx, MLX_KEY_D) ||
