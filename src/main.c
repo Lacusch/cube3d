@@ -126,12 +126,12 @@ static char	**muck_map(void)
 	res[11] = "1000000000000000000000000000000000000001";
 	res[12] = "1000000000000000000000000000000000000001";
 	res[13] = "1000000000000000000000000000000000000001";
-	res[14] = "1000000000000000000000000000000000000001";
-	res[15] = "1000000000000000000000000000000000000001";
-	res[16] = "1000000000000000000000000000000000000001";
-	res[17] = "1000000000000000000000000000000000000001";
-	res[18] = "1000000000000000000000000000000000000001";
-	res[19] = "1000000000000000001000000000000000000001";
+	res[14] = "1000000000000000001111100000000000000001";
+	res[15] = "1000000000000000001   100000000000000001";
+	res[16] = "1000000000000000001   100000000000000001";
+	res[17] = "1000000000000000001   100000000000000001";
+	res[18] = "1000000000000000001   100000000000000001";
+	res[19] = "1000000000000000001111100000000000000001";
 	res[20] = "1000000000000000000000000000000000000001";
 	res[21] = "1000000000000000000000000000000000000001";
 	res[22] = "1000000000000000000000000000000000000001";
@@ -215,7 +215,7 @@ static void draw_rays_3d(mlx_t *mlx)
 	float vx;	
 	float vy;
 
-	while (r < 600)
+	while (r < 300)
 	{
 		dof = 0;
 		iter = 0;
@@ -352,8 +352,7 @@ static void draw_rays_3d(mlx_t *mlx)
 		}
 		else
 			lineO = mlx->height * 0.35 - lineH/2;
-		int iter_len = mlx->width / 600;
-		
+		int iter_len = mlx->width / 300;
 		while(iter < iter_len)
 		{
 			if (mode == 0)
@@ -364,7 +363,7 @@ static void draw_rays_3d(mlx_t *mlx)
 			}
 			iter++;
 		}
-		ra += DR / 10;
+		ra += DR / 5;
 		if (ra < 0)
 			ra += (2 * PI);
 		if (ra > (2 * PI))
@@ -402,8 +401,8 @@ static void handle_movement(enum keys key)
 		pa_cpy -= (2 * PI);
 	co = sin(pa_cpy);
 	ca = cos(pa_cpy);
-	px += ca * 20;
-	py += co * 20; 
+	px += ca * 10;
+	py += co * 10; 
 }
 
 
@@ -412,6 +411,13 @@ void hook(void* param)
 	mlx_t* mlx = param;
 
 	printf("listening from hook\n");
+
+	printf("px: %f - py: %f\n", px, py);
+	printf("height: %i - width: %i\n", mlx->height, mlx->width);
+	printf("map_size_y: %i - map_size_x: %i\n", map_size_y, map_size_x);
+	printf("map[%i][%i]\n", (int)(((py + 10) / cube_size_y)), (int)(((px + 10) / cube_size_x)));
+	if (map[(int)(((py + 10) / cube_size_y))][(int)(((px + 10) / cube_size_x))] == '1')
+		return ;
 	if (mlx_is_key_down(mlx, MLX_KEY_M))
 		mode = 0;
 	if (mlx_is_key_down(mlx, MLX_KEY_N))
@@ -473,8 +479,8 @@ int32_t	main(int ac, char** av)
 	map_cube_size(mlx);
 	printf("%i x %i\n", cube_size_x, cube_size_y);
 	pa = 0;
-	px = mlx->width / 2;
-	py = mlx->height / 2;
+	px = mlx->width / 3;
+	py = mlx->height / 3;
 	pdx = cos(pa);
 	pdy = sin(pa);
 	draw(mlx);
