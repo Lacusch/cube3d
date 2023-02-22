@@ -7,13 +7,14 @@
 #include "../includes/cube3d.h"
 
 #define WIDTH 1680
-#define HEIGHT 1020
+#define HEIGHT 1080
 #define PI 3.1415926535
 #define P2 PI / 2
 #define P3 3 * PI /2
 #define DR PI / 180
 
 static mlx_image_t* img;
+static mlx_image_t* img_texture;
 static int map_size_x = 0;
 static int map_size_y = 0;
 static int cube_size_x = 0;
@@ -28,6 +29,7 @@ static float pdy = 0;
 static float pa = 0;
 static char	**map;
 static int	mode = 0;
+// static int	pixel_remainder = 0;
 
 static int ft_error(void)
 {
@@ -40,7 +42,7 @@ static int map_cube_size(mlx_t *mlx)
 	int changed;
 
 	changed = 0;
-	printf("mlx->width: %i - mlx->height: %i\n", mlx->width, mlx->height);
+	// printf("mlx->width: %i - mlx->height: %i\n", mlx->width, mlx->height);
 	if (g_width != mlx->width || g_height != mlx->height)
 	{
 		g_width = mlx->width;
@@ -112,49 +114,65 @@ static char	**muck_map(void)
 	char	**res;
 
 	res = malloc(sizeof(char **) * (map_size_y + 1));
-	res[0] = "1111111111111111111111111111111111111111";
-	res[1] = "1000000000000000000000000000000000000001";
-	res[2] = "1000000000000000000000000000000000000001";
-	res[3] = "1000000000000000000000000000000000000001";
-	res[4] = "1000000000000000000000000000000000000001";
-	res[5] = "1000000000000000000000000000000000000001";
-	res[6] = "1000000000000000000000000000000000000001";
-	res[7] = "1000000000000000000000000000000000000001";
-	res[8] = "1000000000000000000000000000000000000001";
-	res[9] = "1000000000000000000000000000000000000001";
-	res[10] = "1000000000000000000000000000000000000001";
-	res[11] = "1000000000000000000000000000000000000001";
-	res[12] = "1000000000000000000000000000000000000001";
-	res[13] = "1000000000000000000000000000000000000001";
-	res[14] = "1000000000000000001111100000000000000001";
-	res[15] = "1000000000000000001   100000000000000001";
-	res[16] = "1000000000000000001   100000000000000001";
-	res[17] = "1000000000000000001   100000000000000001";
-	res[18] = "1000000000000000001   100000000000000001";
-	res[19] = "1000000000000000001111100000000000000001";
-	res[20] = "1000000000000000000000000000000000000001";
-	res[21] = "1000000000000000000000000000000000000001";
-	res[22] = "1000000000000000000000000000000000000001";
-	res[23] = "1000000000000000000000000000000000000001";
-	res[24] = "1000000000000000000000000000000000000001";
-	res[25] = "1000000000000000000000000000000000000001";
-	res[26] = "1000000000000000000000000000000000000001";
-	res[27] = "1000000000000000000000000000000000000001";
-	res[28] = "1000000000000000000000000000000000000001";
-	res[29] = "1000000000000000000000000000000000000001";
-	res[30] = "1000000000000000000000000000000000000001";
-	res[31] = "1000000000000000000000000000000000000001";
-	res[32] = "1000000000000000000000000000000000000001";
-	res[33] = "1000000000000000000000000000000000000001";
-	res[34] = "1000000000000000000000000000000000000001";
-	res[35] = "1000000000000000000000000000000000000001";
-	res[36] = "1000000000000000000000000000000000000001";
-	res[37] = "1000000000000000000000000000000000000001";
-	res[38] = "1000000000000000000000000000000000000001";
-	res[39] = "1111111111111111111111111111111111111111";
-	res[40] = NULL;
+	res[0] = "11111111";
+	res[1] = "10000001";
+	res[2] = "10000001";
+	res[3] = "10001001";
+	res[4] = "10000001";
+	res[5] = "10000001";
+	res[6] = "10000001";
+	res[7] = "11111111";
+	res[8] = NULL;
+	// res[9] = "1000000000000000000000000000000000000001";
+	// res[10] = "1000000000000000000000000000000000000001";
+	// res[11] = "1000000000000000000000000000000000000001";
+	// res[12] = "1000000000000000000000000000000000000001";
+	// res[13] = "1000000000000000000000000000000000000001";
+	// res[14] = "1000000000000000001111100000000000000001";
+	// res[15] = "1000000000000000001   100000000000000001";
+	// res[16] = "1000000000000000001   100000000000000001";
+	// res[17] = "1000000000000000001   100000000000000001";
+	// res[18] = "1000000000000000001   100000000000000001";
+	// res[19] = "1000000000000000001111100000000000000001";
+	// res[20] = "1000000000000000000000000000000000000001";
+	// res[21] = "1000000000000000000000000000000000000001";
+	// res[22] = "1000000000000000000000000000000000000001";
+	// res[23] = "1000000000000000000000000000000000000001";
+	// res[24] = "1000000000000000000000000000000000000001";
+	// res[25] = "1000000000000000000000000000000000000001";
+	// res[26] = "1000000000000000000000000000000000000001";
+	// res[27] = "1000000000000000000000000000000000000001";
+	// res[28] = "1000000000000000000000000000000000000001";
+	// res[29] = "1000000000000000000000000000000000000001";
+	// res[30] = "1000000000000000000000000000000000000001";
+	// res[31] = "1000000000000000000000000000000000000001";
+	// res[32] = "1000000000000000000000000000000000000001";
+	// res[33] = "1000000000000000000000000000000000000001";
+	// res[34] = "1000000000000000000000000000000000000001";
+	// res[35] = "1000000000000000000000000000000000000001";
+	// res[36] = "1000000000000000000000000000000000000001";
+	// res[37] = "1000000000000000000000000000000000000001";
+	// res[38] = "1000000000000000000000000000000000000001";
+	// res[39] = "1111111111111111111111111111111111111111";
 	return (res);
 }
+
+// static char **muck_texture(void)
+// {
+// 	char	**res;
+
+// 	res = malloc(sizeof(char **) * (map_size_y + 1));
+// 	res[0] = "11111111";
+// 	res[1] = "10011001";
+// 	res[2] = "10011001";
+// 	res[3] = "10011001";
+// 	res[4] = "10011001";
+// 	res[5] = "10011001";
+// 	res[6] = "10011001";
+// 	res[7] = "11111111";
+// 	res[8] = NULL;
+// 	return (res);
+// }
 
 // static void	draw_user(void)
 // {
@@ -198,6 +216,7 @@ static void draw_rays_3d(mlx_t *mlx)
 	float	lineH;
 	float	lineO;
 	float	ca;
+	int		shade = 1;
 
 	ra = pa - DR * 30;
 	if (ra < 0)
@@ -317,6 +336,7 @@ static void draw_rays_3d(mlx_t *mlx)
 			rx = vx;
 			ry = vy;
 			disT = disV;
+			shade = 0;
 		}
 		// horizontal wall hit
 		else if (disH < disV)
@@ -330,40 +350,64 @@ static void draw_rays_3d(mlx_t *mlx)
 			disT = disH;
 		}
 		if (mode == 1)	
-			ft_draw_line(img, px, py, (int)rx, (int)ry, 0x00FF0001);
-		(void) ca;
-		(void) lineH;
-		(void) lineO;
-		// ------------------------------
-
-		// draw 3d
-		// FIX FISHEYE
-		ca = pa - ra;
-		if (ca < 0)
-			ca += (2 * PI);
-		if (ca > (2 * PI))
-			ca -= (2 * PI);
-		disT = disT * cos(ca);
-		lineH = (cube_size_y * mlx->height * 0.625) / disT;
-		if (lineH > mlx->height)
-		{
-			lineH = mlx->height;
-			lineO = 0;
-		}
+			ft_draw_line(img, px, py, (int)rx, (int)ry, 0x00FF00FF);
 		else
-			lineO = mlx->height * 0.35 - lineH/2;
-		int iter_len = mlx->width / 300;
-		while(iter < iter_len)
 		{
-			if (mode == 0)
+			// ----------------------------
+			// draw 3d
+			// FIX FISHEYE
+			ca = pa - ra;
+			if (ca < 0)
+				ca += (2 * PI);
+			if (ca > (2 * PI))
+				ca -= (2 * PI);
+			disT = disT * cos(ca);
+			// End fish eye
+			lineH = (cube_size_y * mlx->height * 0.66) / disT;
+			lineO = mlx->height * 0.35 - lineH / 2;
+			// -- Ray iterations
+			int iter_len = mlx->width / 300;
+
+			float ty_step = img_texture->height / lineH;
+			while (iter < iter_len)
 			{
-				ft_draw_line(img, (r * iter_len) + iter, 0, (r * iter_len) + iter, lineO, 0x87CEEB);
-				ft_draw_line(img, (r * iter_len) + iter, lineO, (r * iter_len) + iter, lineH + lineO, wall_color);
-				ft_draw_line(img, (r * iter_len) + iter, mlx->width, (r * iter_len) + iter, lineO + lineH, 0x808080FF);
+				ft_draw_line(img, (r * iter_len) + iter, 0, (r * iter_len) + iter, lineO, 0x87CEEB); // ceiling
+				ft_draw_line(img, (r * iter_len) + iter, mlx->width, (r * iter_len) + iter, lineO + lineH, 0x808080FF); // floor
+				// Mapping to texture
+				int y = 0;
+				float ty = ty_step;
+				float tx = 0;
+
+				if (shade == 1)
+				{
+					tx = ((int)rx / 2) % img_texture->width;
+					if (ra > 180)
+						tx = img_texture->width - 1 - tx;
+				}
+				if (shade == 0)
+				{
+					tx = ((int)ry / 2) % img_texture->width;
+					if (ra > 90 && ra < 270)
+						tx = img_texture->width - 1 - tx;
+				}
+				while (y < lineH)
+				{
+					int BPP;
+					BPP = sizeof(int32_t);
+					int rc = img_texture->pixels[(BPP * (((int)ty) * img_texture->height) + ((int)tx * BPP)) + 0];
+					int gc = img_texture->pixels[(BPP * (((int)ty) * img_texture->height) + ((int)tx * BPP)) + 1];
+					int bc = img_texture->pixels[(BPP * (((int)ty) * img_texture->height) + ((int)tx * BPP)) + 2];
+					int ac = img_texture->pixels[(BPP * (((int)ty) * img_texture->height) + ((int)tx * BPP)) + 3];
+					ft_pixel_put(img, (r * iter_len) + iter, lineO + y, get_rgba(rc, gc, bc, ac));
+					ty += ty_step;
+					y++;
+				}
+				iter++;
 			}
-			iter++;
 		}
+		// incrementing deegree
 		ra += DR / 5;
+		// Looping in a circle 
 		if (ra < 0)
 			ra += (2 * PI);
 		if (ra > (2 * PI))
@@ -374,8 +418,8 @@ static void draw_rays_3d(mlx_t *mlx)
 
 void	draw(mlx_t	*mlx)
 {
-	ft_memset(img->pixels, 0, mlx->width * mlx->height * sizeof(int32_t));
-	mlx_image_to_window(mlx, img, 0, 0);
+	mlx_delete_image(mlx, img);
+	img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	if (mode == 1)
 		draw_background(mlx, img, map);
 	draw_rays_3d(mlx);
@@ -410,14 +454,14 @@ void hook(void* param)
 {
 	mlx_t* mlx = param;
 
-	printf("listening from hook\n");
+	// printf("listening from hook\n");
+	// printf("px: %f - py: %f\n", px, py);
+	// printf("height: %i - width: %i\n", mlx->height, mlx->width);
+	// printf("map_size_y: %i - map_size_x: %i\n", map_size_y, map_size_x);
+	// printf("map[%i][%i]\n", (int)(((py + 10) / cube_size_y)), (int)(((px + 10) / cube_size_x)));
+	// if (map[(int)(((py + 10) / cube_size_y))][(int)(((px + 10) / cube_size_x))] == '1')
+	// 	return ;
 
-	printf("px: %f - py: %f\n", px, py);
-	printf("height: %i - width: %i\n", mlx->height, mlx->width);
-	printf("map_size_y: %i - map_size_x: %i\n", map_size_y, map_size_x);
-	printf("map[%i][%i]\n", (int)(((py + 10) / cube_size_y)), (int)(((px + 10) / cube_size_x)));
-	if (map[(int)(((py + 10) / cube_size_y))][(int)(((px + 10) / cube_size_x))] == '1')
-		return ;
 	if (mlx_is_key_down(mlx, MLX_KEY_M))
 		mode = 0;
 	if (mlx_is_key_down(mlx, MLX_KEY_N))
@@ -466,8 +510,8 @@ int32_t	main(int ac, char** av)
 	mlx_t			*mlx;
 
 	init_data(&data);
-	map_size_y = 40;
-	map_size_x = 40;
+	map_size_y = 8;
+	map_size_x = 8;
 	g_width = WIDTH;
 	g_height = HEIGHT;
 	map = muck_map();
@@ -483,6 +527,16 @@ int32_t	main(int ac, char** av)
 	py = mlx->height / 3;
 	pdx = cos(pa);
 	pdy = sin(pa);
+
+	mlx_texture_t* texture = mlx_load_png("./textures/brick.png");
+	if (!texture)
+		perror("texture error");
+	img_texture = mlx_texture_to_image(mlx, texture);
+	printf("here\n");
+	printf("cube_size_x: %i - cube_size_y: %i\n", cube_size_x, cube_size_y);
+	printf("Texture_width: %i - texture_height: %i \n", img_texture->width, img_texture->height);
+	mlx_image_to_window(mlx, img_texture, 0, 0);
+	printf("Texture_width: %i - texture_height: %i \n", img_texture->width, img_texture->height);
 	draw(mlx);
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
