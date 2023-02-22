@@ -25,5 +25,5 @@
 # define WRONG_CHAR_MAP		"Error\ninvalid character in map\n"
 # define TO_MANY_PLAYER		"Error\nDuplicate player\n"
 # define NO_PLAYER			"Error\nNo player\n"
-
+# define INVALID_MAP		"Error\nInvalid map\n"
 #endif

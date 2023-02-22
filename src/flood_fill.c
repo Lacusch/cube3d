@@ -30,16 +30,10 @@ void	fill8(char **map, t_map *dimensions, int x, int y)
 	fill8(map, dimensions, x + 1, y + 1);
 	fill8(map, dimensions, x -1 , y - 1);
 }
-bool	flood_fill(char **map, t_map *dimentions, int player_x, int player_y)
+void	flood_fill(char **map, t_map *dimentions, int player_x, int player_y)
 {
 	fill8(map, dimentions, player_x, player_y);
-	// if (ft_completable_test(data, dimentions->height) == true)
-	// {
-	// 	ft_free_char_array(data);
-	// 	free(data);
-	// 	return (true);
-	// }
-	printf("filled map is \n");
-	matrix_printf(map);
-	return (false);
+	// printf("filled map is \n");
+	// matrix_printf(map);
 }
+

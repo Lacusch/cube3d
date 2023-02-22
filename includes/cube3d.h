@@ -13,7 +13,7 @@
 # include "errors.h"
 //Declarations
 
-typedef	struct	s_map
+typedef struct s_map
 {
 	int		height;
 	int		width;
@@ -39,7 +39,6 @@ typedef struct s_cube3d
 	int			f_color[3];
 	int			c_color[3];
 }	t_cube3d;
-
 
 void	data_printf(t_cube3d *data);
 void	matrix_printf(char **matrix);
@@ -115,10 +114,12 @@ int		get_max_width(char	**map);
 bool	is_rectange(char	**map, int max_width);
 void	make_recktange(char	**map, int max_width);
 void	fill_string(char	**str_add, int max_width);
-
+void	player_position(t_cube3d *data);
+void	player_position_sub(t_cube3d *data, int line);
 
 void	fill4(char **map, t_map *dimensions, int x, int y);
 void	fill8(char **map, t_map *dimensions, int x, int y);
-bool	flood_fill(char **map, t_map *dimentions, int player_x, int player_y);
+void	flood_fill(char **map, t_map *dimentions, int player_x, int player_y);
+bool	is_map_invalid(t_cube3d	*data, char	**matrix);
 
 #endif

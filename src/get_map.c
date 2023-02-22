@@ -1,9 +1,5 @@
 #include "../includes/cube3d.h"
 
-void	player_position(t_cube3d *data);
-void	player_position_sub(t_cube3d *data, int line);
-
-
 void	get_map(t_cube3d	*data, char	*buff, int fd)
 {
 	char	*tmp;
@@ -77,13 +73,8 @@ void	test_map(t_cube3d	*data)
 	data->map_data.height = matrix_size(matrix);
 	player_position(data);
 	flood_fill(matrix, &(data->map_data), data->player.x, data->player.y);
-	/*
-	if (flood_fill(matrix, &map, player.x, player.y))
-	{
-		data->input_error = true;
-		map_error();
-	}
-	*/
+	if (is_map_invalid(data, matrix))
+		return (set_error(data), matrix_free(matrix));
 	matrix_free(matrix);
 }
 
@@ -96,23 +87,5 @@ void	player_position(t_cube3d *data)
 	{
 		player_position_sub(data, i);
 		i++;
-	}
-}
-
-void	player_position_sub(t_cube3d *data, int line)
-{
-	int		j;
-	char	**m_data;
-
-	j = 0;
-	m_data = data->map;
-	while (m_data[line][j] != '\0')
-	{
-		if (m_data[line][j] == data->start)
-		{
-			data->player.x = j;
-			data->player.y = line;
-		}
-		j++;
 	}
 }

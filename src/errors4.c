@@ -38,3 +38,8 @@ void	no_player(t_cube3d	*data)
 	write(STDERR_FILENO, NO_PLAYER, 17);
 	data->input_error = true;
 }
+
+void	invalid_map(void)
+{
+	write(STDERR_FILENO, INVALID_MAP, 19);
+}

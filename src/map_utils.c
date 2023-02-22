@@ -70,3 +70,20 @@ void	fill_string(char	**str_add, int max_width)
 	*str_add = new_string;
 }
 
+void	player_position_sub(t_cube3d *data, int line)
+{
+	int		j;
+	char	**m_data;
+
+	j = 0;
+	m_data = data->map;
+	while (m_data[line][j] != '\0')
+	{
+		if (m_data[line][j] == data->start)
+		{
+			data->player.x = j;
+			data->player.y = line;
+		}
+		j++;
+	}
+}
