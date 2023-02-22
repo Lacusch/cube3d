@@ -69,3 +69,4 @@ void	fill_string(char	**str_add, int max_width)
 	free(str);
 	*str_add = new_string;
 }
+

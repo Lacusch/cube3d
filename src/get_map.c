@@ -24,8 +24,8 @@ void	get_map(t_cube3d	*data, char	*buff, int fd)
 		close(fd);
 	}
 	check_map(data);
-	// if (!data->input_error)
-	// 	data_printf(data);
+	if (!data->input_error)
+		data_printf(data);
 }
 
 void	check_map(t_cube3d	*data)
@@ -77,6 +77,8 @@ void	test_map(t_cube3d	*data)
 	if (!is_rectange(matrix, map.width))
 		make_recktange(matrix, map.width);
 	map.height = matrix_size(matrix);
+	// player = player_location(matrix);
+	// flood_fill(matrix, &map, player.x, player.y);
 	/*
 	if (flood_fill(matrix, &map, player.x, player.y))
 	{

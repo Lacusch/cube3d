@@ -5,8 +5,8 @@ void	fill(char **map, t_map *dimensions, int x, int y)
 {
 	if (y < 0 || y >= dimensions->height || x < 0 || x >= dimensions->width)
 		return ;
-	if (map[y][x] != '0' && map[y][x] != 'C'
-	&& map[y][x] != 'P' && map[y][x] != 'E')
+	if (map[y][x] != '0' && map[y][x] != 'N'
+	&& map[y][x] != 'S' && map[y][x] != 'E' && map[y][x] != 'W')
 		return ;
 	map[y][x] = 'F';
 	fill(map, dimensions, x + 1, y);
@@ -26,7 +26,5 @@ bool	flood_fill(char **map, t_map *dimentions, int player_x, int player_y)
 	// }
 	printf("filled map is \n");
 	matrix_printf(map);
-	matrix_free(map);
-
 	return (false);
 }

@@ -13,19 +13,6 @@
 # include "errors.h"
 //Declarations
 
-typedef struct s_cube3d
-{
-	char	**map;
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
-	char	start;
-	bool	input_error;
-	int		f_color[3];
-	int		c_color[3];
-}	t_cube3d;
-
 typedef	struct	s_map
 {
 	int		height;
@@ -37,6 +24,20 @@ typedef struct s_player
 	int		x;
 	int		y;
 }	t_player;
+
+typedef struct s_cube3d
+{
+	char		**map;
+	char		*no;
+	char		*so;
+	char		*we;
+	char		*ea;
+	char		start;
+	bool		input_error;
+	int			f_color[3];
+	int			c_color[3];
+}	t_cube3d;
+
 
 void	data_printf(t_cube3d *data);
 void	matrix_printf(char **matrix);
@@ -112,5 +113,9 @@ int		get_max_width(char	**map);
 bool	is_rectange(char	**map, int max_width);
 void	make_recktange(char	**map, int max_width);
 void	fill_string(char	**str_add, int max_width);
+
+
+void	fill(char **map, t_map *dimensions, int x, int y);
+bool	flood_fill(char **map, t_map *dimentions, int player_x, int player_y);
 
 #endif
