@@ -1,7 +1,5 @@
 #include "../includes/cube3d.h"
 
-void	test_map(t_cube3d	*data);
-
 void	get_map(t_cube3d	*data, char	*buff, int fd)
 {
 	char	*tmp;
@@ -34,10 +32,6 @@ void	check_map(t_cube3d	*data)
 {
 	map_valid_chars(data);
 	test_map(data);
-	// fill_map(data->map);
-	if (data->input_error)
-		return ;
-	(void)data;
 }
 
 void	map_valid_chars(t_cube3d	*data)
@@ -59,18 +53,38 @@ void	map_valid_chars(t_cube3d	*data)
 		no_player(data);
 }
 
+/**
+ * @brief Test to see if the map is valid
+ * 
+ * @param data main struct holding the map
+ * 
+ * @todo 1. get the max width of the map and store it in a struct
+ * @todo 2. fill each string with spaces to get to the max witdh (recktange)
+ * @todo 3. get the height of the matrix
+ * @todo 4. run floodfill on the duplicate of map and check if everything is closed of or not
+ * @todo 5. free and set / print error if something is wrong
+ */
 void	test_map(t_cube3d	*data)
 {
-	// char	**matrix;
+	char		**matrix;
+	t_map		map;
+	t_player	player;
 
-	// matrix = matrix_dub(data->map);
-	// matrix_printf(matrix);
-	// matrix_free(matrix);
-
+	if (data->input_error)
+		return ;
+	matrix = matrix_dub(data->map);
 	/*
-	Duplicate the map
-	Get each line to the same lenght (fill it with -1)
-	Get length and width
-	Flood fill (4 way)
+	map.width = get_max_width(map);
+	if (!is_rectange(matrix, map.width))
+		make_recktange(matrix);
+	map.height = matrix_size(matrix);
+	if (flood_fill(matrix, &map, player.x, player.y))
+	{
+		data->input_error = true;
+		map_error();
+	}
 	*/
+	matrix_free(matrix);
+	(void)&player;
+	(void)&map;
 }

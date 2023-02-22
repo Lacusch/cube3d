@@ -32,6 +32,12 @@ typedef	struct	s_map
 	int		width;
 }	t_map;
 
+typedef struct s_player
+{
+	int		x;
+	int		y;
+}	t_player;
+
 void	data_printf(t_cube3d *data);
 void	matrix_printf(char **matrix);
 
@@ -100,5 +106,7 @@ void	map_valid_chars(t_cube3d	*data);
 
 char	**matrix_dub(char	**matrix);
 int		matrix_size(char	**matrix);
+
+void	test_map(t_cube3d	*data);
 
 #endif
