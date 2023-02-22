@@ -1,5 +1,9 @@
 #include "../includes/cube3d.h"
 
+void	player_position(t_cube3d *data);
+void	player_position_sub(t_cube3d *data, int line);
+
+
 void	get_map(t_cube3d	*data, char	*buff, int fd)
 {
 	char	*tmp;
@@ -57,28 +61,22 @@ void	map_valid_chars(t_cube3d	*data)
  * @brief Test to see if the map is valid
  * 
  * @param data main struct holding the map
- * 
- * @todo 1. get the max width of the map and store it in a struct
- * @todo 2. fill each string with spaces to get to the max witdh (recktange)
- * @todo 3. get the height of the matrix
- * @todo 4. run floodfill on the duplicate of map and check if everything is closed of or not
- * @todo 5. free and set / print error if something is wrong
+ * @todo 1. run floodfill on the duplicate of map and check if everything is closed of or not
+ * @todo 2. free and set / print error if something is wrong
  */
 void	test_map(t_cube3d	*data)
 {
 	char		**matrix;
-	t_map		map;
-	t_player	player;
 
 	if (data->input_error)
 		return ;
 	matrix = matrix_dub(data->map);
-	map.width = get_max_width(matrix);
-	if (!is_rectange(matrix, map.width))
-		make_recktange(matrix, map.width);
-	map.height = matrix_size(matrix);
-	// player = player_location(matrix);
-	// flood_fill(matrix, &map, player.x, player.y);
+	data->map_data.width = get_max_width(matrix);
+	if (!is_rectange(matrix, data->map_data.width))
+		make_recktange(matrix, data->map_data.width);
+	data->map_data.height = matrix_size(matrix);
+	player_position(data);
+	// flood_fill(matrix, &(data->map_data), data->player.x, data->player.y);
 	/*
 	if (flood_fill(matrix, &map, player.x, player.y))
 	{
@@ -87,6 +85,34 @@ void	test_map(t_cube3d	*data)
 	}
 	*/
 	matrix_free(matrix);
-	(void)&player;
-	(void)&map;
+}
+
+void	player_position(t_cube3d *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->map_data.height)
+	{
+		player_position_sub(data, i);
+		i++;
+	}
+}
+
+void	player_position_sub(t_cube3d *data, int line)
+{
+	int		j;
+	char	**m_data;
+
+	j = 0;
+	m_data = data->map;
+	while (m_data[line][j] != '\0')
+	{
+		if (m_data[line][j] == data->start)
+		{
+			data->player.x = j;
+			data->player.y = line;
+		}
+		j++;
+	}
 }

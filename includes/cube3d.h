@@ -34,6 +34,8 @@ typedef struct s_cube3d
 	char		*ea;
 	char		start;
 	bool		input_error;
+	t_map		map_data;
+	t_player	player;
 	int			f_color[3];
 	int			c_color[3];
 }	t_cube3d;
