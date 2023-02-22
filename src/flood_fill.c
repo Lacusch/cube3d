@@ -30,10 +30,16 @@ void	fill8(char **map, t_map *dimensions, int x, int y)
 	fill8(map, dimensions, x + 1, y + 1);
 	fill8(map, dimensions, x -1 , y - 1);
 }
-void	flood_fill(char **map, t_map *dimentions, int player_x, int player_y)
+void	flood_fill(char **map, t_cube3d *data, int player_x, int player_y)
 {
+	t_map	*dimentions;
+
+	dimentions = malloc(sizeof(dimentions));
+	(*dimentions).height = data->map_data.height;
+	(*dimentions).width = data->map_data.width;
 	fill8(map, dimentions, player_x, player_y);
 	// printf("filled map is \n");
-	// matrix_printf(map);
+	free(dimentions);
+	matrix_printf(map);
 }
 
