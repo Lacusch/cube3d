@@ -12,7 +12,8 @@ void	data_printf(t_cube3d *data)
 	printf("Celling color is %i %i %i\n", data->c_color[0], \
 		data->c_color[1], data->c_color[2]);
 	printf("\n");
-	printf("map height is %i , witdth is %i\n", data->map_data.height, data->map_data.width);
+	printf("map height is %i ", data->map_data.height);
+	printf(", witdth is %i\n", data->map_data.width);
 	printf("player position is:\nx:%i, y:%i\n", data->player.x, data->player.y);
 	printf("player direction is %c\n", data->start);
 	printf("Map is: \n");

@@ -24,8 +24,8 @@ void	get_map(t_cube3d	*data, char	*buff, int fd)
 		close(fd);
 	}
 	check_map(data);
-	// if (!data->input_error)
-	// 	data_printf(data);
+	if (!data->input_error)
+		data_printf(data);
 }
 
 void	check_map(t_cube3d	*data)
@@ -57,8 +57,6 @@ void	map_valid_chars(t_cube3d	*data)
  * @brief Test to see if the map is valid
  * 
  * @param data main struct holding the map
- * @todo 1. run floodfill on the duplicate of map and check if everything is closed of or not
- * @todo 2. free and set / print error if something is wrong
  */
 void	test_map(t_cube3d	*data)
 {
@@ -66,15 +64,13 @@ void	test_map(t_cube3d	*data)
 
 	if (data->input_error)
 		return ;
+	data->map_data.width = get_max_width(data->map);
+	if (!is_rectange(data->map, data->map_data.width))
+		make_recktange(data->map, data->map_data.width);
 	matrix = matrix_dub(data->map);
-	data->map_data.width = get_max_width(matrix);
-	if (!is_rectange(matrix, data->map_data.width))
-		make_recktange(matrix, data->map_data.width);
 	data->map_data.height = matrix_size(matrix);
 	player_position(data);
 	flood_fill(matrix, data, data->player.x, data->player.y);
-	if (is_map_invalid(data, matrix))
-		return (set_error(data), matrix_free(matrix));
 	matrix_free(matrix);
 }
 
