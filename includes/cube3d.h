@@ -108,5 +108,9 @@ char	**matrix_dub(char	**matrix);
 int		matrix_size(char	**matrix);
 
 void	test_map(t_cube3d	*data);
+int		get_max_width(char	**map);
+bool	is_rectange(char	**map, int max_width);
+void	make_recktange(char	**map, int max_width);
+void	fill_string(char	**str_add, int max_width);
 
 #endif
