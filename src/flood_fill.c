@@ -1,7 +1,7 @@
 
 #include "../includes/cube3d.h"
 
-void	fill(char **map, t_map *dimensions, int x, int y)
+void	fill4(char **map, t_map *dimensions, int x, int y)
 {
 	if (y < 0 || y >= dimensions->height || x < 0 || x >= dimensions->width)
 		return ;
@@ -9,15 +9,30 @@ void	fill(char **map, t_map *dimensions, int x, int y)
 	&& map[y][x] != 'S' && map[y][x] != 'E' && map[y][x] != 'W')
 		return ;
 	map[y][x] = 'F';
-	fill(map, dimensions, x + 1, y);
-	fill(map, dimensions, x - 1, y);
-	fill(map, dimensions, x, y + 1);
-	fill(map, dimensions, x, y - 1);
+	fill4(map, dimensions, x + 1, y);
+	fill4(map, dimensions, x - 1, y);
+	fill4(map, dimensions, x, y + 1);
+	fill4(map, dimensions, x, y - 1);
 }
 
+void	fill8(char **map, t_map *dimensions, int x, int y)
+{
+	if (y < 0 || y >= dimensions->height || x < 0 || x >= dimensions->width)
+		return ;
+	if (map[y][x] != '0' && map[y][x] != 'N'
+	&& map[y][x] != 'S' && map[y][x] != 'E' && map[y][x] != 'W')
+		return ;
+	map[y][x] = 'F';
+	fill8(map, dimensions, x + 1, y);
+	fill8(map, dimensions, x - 1, y);
+	fill8(map, dimensions, x, y + 1);
+	fill8(map, dimensions, x, y - 1);
+	fill8(map, dimensions, x + 1, y + 1);
+	fill8(map, dimensions, x -1 , y - 1);
+}
 bool	flood_fill(char **map, t_map *dimentions, int player_x, int player_y)
 {
-	fill(map, dimentions, player_x, player_y);
+	fill8(map, dimentions, player_x, player_y);
 	// if (ft_completable_test(data, dimentions->height) == true)
 	// {
 	// 	ft_free_char_array(data);

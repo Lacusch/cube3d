@@ -117,7 +117,8 @@ void	make_recktange(char	**map, int max_width);
 void	fill_string(char	**str_add, int max_width);
 
 
-void	fill(char **map, t_map *dimensions, int x, int y);
+void	fill4(char **map, t_map *dimensions, int x, int y);
+void	fill8(char **map, t_map *dimensions, int x, int y);
 bool	flood_fill(char **map, t_map *dimentions, int player_x, int player_y);
 
 #endif

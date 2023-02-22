@@ -76,7 +76,7 @@ void	test_map(t_cube3d	*data)
 		make_recktange(matrix, data->map_data.width);
 	data->map_data.height = matrix_size(matrix);
 	player_position(data);
-	// flood_fill(matrix, &(data->map_data), data->player.x, data->player.y);
+	flood_fill(matrix, &(data->map_data), data->player.x, data->player.y);
 	/*
 	if (flood_fill(matrix, &map, player.x, player.y))
 	{
