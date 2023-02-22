@@ -4,7 +4,8 @@ GLFW3 = lib/MLX42/build/_deps/glfw-build/src/libglfw3.a
 LIBMLX42 = lib/MLX42/build/libmlx42.a
 FRAMEWORK = -framework Cocoa -framework OpenGL -framework IOKit
 EXAMPLE_MAP = maps/pdf_example.cub
-SOURCE = src/debug.c \
+SOURCE = src/check_map.c \
+		src/debug.c \
 		src/free.c \
 		src/get_map.c \
 		src/handle_buffer.c \
@@ -15,7 +16,10 @@ SOURCE = src/debug.c \
 		src/main.c \
 		src/errors.c \
 		src/errors2.c \
-		src/errors3.c 
+		src/errors3.c \
+		src/errors4.c \
+		src/map_utils.c \
+		src/flood_fill.c 
 OBJECT = $(SOURCE:.c=.o)
 LIBFT = lib/libft/libft.a
 NAME = cub3D

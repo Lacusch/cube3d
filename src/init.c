@@ -16,4 +16,8 @@ void	init_data(t_cube3d	*data)
 	data->c_color[0] = -1;
 	data->c_color[1] = -1;
 	data->c_color[2] = -1;
+	data->map_data.height = -1;
+	data->map_data.width = -1;
+	data->player.x = -1;
+	data->player.y = -1;
 }

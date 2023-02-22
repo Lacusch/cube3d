@@ -13,17 +13,31 @@
 # include "errors.h"
 //Declarations
 
+typedef struct s_map
+{
+	int		height;
+	int		width;
+}	t_map;
+
+typedef struct s_player
+{
+	int		x;
+	int		y;
+}	t_player;
+
 typedef struct s_cube3d
 {
-	char	**map;
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
-	char	start;
-	bool	input_error;
-	int		f_color[3];
-	int		c_color[3];
+	char		**map;
+	char		*no;
+	char		*so;
+	char		*we;
+	char		*ea;
+	char		start;
+	bool		input_error;
+	t_map		map_data;
+	t_player	player;
+	int			f_color[3];
+	int			c_color[3];
 }	t_cube3d;
 
 void	data_printf(t_cube3d *data);
@@ -85,5 +99,28 @@ void	double_ea(t_cube3d	*data);
 void	double_color(t_cube3d	*data, char	*line);
 
 void	check_map(t_cube3d	*data);
+
+bool	invalid_line(char	*str, t_cube3d	*data);
+bool	invalid_char_map(void);
+bool	duplicate_player(void);
+void	no_player(t_cube3d	*data);
+void	map_valid_chars(t_cube3d	*data);
+
+char	**matrix_dub(char	**matrix);
+int		matrix_size(char	**matrix);
+
+void	test_map(t_cube3d	*data);
+int		get_max_width(char	**map);
+bool	is_rectange(char	**map, int max_width);
+void	make_recktange(char	**map, int max_width);
+void	fill_string(char	**str_add, int max_width);
+void	player_position(t_cube3d *data);
+void	player_position_sub(t_cube3d *data, int line);
+
+void	fill4(char **map, t_map *dimensions, int x, int y);
+void	fill8(char **map, t_cube3d *data, int x, int y);
+void	flood_fill(char **map, t_cube3d *data, int player_x, int player_y);
+bool	is_map_invalid(t_cube3d	*data, char	**matrix);
+void	invalid_map(void);
 
 #endif

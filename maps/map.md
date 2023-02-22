@@ -22,5 +22,6 @@ map and are up to you to handle.
 - [x] check for dublicates (in meta)
 - [x] scan the map
 - [ ] fill the empty space with some recognisable `char` (-1)
-- [ ] check if The map has only valid characters
-- [ ] check if the map is closed of or not
+- [x] check if The map has only valid characters
+- [x] check for no and duplicate player
+- [ ] check if the map is closed or not
