@@ -31,11 +31,13 @@ void	fill8(char **map, t_cube3d *data, int x, int y)
 	&& map[y][x] != 'S' && map[y][x] != 'E' && map[y][x] != 'W')
 		return (free(dimensions));
 	map[y][x] = 'F';
+	fill8(map, data, x + 1, y + 1);
 	fill8(map, data, x + 1, y);
-	fill8(map, data, x - 1, y);
+	fill8(map, data, x + 1, y - 1);
 	fill8(map, data, x, y + 1);
 	fill8(map, data, x, y - 1);
-	fill8(map, data, x + 1, y + 1);
+	fill8(map, data, x -1 , y + 1);
+	fill8(map, data, x -1, y);
 	fill8(map, data, x - 1, y - 1);
 	free(dimensions);
 }
