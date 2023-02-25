@@ -525,7 +525,7 @@ int32_t	main(int ac, char** av)
 	py = 2 * cube_size_y;
 	pdx = cos(pa);
 	pdy = sin(pa);
-	mlx_texture_t* texture = mlx_load_png("./textures/brick.png");
+	mlx_texture_t* texture = mlx_load_png("./textures/brick`.png");
 	if (!texture)
 		perror("texture error");
 	img_texture = mlx_texture_to_image(mlx, texture);
