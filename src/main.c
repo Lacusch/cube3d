@@ -240,7 +240,7 @@ static void draw_rays_3d(mlx_t *mlx)
 	float vx;	
 	float vy;
 
-	while (r < 300)
+	while (r < mlx->width)
 	{
 		dof = 0;
 		iter = 0;
@@ -374,7 +374,7 @@ static void draw_rays_3d(mlx_t *mlx)
 			float tx = 0;
 			lineO = mlx->height * 0.35 - lineH / 2;
 			// -- Ray iterations
-			int iter_len = mlx->width / 300;
+			int iter_len = mlx->width / mlx->width;
 			// DRAW VERTICAL LINESs
 
 			while (iter < iter_len)
@@ -412,7 +412,7 @@ static void draw_rays_3d(mlx_t *mlx)
 		}
 
 		// incrementing deegree
-		ra += DR / 5;
+		ra += DR / (mlx->width / 60);
 		// Looping in a circle 
 		if (ra < 0)
 			ra += (2 * PI);
@@ -525,7 +525,7 @@ int32_t	main(int ac, char** av)
 	py = 2 * cube_size_y;
 	pdx = cos(pa);
 	pdy = sin(pa);
-	mlx_texture_t* texture = mlx_load_png("./textures/eagle.png");
+	mlx_texture_t* texture = mlx_load_png("./textures/brick.png");
 	if (!texture)
 		perror("texture error");
 	img_texture = mlx_texture_to_image(mlx, texture);
