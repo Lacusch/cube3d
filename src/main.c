@@ -6,8 +6,8 @@
 #include <memory.h>
 #include "../includes/cube3d.h"
 
-#define WIDTH 1024
-#define HEIGHT 512
+#define WIDTH 1200
+#define HEIGHT 560
 #define PI 3.1415926535
 #define P2 PI / 2
 #define P3 3 * PI /2
@@ -120,19 +120,15 @@ static char	**muck_map(void)
 	char	**res;
 
 	res = malloc(sizeof(char **) * (map_size_y + 1));
-	res[0] = "111111111111";
-	res[1] = "100000000001";
-	res[2] = "100000000001";
-	res[3] = "100000000001";
-	res[4] = "100000000001";
-	res[5] = "100000000001";
-	res[6] = "100000000001";
-	res[7] = "100000100001";
-	res[8] = "100000000001";
-	res[9] = "100000000001";
-	res[10] = "100000000001";
-	res[11] = "111111111111";
-	res[12] = NULL;
+	res[0] = "11111111";
+	res[1] = "10000001";
+	res[2] = "10000001";
+	res[3] = "10000001";
+	res[4] = "10010001";
+	res[5] = "10000001";
+	res[6] = "10000001";
+	res[7] = "11111111";
+	res[8] = NULL;
 	// res[0] = "111111111111111111111111111111";
 	// res[1] = "100000000000000000000000000001";
 	// res[2] = "100000000000000000000000000001";
@@ -512,8 +508,8 @@ int32_t	main(int ac, char** av)
 	mlx_t			*mlx;
 
 	init_data(&data);
-	map_size_y = 12;
-	map_size_x = 12;
+	map_size_y = 8;
+	map_size_x = 8;
 	g_width = WIDTH;
 	g_height = HEIGHT;
 	map = muck_map();
