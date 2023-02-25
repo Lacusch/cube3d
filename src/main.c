@@ -6,8 +6,8 @@
 #include <memory.h>
 #include "../includes/cube3d.h"
 
-#define WIDTH 1680
-#define HEIGHT 1080
+#define WIDTH 1024
+#define HEIGHT 512
 #define PI 3.1415926535
 #define P2 PI / 2
 #define P3 3 * PI /2
@@ -58,6 +58,7 @@ static int map_cube_size(mlx_t *mlx)
 		px = player_pos_x * cube_size_x;
 		py = player_pos_y * cube_size_y;
 	}
+	printf("cube_size_x: %i\n", cube_size_x);
 	return (changed);
 }
 
@@ -119,27 +120,50 @@ static char	**muck_map(void)
 	char	**res;
 
 	res = malloc(sizeof(char **) * (map_size_y + 1));
-	res[0] = "11111111111111111111";
-	res[1] = "10000010000000000001";
-	res[2] = "10000010000000000001";
-	res[3] = "10000010000000000001";
-	res[4] = "10000010000000000001";
-	res[5] = "10000010000000000001";
-	res[6] = "10000010000000000001";
-	res[7] = "10000011111100000001";
-	res[8] = "10000000000000000001";
-	res[9] = "10000000000000000001";
-	res[10] = "10000000000000000001";
-	res[11] = "10000000000000000001";
-	res[12] = "10000000000000000001";
-	res[13] = "10000000000000000001";
-	res[14] = "10000000000000000001";
-	res[15] = "10000000000000000001";
-	res[16] = "10000000000000000001";
-	res[17] = "10000000000000000001";
-	res[18] = "10000000000000000001";
-	res[19] = "11111111111111111111";
-	res[20] = NULL;
+	res[0] = "111111111111";
+	res[1] = "100000000001";
+	res[2] = "100000000001";
+	res[3] = "100000000001";
+	res[4] = "100000000001";
+	res[5] = "100000000001";
+	res[6] = "100000000001";
+	res[7] = "100000100001";
+	res[8] = "100000000001";
+	res[9] = "100000000001";
+	res[10] = "100000000001";
+	res[11] = "111111111111";
+	res[12] = NULL;
+	// res[0] = "111111111111111111111111111111";
+	// res[1] = "100000000000000000000000000001";
+	// res[2] = "100000000000000000000000000001";
+	// res[3] = "100000000000000000000000000001";
+	// res[4] = "100000000000000000000000000001";
+	// res[5] = "100000000000000000000000000001";
+	// res[6] = "100000000000000000000000000001";
+	// res[7] = "100000000000000000000000000001";
+	// res[8] = "100000000000000000000000000001";
+	// res[9] = "100000000000000000000000000001";
+	// res[10] = "100000000000000000000000000001";
+	// res[11] = "100000000000000000000000000001";
+	// res[12] = "100000000000000000000000000001";
+	// res[13] = "100000000000000000000000000001";
+	// res[14] = "100000000000000000000000000001";
+	// res[15] = "100000000000010000000000000001";
+	// res[16] = "100000000000000000000000000001";
+	// res[17] = "100000000000000000000000000001";
+	// res[18] = "100000000000000000000000000001";
+	// res[19] = "100000000000000000000000000001";
+	// res[20] = "100000000000000000000000000001";
+	// res[21] = "100000000000000000000000000001";
+	// res[22] = "100000000000000000000000000001";
+	// res[23] = "100000000000000000000000000001";
+	// res[24] = "100000000000000000000000000001";
+	// res[25] = "100000000000000000000000000001";
+	// res[26] = "100000000000000000000000000001";
+	// res[27] = "100000000000000000000000000001";
+	// res[28] = "100000000000000000000000000001";
+	// res[29] = "111111111111111111111111111111";
+	// res[30] = NULL;
 	// res[9] = "1000000000000000000000000000000000000001";
 	// res[10] = "1000000000000000000000000000000000000001";
 	// res[11] = "1000000000000000000000000000000000000001";
@@ -187,7 +211,7 @@ static float dist(float ax, float ay, float bx, float by)
 static void draw_rays_3d(mlx_t *mlx)
 {
 	int		r = 0;
-	int		iter = 0;
+	float		iter = 0;
 	int 	mx;
 	int 	my;
 	int 	dof;
@@ -334,6 +358,7 @@ static void draw_rays_3d(mlx_t *mlx)
 			rx = hx;
 			ry = hy;
 			disT = disH;
+			shade = 1;
 		}
 		if (mode == 1)	
 			ft_draw_line(img, px, py, (int)rx, (int)ry, 0x00FF00FF);
@@ -350,40 +375,34 @@ static void draw_rays_3d(mlx_t *mlx)
 			disT = disT * cos(ca);
 			// End fish eye
 			lineH = (cube_size_y * mlx->height * 0.66) / disT;
+			float tx = 0;
 			lineO = mlx->height * 0.35 - lineH / 2;
 			// -- Ray iterations
 			int iter_len = mlx->width / 300;
-			float ty_step = img_texture->height / lineH;
-			// iter_len *= 1.35;
+			// DRAW VERTICAL LINESs
+
 			while (iter < iter_len)
 			{
 				ft_draw_line(img, (r * iter_len) + iter, 0, (r * iter_len) + iter, lineO, 0x87CEEB); // ceiling
 				ft_draw_line(img, (r * iter_len) + iter, mlx->width, (r * iter_len) + iter, lineO + lineH, 0x808080FF); // floor
 				// Mapping to texture
 				int y = 0;
+				float ty_step = img_texture->height / lineH;
 				float ty = ty_step;
-				float tx = 0;
-
 				if (shade == 1)
 				{
-					// printf("shade = 1\n");
-					tx = ((int)rx / 2) % img_texture->width;
-					if (ra > 180)
-						tx = img_texture->width - 1 - tx;
+					printf("rx: %f\n", rx);
+					tx = (int)((img_texture->width * rx) / cube_size_x) % img_texture->width;
+					printf("shade = 1 tx: %f\n", tx);
 				}
-				if (shade == 0)
+				else
 				{
-					// printf("shade = 2\n");
-					tx = ((int)ry / 2) % img_texture->height;
-					if (ra > 270 && ra < 90)
-						tx = img_texture->width - 1 - tx;
+					tx = (int)((img_texture->height * ry) / cube_size_y) % img_texture->width;
 				}
 				while (y < lineH)
 				{
 					int BPP;
 					BPP = sizeof(int32_t);
-					// printf("ty: %f\n", ty);
-					// printf("Accessing pixel: %i\n", (BPP * (((int)ty) * img_texture->height) + ((int)tx * BPP)) + 0);
 					int rc = img_texture->pixels[(BPP * (((int)ty) * img_texture->height) + ((int)tx * BPP)) + 0];
 					int gc = img_texture->pixels[(BPP * (((int)ty) * img_texture->height) + ((int)tx * BPP)) + 1];
 					int bc = img_texture->pixels[(BPP * (((int)ty) * img_texture->height) + ((int)tx * BPP)) + 2];
@@ -395,6 +414,7 @@ static void draw_rays_3d(mlx_t *mlx)
 				iter++;
 			}
 		}
+
 		// incrementing deegree
 		ra += DR / 5;
 		// Looping in a circle 
@@ -492,8 +512,8 @@ int32_t	main(int ac, char** av)
 	mlx_t			*mlx;
 
 	init_data(&data);
-	map_size_y = 20;
-	map_size_x = 20;
+	map_size_y = 12;
+	map_size_x = 12;
 	g_width = WIDTH;
 	g_height = HEIGHT;
 	map = muck_map();
@@ -505,11 +525,11 @@ int32_t	main(int ac, char** av)
 	map_cube_size(mlx);
 	printf("%i x %i\n", cube_size_x, cube_size_y);
 	pa = P2;
-	px = 3 * cube_size_x;
-	py = 3 * cube_size_y;
+	px = 2 * cube_size_x;
+	py = 2 * cube_size_y;
 	pdx = cos(pa);
 	pdy = sin(pa);
-	mlx_texture_t* texture = mlx_load_png("./textures/bluestone.png");
+	mlx_texture_t* texture = mlx_load_png("./textures/eagle.png");
 	if (!texture)
 		perror("texture error");
 	img_texture = mlx_texture_to_image(mlx, texture);
