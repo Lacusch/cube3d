@@ -12,6 +12,7 @@ SOURCE = src/free.c			\
 		src/key_handler.c 	\
 		src/cube_utils.c 	\
 		src/rgba_utils.c 	\
+		src/calculation_utils.c \
 		src/utils.c		
 OBJECT = $(SOURCE:.c=.o)
 LIBFT = lib/libft/libft.a

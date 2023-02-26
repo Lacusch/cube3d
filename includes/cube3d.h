@@ -51,6 +51,8 @@ void	draw_background(mlx_t *mlx, mlx_image_t* img, char **map);
 void	hook(void* param);
 /** cube_utils.c */
 int		map_cube_size(mlx_t *mlx);
+/** calculation_utils */
+void 	reset_360(float *val);
 /** main */
 void	draw(mlx_t	*mlx);
 

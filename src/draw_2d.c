@@ -1,7 +1,7 @@
 #include "../includes/cube3d.h"
 
-extern int	map_size_x;
-extern int	map_size_y;
+extern int	g_map_size_x;
+extern int	g_map_size_y;
 
 static void	paint_pixels(mlx_t *mlx, int i, int j, mlx_image_t *img, int is_wall)
 {
@@ -12,8 +12,8 @@ static void	paint_pixels(mlx_t *mlx, int i, int j, mlx_image_t *img, int is_wall
 
 	x = 0;
 	y = 0;
-	x_lim = mlx->width / map_size_x;
-	y_lim = mlx->height / map_size_y;
+	x_lim = mlx->width / g_map_size_x;
+	y_lim = mlx->height / g_map_size_y;
 	while (x < x_lim)
 	{
 		y = 0;
@@ -36,10 +36,10 @@ void	draw_background(mlx_t *mlx, mlx_image_t *img, char **map)
 	int	y;
 
 	y = 0;
-	while (y < map_size_y)
+	while (y < g_map_size_y)
 	{
 		x = 0;
-		while (x < map_size_x)
+		while (x < g_map_size_x)
 		{
 			if (map[y][x] == '1')
 			{
