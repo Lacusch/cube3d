@@ -1,22 +1,35 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 GLFW3 = lib/MLX42/build/_deps/glfw-build/src/libglfw3.a
 LIBMLX42 = lib/MLX42/build/libmlx42.a
 FRAMEWORK = -framework Cocoa -framework OpenGL -framework IOKit
-SOURCE = src/free.c			\
-		src/init.c 			\
-		src/main.c 			\
-		src/parcing.c 		\
+EXAMPLE_MAP = maps/pdf_example.cub
+SOURCE = src/check_map.c \
+		src/debug.c \
+		src/free.c \
+		src/get_map.c \
+		src/handle_buffer.c \
+		src/init.c \
+		src/input_utils.c \
+		src/input.c \
+		src/input2.c \
+		src/main.c \
+		src/errors.c \
+		src/errors2.c \
+		src/errors3.c \
+		src/errors4.c \
+		src/map_utils.c \
+		src/flood_fill.c
 		src/draw_utils.c	\
-		src/draw_2d.c 		\
-		src/draw_3d.c 		\
-		src/key_handler.c 	\
-		src/cube_utils.c 	\
-		src/rgba_utils.c 	\
-		src/calculation_utils.c \
-		src/muck_map.c 			\
-		src/safe_check.c 		\
-		src/utils.c		
+       	src/draw_2d.c 		\
+        src/draw_3d.c 		\
+        src/key_handler.c 	\
+        src/cube_utils.c 	\
+        src/rgba_utils.c 	\
+        src/calculation_utils.c \
+        src/muck_map.c 			\
+        src/safe_check.c 		\
+        src/utils.c
 OBJECT = $(SOURCE:.c=.o)
 LIBFT = lib/libft/libft.a
 NAME = cub3D
@@ -29,7 +42,7 @@ $(LIBMLX42):
     else \
 	echo "Creating Makefiles." && \
 	sleep 1 && \
-	cmake -S lib/MLX42/ -B lib/MLX42/build && \
+	cmake -S lib/MLX42/ -B lib/MLX42/build -DGLFW_FETCH=1 && \
 	echo "Building glfw3 and MLX42." && \
 	sleep 1; \
 	make -C lib/MLX42/build; \
@@ -40,19 +53,13 @@ $(LIBFT):
 	@make -C lib/libft
 
 $(NAME): $(LIBFT) $(LIBMLX42) $(OBJECT)
-	@$(CC) $(LIBFT) -fsanitize=address $(OBJECT) $(LIBMLX42) $(GLFW3) $(FRAMEWORK) -o $(NAME)
+	@$(CC) $(LIBFT) $(OBJECT) $(LIBMLX42) $(GLFW3) $(FRAMEWORK) -o $(NAME)
 	@echo "$(NAME) created."
 
 clean:
 	@echo "Cleaning."
 	@rm -rf src/*.o
 	@make clean -C lib/libft
-ifneq (,$(wildcard ./lib/MLX42/build))
-	@make clean -C ./lib/MLX42/build/_deps/glfw-build
-	@make clean -C ./lib/MLX42/build
-else
-	
-endif
 
 fclean: clean
 	@echo "Removing executable."
@@ -62,8 +69,8 @@ fclean: clean
 re: fclean all
 
 run: $(NAME)
-	@echo "Running $(NAME) with example map"
-	@./$(NAME) maps./example.cub && \
+	@echo "Running $(NAME) with: $(EXAMPLE_MAP)"
+	@./$(NAME) $(EXAMPLE_MAP) && \
 	echo "Thanks for playing!"
 .PHONY:
 	all clean fclean re run

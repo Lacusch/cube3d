@@ -3,7 +3,6 @@
 // See README in the root project for more information.
 // -----------------------------------------------------------------------------
 
-#include <memory.h>
 #include "../includes/cube3d.h"
 
 mlx_image_t			*g_img;
@@ -131,14 +130,14 @@ void draw_rays_3d(mlx_t *mlx)
 				rays.rx += rays.xo;
 				rays.ry += rays.yo;
 				rays.dof += 1;
-			} 
+			}
 		}
 		// vertical wall hit
 		if (rays.disV < rays.disH)
 		{
 			if (rays.ra > P2 && rays.ra < P3)
 				g_tmp = g_texture_we;
-			else 
+			else
 				g_tmp = g_texture_ea;
 			rays.rx = rays.vx;
 			rays.ry = rays.vy;
@@ -157,7 +156,7 @@ void draw_rays_3d(mlx_t *mlx)
 				rays.disT = rays.disH;
 				rays.shade = 1;
 			}
-		if (g_mode == 1)	
+		if (g_mode == 1)
 			ft_draw_line(g_img, g_px, g_py, (int)rays.rx, (int)rays.ry, 0x00FF00FF);
 		else
 		{
@@ -206,7 +205,7 @@ void draw_rays_3d(mlx_t *mlx)
 		}
 		// incrementing deegree
 		rays.ra += DEGREE / (mlx->width / 60);
-		// Looping in a circle 
+		// Looping in a circle
 		reset_360(&rays.ra);
 		rays.r++;
 	}
@@ -224,27 +223,38 @@ int32_t	main(int ac, char** av)
 	g_height = 1280;
 	g_map = muck_map();
 	if (check_arg(ac, av))
-		return (1);
+	{
+		// system("leaks cub3D");
+		return (EXIT_FAILURE);
+	}
+	input_data(&data, av[1]);
+	if (data.input_error)
+	{
+		data_free(&data);
+		// system("leaks cub3D");
+		return (EXIT_FAILURE);
+	}
 	if (!(mlx = mlx_init(g_width, g_height, "CUB3D", true)))
-		return (ft_error());
-	g_img = mlx_new_image(mlx, g_width, g_height);
-	if (!g_img)
-		perror("Error creating img");
-	map_cube_size(mlx);
-	g_mode = 1;
-	g_pa = -P2;
-	g_px = 2 * g_cube_size_x;
-	g_py = 2 * g_cube_size_y;
-	g_pdx = cos(g_pa);
-	g_pdy = sin(g_pa);
-	g_texture_we = mlx_load_png("./textures/eagle.png");
-	g_texture_ea = mlx_load_png("./textures/brick.png");
-	g_texture_so = mlx_load_png("./textures/greystone.png");
-	g_texture_no = mlx_load_png("./textures/wood.png");
-	draw_3d(mlx);
-	mlx_loop_hook(mlx, &hook, mlx);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
+    		return (ft_error());
+    	g_img = mlx_new_image(mlx, g_width, g_height);
+    	if (!g_img)
+    		perror("Error creating img");
+    	map_cube_size(mlx);
+    	g_mode = 1;
+    	g_pa = -P2;
+    	g_px = 2 * g_cube_size_x;
+    	g_py = 2 * g_cube_size_y;
+    	g_pdx = cos(g_pa);
+    	g_pdy = sin(g_pa);
+    	g_texture_we = mlx_load_png("./textures/eagle.png");
+    	g_texture_ea = mlx_load_png("./textures/brick.png");
+    	g_texture_so = mlx_load_png("./textures/greystone.png");
+    	g_texture_no = mlx_load_png("./textures/wood.png");
+    	draw_3d(mlx);
+    	mlx_loop_hook(mlx, &hook, mlx);
+    	mlx_loop(mlx);
+    	mlx_terminate(mlx);
 	data_free(&data);
+	// system("leaks cub3D");
 	return (EXIT_SUCCESS);
 }
