@@ -7,7 +7,11 @@ SOURCE = src/free.c			\
 		src/init.c 			\
 		src/main.c 			\
 		src/parcing.c 		\
-		src/draw.c			\
+		src/draw_utils.c	\
+		src/draw_2d.c 		\
+		src/key_handler.c 	\
+		src/cube_utils.c 	\
+		src/rgba_utils.c 	\
 		src/utils.c		
 OBJECT = $(SOURCE:.c=.o)
 LIBFT = lib/libft/libft.a
