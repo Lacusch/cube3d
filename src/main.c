@@ -32,74 +32,6 @@ static int ft_error(void)
 	return (EXIT_FAILURE);
 }
 
-static char	safe_map_read(char **map, int x, int y)
-{
-	if (x > g_map_size_x || y > g_map_size_y)
-		return (' ');
-	return (map[x][y]);
-}
-
-static char	**muck_map(void)
-{
-	char	**res;
-
-	res = malloc(sizeof(char **) * (g_map_size_y + 1));
-	res[0] = "111111111111111111111111111111";
-	res[1] = "100000000000000000000000000001";
-	res[2] = "100000000000000000000000000001";
-	res[3] = "100000000000000000000000000001";
-	res[4] = "100000000000000000000000000001";
-	res[5] = "100000000000000000000000000001";
-	res[6] = "100000000000000000000000000001";
-	res[7] = "100000000000N00000000000000001";
-	res[8] = "100000000000000000000000000001";
-	res[9] = "100000000000000000000000000001";
-	res[10] = "100000000000000000000000000001";
-	res[11] = "100000000000000000000000000001";
-	res[12] = "100000000000000000000000000001";
-	res[13] = "100000000000000000000000000001";
-	res[14] = "100000000000000000000000000001";
-	res[15] = "100000000000011111111111111111";
-	res[16] = "100000000000011000000000000001";
-	res[17] = "100000000000000000000000000001";
-	res[18] = "100000000000000000000000000001";
-	res[19] = "100000000000000000000000000001";
-	res[20] = "100000000000000000000000000001";
-	res[21] = "100000000000000000000000000001";
-	res[22] = "100000000000000000000000000001";
-	res[23] = "100000000000000000000000000001";
-	res[24] = "100000000000000000000000000001";
-	res[25] = "100000000000000000000000000001";
-	res[26] = "100000000000000000000000000001";
-	res[27] = "100000000000000000000000000001";
-	res[28] = "100000000000000000000000000001";
-	res[29] = "111111111111111111111111111111";
-	res[30] = NULL;
-	return (res);
-}
-
-static float dist(float ax, float ay, float bx, float by)
-{
-	float a;
-	float b;
-
-	a = (bx - ax) * (bx- ax);
-	b = (by - ay) * (by - ay);
-	return (sqrt(a + b));
-}
-
-static int sget_pixel(mlx_texture_t *texture, int pixel)
-{
-	int BPP;
-	int max_allowed;
-	BPP = sizeof(int32_t);
-
-	max_allowed = texture->width * texture->height * 4;
-	if (pixel > max_allowed)
-		return 0;
-	return (texture->pixels[pixel]);
-}
-
 static void draw_rays_3d(mlx_t *mlx)
 {
 	int		r = 0;
@@ -121,12 +53,7 @@ static void draw_rays_3d(mlx_t *mlx)
 	int		shade = 1;
 
 	ra = g_pa - DEGREE * 30;
-	if (ra < 0)
-		ra += (2 * PI);
-	if (ra > (2 * PI))
-		ra -= (2 * PI);
-	(void) aTan;
-	(void) nTan;
+	reset_360(&ra);
 
 	float disH;
 	float hx;
@@ -176,7 +103,7 @@ static void draw_rays_3d(mlx_t *mlx)
 			{
 				hx = rx;
 				hy = ry;
-				disH = dist(g_px, g_py, hx, hy);
+				disH = hyp_dist(g_px, g_py, hx, hy);
 				dof = g_map_size_x;
 			}
 			else
@@ -218,7 +145,7 @@ static void draw_rays_3d(mlx_t *mlx)
 			{
 				vx = rx;
 				vy = ry;
-				disV = dist(g_px, g_py, vx, vy);
+				disV = hyp_dist(g_px, g_py, vx, vy);
 				dof = g_map_size_y;
 			}
 			else
@@ -288,10 +215,10 @@ static void draw_rays_3d(mlx_t *mlx)
 				{
 					int BPP;
 					BPP = sizeof(int32_t);
-					int rc = sget_pixel(g_tmp, (BPP * (((int)ty) * g_tmp->height) + ((int)tx * BPP)) + 0);
-					int gc = sget_pixel(g_tmp, (BPP * (((int)ty) * g_tmp->height) + ((int)tx * BPP)) + 1);
-					int bc = sget_pixel(g_tmp, (BPP * (((int)ty) * g_tmp->height) + ((int)tx * BPP)) + 2);
-					int ac = sget_pixel(g_tmp, (BPP * (((int)ty) * g_tmp->height) + ((int)tx * BPP)) + 3);
+					int rc = safe_get_pixel(g_tmp, (BPP * (((int)ty) * g_tmp->height) + ((int)tx * BPP)) + 0);
+					int gc = safe_get_pixel(g_tmp, (BPP * (((int)ty) * g_tmp->height) + ((int)tx * BPP)) + 1);
+					int bc = safe_get_pixel(g_tmp, (BPP * (((int)ty) * g_tmp->height) + ((int)tx * BPP)) + 2);
+					int ac = safe_get_pixel(g_tmp, (BPP * (((int)ty) * g_tmp->height) + ((int)tx * BPP)) + 3);
 					ft_pixel_put(g_img, (r * iter_len) + iter, lineO + y, get_rgba(rc, gc, bc, ac));
 					ty += ty_step;
 					y++;
@@ -302,10 +229,7 @@ static void draw_rays_3d(mlx_t *mlx)
 		// incrementing deegree
 		ra += DEGREE / (mlx->width / 60);
 		// Looping in a circle 
-		if (ra < 0)
-			ra += (2 * PI);
-		if (ra > (2 * PI))
-			ra -= (2 * PI);
+		reset_360(&ra);
 		r++;
 	}
 }

@@ -53,8 +53,13 @@ void	hook(void* param);
 int		map_cube_size(mlx_t *mlx);
 /** calculation_utils */
 void 	reset_360(float *val);
+float 	hyp_dist(float ax, float ay, float bx, float by);
+/** muck_map */
+char	**muck_map(void);
+/** safe_check */
+char    safe_map_read(char **map, int x, int y);
+int		safe_get_pixel(mlx_texture_t *texture, int pixel);
 /** main */
 void	draw(mlx_t	*mlx);
-
 
 #endif

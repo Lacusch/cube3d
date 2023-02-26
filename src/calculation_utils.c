@@ -8,3 +8,13 @@ void reset_360(float *val)
 		*val -= (2 * PI);
 	return ;
 }
+
+float hyp_dist(float ax, float ay, float bx, float by)
+{
+	float a;
+	float b;
+
+	a = (bx - ax) * (bx- ax);
+	b = (by - ay) * (by - ay);
+	return (sqrt(a + b));
+}
