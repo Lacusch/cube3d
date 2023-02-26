@@ -9,6 +9,7 @@ SOURCE = src/free.c			\
 		src/parcing.c 		\
 		src/draw_utils.c	\
 		src/draw_2d.c 		\
+		src/draw_3d.c 		\
 		src/key_handler.c 	\
 		src/cube_utils.c 	\
 		src/rgba_utils.c 	\

@@ -16,7 +16,7 @@ static void	handle_view(mlx_t *mlx, enum keys key_pressed)
 		g_mode = 0;
 	else if (key_pressed == MLX_KEY_N)
 		g_mode = 1;
-	return (draw(mlx));
+	return (draw_3d(mlx));
 }
 
 static void	add_rotation(mlx_t *mlx, enum keys key_pressed)
@@ -37,7 +37,7 @@ static void	add_rotation(mlx_t *mlx, enum keys key_pressed)
 		g_pdx = cos(g_pa) * 5;
 		g_pdy = sin(g_pa) * 5;
 	}
-	return (draw(mlx));
+	return (draw_3d(mlx));
 }
 
 static int	valid_movement(mlx_t *mlx)
@@ -78,12 +78,12 @@ static void	handle_movement(mlx_t *mlx)
 	if (c_map == '1' || c_map == ' ')
 	{
 		if (mlx_is_key_down(mlx, MLX_KEY_LEFT) || mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-			return (draw(mlx));
+			return (draw_3d(mlx));
 		return ;
 	}
 	g_px += next_pos_x;
 	g_py += next_pos_y;
-	return (draw(mlx));
+	return (draw_3d(mlx));
 }
 
 void	hook(void *param)
@@ -104,6 +104,6 @@ void	hook(void *param)
 	if (valid_movement(mlx))
 		return (handle_movement(mlx));
 	if (map_cube_size(mlx))
-		return (draw(mlx));
+		return (draw_3d(mlx));
 	return ;
 }

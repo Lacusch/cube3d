@@ -32,7 +32,7 @@ static int ft_error(void)
 	return (EXIT_FAILURE);
 }
 
-static void draw_rays_3d(mlx_t *mlx)
+void draw_rays_3d(mlx_t *mlx)
 {
 	int		r = 0;
 	float		iter = 0;
@@ -234,16 +234,6 @@ static void draw_rays_3d(mlx_t *mlx)
 	}
 }
 
-void	draw(mlx_t	*mlx)
-{
-	mlx_delete_image(mlx, g_img);
-	g_img = mlx_new_image(mlx, g_width, g_height);
-	if (g_mode == 1)
-		draw_background(mlx, g_img, g_map);
-	draw_rays_3d(mlx);
-	mlx_image_to_window(mlx, g_img, 0, 0);
-}
-
 int32_t	main(int ac, char** av)
 {
 	t_cube3d		data;
@@ -263,7 +253,8 @@ int32_t	main(int ac, char** av)
 	if (!g_img)
 		perror("Error creating img");
 	map_cube_size(mlx);
-	g_pa = 0;
+	g_mode = 1;
+	g_pa = -P2;
 	g_px = 2 * g_cube_size_x;
 	g_py = 2 * g_cube_size_y;
 	g_pdx = cos(g_pa);
@@ -272,7 +263,7 @@ int32_t	main(int ac, char** av)
 	g_texture_ea = mlx_load_png("./textures/brick.png");
 	g_texture_so = mlx_load_png("./textures/greystone.png");
 	g_texture_no = mlx_load_png("./textures/wood.png");
-	draw(mlx);
+	draw_3d(mlx);
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);

@@ -30,6 +30,11 @@ typedef struct s_cube3d
 	char	*C_color;
 }	t_cube3d;
 
+// typdef struct s_rays
+// {
+
+// }	t_rays;
+
 bool	check_arg(int ac, char **av);
 void	init_data(t_cube3d	*data);
 void	matrix_free(char **matrix);
@@ -59,7 +64,9 @@ char	**muck_map(void);
 /** safe_check */
 char    safe_map_read(char **map, int x, int y);
 int		safe_get_pixel(mlx_texture_t *texture, int pixel);
+/** draw_3d */
+void	draw_3d(mlx_t	*mlx);
 /** main */
-void	draw(mlx_t	*mlx);
+void	draw_rays_3d(mlx_t *mlx);
 
 #endif
