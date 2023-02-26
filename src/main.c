@@ -6,15 +6,15 @@
 #include <memory.h>
 #include "../includes/cube3d.h"
 
-#define WIDTH 1200
-#define HEIGHT 560
+#define WIDTH 1680
+#define HEIGHT 1280
 #define PI 3.1415926535
 #define P2 PI / 2
 #define P3 3 * PI /2
 #define DR PI / 180
 
 static mlx_image_t* img;
-static mlx_image_t* img_texture;
+static mlx_texture_t* texture_1;
 static int map_size_x = 0;
 static int map_size_y = 0;
 static int cube_size_x = 0;
@@ -58,7 +58,6 @@ static int map_cube_size(mlx_t *mlx)
 		px = player_pos_x * cube_size_x;
 		py = player_pos_y * cube_size_y;
 	}
-	printf("cube_size_x: %i\n", cube_size_x);
 	return (changed);
 }
 
@@ -202,6 +201,18 @@ static float dist(float ax, float ay, float bx, float by)
 	a = (bx - ax) * (bx- ax);
 	b = (by - ay) * (by - ay);
 	return (sqrt(a + b));
+}
+
+static int sget_pixel(mlx_texture_t *texture, int pixel)
+{
+	int BPP;
+	int max_allowed;
+	BPP = sizeof(int32_t);
+
+	max_allowed = texture->width * texture->height * 4;
+	if (pixel > max_allowed)
+		return 0;
+	return (texture->pixels[pixel]);
 }
 
 static void draw_rays_3d(mlx_t *mlx)
@@ -376,33 +387,26 @@ static void draw_rays_3d(mlx_t *mlx)
 			// -- Ray iterations
 			int iter_len = mlx->width / mlx->width;
 			// DRAW VERTICAL LINESs
-
 			while (iter < iter_len)
 			{
 				ft_draw_line(img, (r * iter_len) + iter, 0, (r * iter_len) + iter, lineO, 0x87CEEB); // ceiling
 				ft_draw_line(img, (r * iter_len) + iter, mlx->width, (r * iter_len) + iter, lineO + lineH, 0x808080FF); // floor
 				// Mapping to texture
 				int y = 0;
-				float ty_step = img_texture->height / lineH;
+				float ty_step = texture_1->height / lineH;
 				float ty = ty_step;
 				if (shade == 1)
-				{
-					printf("rx: %f\n", rx);
-					tx = (int)((img_texture->width * rx) / cube_size_x) % img_texture->width;
-					printf("shade = 1 tx: %f\n", tx);
-				}
+					tx = (int)((texture_1->width * rx) / cube_size_x) % texture_1->width;
 				else
-				{
-					tx = (int)((img_texture->height * ry) / cube_size_y) % img_texture->width;
-				}
+					tx = (int)((texture_1->height * ry) / cube_size_y) % texture_1->height;
 				while (y < lineH)
 				{
 					int BPP;
 					BPP = sizeof(int32_t);
-					int rc = img_texture->pixels[(BPP * (((int)ty) * img_texture->height) + ((int)tx * BPP)) + 0];
-					int gc = img_texture->pixels[(BPP * (((int)ty) * img_texture->height) + ((int)tx * BPP)) + 1];
-					int bc = img_texture->pixels[(BPP * (((int)ty) * img_texture->height) + ((int)tx * BPP)) + 2];
-					int ac = img_texture->pixels[(BPP * (((int)ty) * img_texture->height) + ((int)tx * BPP)) + 3];
+					int rc = sget_pixel(texture_1, (BPP * (((int)ty) * texture_1->height) + ((int)tx * BPP)) + 0);
+					int gc = sget_pixel(texture_1, (BPP * (((int)ty) * texture_1->height) + ((int)tx * BPP)) + 1);
+					int bc = sget_pixel(texture_1, (BPP * (((int)ty) * texture_1->height) + ((int)tx * BPP)) + 2);
+					int ac = sget_pixel(texture_1, (BPP * (((int)ty) * texture_1->height) + ((int)tx * BPP)) + 3);
 					ft_pixel_put(img, (r * iter_len) + iter, lineO + y, get_rgba(rc, gc, bc, ac));
 					ty += ty_step;
 					y++;
@@ -410,7 +414,6 @@ static void draw_rays_3d(mlx_t *mlx)
 				iter++;
 			}
 		}
-
 		// incrementing deegree
 		ra += DR / (mlx->width / 60);
 		// Looping in a circle 
@@ -451,8 +454,8 @@ static void handle_movement(enum keys key)
 		pa_cpy -= (2 * PI);
 	co = sin(pa_cpy);
 	ca = cos(pa_cpy);
-	px += ca * 10;
-	py += co * 10; 
+	px += ca * 20;
+	py += co * 20; 
 }
 
 void hook(void* param)
@@ -519,17 +522,14 @@ int32_t	main(int ac, char** av)
 		return (ft_error());
 	img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	map_cube_size(mlx);
-	printf("%i x %i\n", cube_size_x, cube_size_y);
 	pa = P2;
 	px = 2 * cube_size_x;
 	py = 2 * cube_size_y;
 	pdx = cos(pa);
 	pdy = sin(pa);
-	mlx_texture_t* texture = mlx_load_png("./textures/brick`.png");
-	if (!texture)
+	texture_1 = mlx_load_png("./textures/eagle.png");
+	if (!texture_1)
 		perror("texture error");
-	img_texture = mlx_texture_to_image(mlx, texture);
-	printf("Texture_width: %i - texture_height: %i \n", img_texture->width, img_texture->height);
 	draw(mlx);
 	mlx_loop_hook(mlx, &hook, mlx);
 	mlx_loop(mlx);

@@ -28,11 +28,15 @@ int get_rgba(int r, int g, int b, int a)
 void    ft_pixel_put(mlx_image_t *img, int x, int y, int color)
 {
 	int BPP;
+	int max_size;
 
 	BPP = sizeof(int32_t);
 	if (x < 0 || x > (int)img->width)
 		return ;
 	if (y < 0 || y > (int)img->height)
+		return ;
+	max_size = img->width * img->height * 4;
+	if ((int)((BPP * img->width * y) + (x * BPP)) > max_size)
 		return ;
 	ft_memset(img->pixels + (BPP * img->width * y) + (x * BPP), get_r(color), 1);
 	ft_memset(img->pixels + (BPP * img->width * y + 1)+ (x * BPP), get_g(color), 1);
