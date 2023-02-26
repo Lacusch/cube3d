@@ -77,7 +77,7 @@ void draw_rays_3d(mlx_t *mlx)
 		{
 			rays.mx = (int)rays.rx / g_cube_size_x;
 			rays.my = (int)rays.ry / g_cube_size_y;
-			if ((rays.mx >= 0 && rays.mx < g_map_size_x) && (rays.my >= 0 && rays.my < g_map_size_y) && ((safe_map_read(g_map, rays.my, rays.mx) == '1')))
+			if ((rays.mx >= 0 && rays.mx < g_map_size_x) && (rays.my >= 0 && rays.my < g_map_size_y) && ((g_map[rays.my][rays.mx] == '1')))
 			{
 				rays.hx = rays.rx;
 				rays.hy = rays.ry;

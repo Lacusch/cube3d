@@ -7,13 +7,7 @@ extern int g_height;
 
 char	safe_map_read(char **map, int x, int y)
 {
-	if (x >= g_map_size_x || y >= g_map_size_y)
-	{
-		printf("x: %i - y: %i\n", x, y);
-		printf("here 1\n");
-		return ('1');
-	}
-	if (x > g_width || y > g_height)
+	if (x > g_map_size_x || y > g_map_size_y)
 		return (' ');
 	return (map[x][y]);
 }
