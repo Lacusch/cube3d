@@ -30,10 +30,34 @@ typedef struct s_cube3d
 	char	*C_color;
 }	t_cube3d;
 
-// typdef struct s_rays
-// {
-
-// }	t_rays;
+typedef struct s_rays
+{
+	int		shade;
+	int		r;
+	float 	iter;
+	int		mx;
+	int		my;
+	int 	dof;
+	float	rx;
+	float	ry;
+	float	ra;
+	float	xo;
+	float	yo;
+	float	aTan;
+	float	nTan;
+	float	distT;
+	float	lineH;
+	float	lineO;
+	float	disH;
+	float 	disT;
+	float	hx;
+	float 	hy;
+	float 	disV;
+	float 	vx;
+	float 	vy;
+	float	ca;
+	float 	tx;
+}	t_rays;
 
 bool	check_arg(int ac, char **av);
 void	init_data(t_cube3d	*data);

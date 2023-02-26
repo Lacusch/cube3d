@@ -34,203 +34,181 @@ static int ft_error(void)
 
 void draw_rays_3d(mlx_t *mlx)
 {
-	int		r = 0;
-	float		iter = 0;
-	int 	mx;
-	int 	my;
-	int 	dof;
-	float 	rx;
-	float 	ry;
-	float 	ra;
-	float 	xo;
-	float 	yo;
-	float 	aTan;
-	float	nTan;
-	float	disT;
-	float	lineH;
-	float	lineO;
-	float	ca;
-	int		shade = 1;
+	t_rays	rays;
 
-	ra = g_pa - DEGREE * 30;
-	reset_360(&ra);
-
-	float disH;
-	float hx;
-	float hy;
-
-	float disV;
-	float vx;	
-	float vy;
-
-	while (r < mlx->width)
+	rays.r = 0;
+	rays.iter = 0;
+	rays.shade = 1;
+	rays.ra = g_pa - DEGREE * 30;
+	reset_360(&rays.ra);
+	while (rays.r < mlx->width)
 	{
-		dof = 0;
-		iter = 0;
-		aTan = -1 / tan(ra);
-		disH = 1000000;
-		hx = g_px;
-		hy = g_py;
-		vx = g_px;
-		vy = g_py;
+		rays.dof = 0;
+		rays.iter = 0;
+		rays.aTan = -1 / tan(rays.ra);
+		rays.disH = 1000000;
+		rays.hx = g_px;
+		rays.hy = g_py;
+		rays.vx = g_px;
+		rays.vy = g_py;
 
 		// horizontal line
-		if (ra > PI)
+		if (rays.ra > PI)
 		{
-			ry = (((int)g_py / g_cube_size_y) * g_cube_size_y) - 0.0001;
-			rx = (g_py - ry) * aTan + g_px;
-			yo = - g_cube_size_y;
-			xo = - (yo * aTan);
+			rays.ry = (((int)g_py / g_cube_size_y) * g_cube_size_y) - 0.0001;
+			rays.rx = (g_py - rays.ry) * rays.aTan + g_px;
+			rays.yo = - g_cube_size_y;
+			rays.xo = - (rays.yo * rays.aTan);
 		}
-		if (ra < PI)
+		if (rays.ra < PI)
 		{
-			ry = (((int)g_py / g_cube_size_y) * g_cube_size_y) + g_cube_size_y;
-			rx = (g_py - ry) * aTan + g_px;
-			yo = g_cube_size_y;
-			xo = - (yo * aTan);
+			rays.ry = (((int)g_py / g_cube_size_y) * g_cube_size_y) + g_cube_size_y;
+			rays.rx = (g_py - rays.ry) * rays.aTan + g_px;
+			rays.yo = g_cube_size_y;
+			rays.xo = - (rays.yo * rays.aTan);
 		}
-		if (ra == 0 || ra == PI)
+		if (rays.ra == 0 || rays.ra == PI)
 		{
-			rx = g_px;
-			ry = g_py;
-			dof = g_map_size_x;
+			rays.rx = g_px;
+			rays.ry = g_py;
+			rays.dof = g_map_size_x;
 		}
-		while (dof < g_map_size_x)
+		while (rays.dof < g_map_size_x)
 		{
-			mx = (int)rx / g_cube_size_x;
-			my = (int)ry / g_cube_size_y;
-			if ((mx >= 0 && mx < g_map_size_x) && (my >= 0 && my < g_map_size_y) && (g_map[my][mx] == '1'))
+			rays.mx = (int)rays.rx / g_cube_size_x;
+			rays.my = (int)rays.ry / g_cube_size_y;
+			if ((rays.mx >= 0 && rays.mx < g_map_size_x) && (rays.my >= 0 && rays.my < g_map_size_y) && (g_map[rays.my][rays.mx] == '1'))
 			{
-				hx = rx;
-				hy = ry;
-				disH = hyp_dist(g_px, g_py, hx, hy);
-				dof = g_map_size_x;
+				rays.hx = rays.rx;
+				rays.hy = rays.ry;
+				rays.disH = hyp_dist(g_px, g_py, rays.hx, rays.hy);
+				rays.dof = g_map_size_x;
 			}
 			else
 			{
-				rx += xo;
-				ry += yo;
-				dof += 1;
+				rays.rx += rays.xo;
+				rays.ry += rays.yo;
+				rays.dof += 1;
 			}
 		}
 		// vertical line
-		dof = 0;
-		nTan = -tan(ra);
-		disV = 1000000;
-		if (ra > P2 && ra < P3)
+		rays.dof = 0;
+		rays.nTan = -tan(rays.ra);
+		rays.disV = 1000000;
+		if (rays.ra > P2 && rays.ra < P3)
 		{
-			rx = (((int)g_px / g_cube_size_x) * g_cube_size_x) - 0.0001;
-			ry = (g_px - rx) * nTan + g_py;
-			xo = - g_cube_size_x;
-			yo = - (xo * nTan);
+			rays.rx = (((int)g_px / g_cube_size_x) * g_cube_size_x) - 0.0001;
+			rays.ry = (g_px - rays.rx) * rays.nTan + g_py;
+			rays.xo = - g_cube_size_x;
+			rays.yo = - (rays.xo * rays.nTan);
 		}
-		if (ra < P2 || ra > P3)
+		if (rays.ra < P2 || rays.ra > P3)
 		{
-			rx = (((int)g_px / g_cube_size_x) * g_cube_size_x) + g_cube_size_x;
-			ry = (g_px - rx) * nTan + g_py;
-			xo = g_cube_size_x;
-			yo = - (xo * nTan);
+			rays.rx = (((int)g_px / g_cube_size_x) * g_cube_size_x) + g_cube_size_x;
+			rays.ry = (g_px - rays.rx) * rays.nTan + g_py;
+			rays.xo = g_cube_size_x;
+			rays.yo = - (rays.xo * rays.nTan);
 		}
-		if (ra == 0 || ra == PI)
+		if (rays.ra == 0 || rays.ra == PI)
 		{
-			rx = g_px;
-			ry = g_py;
-			dof = g_map_size_y;
+			rays.rx = g_px;
+			rays.ry = g_py;
+			rays.dof = g_map_size_y;
 		}
-		while (dof < g_map_size_y)
+		while (rays.dof < g_map_size_y)
 		{
-			mx = (int)rx / g_cube_size_x;
-			my = (int)ry / g_cube_size_y;
-			if ((mx >= 0 && mx < g_map_size_x) && (my >= 0 && my < g_map_size_y) && ((safe_map_read(g_map, my, mx) == '1') || (safe_map_read(g_map, my, mx) == ' ')))
+			rays.mx = (int)rays.rx / g_cube_size_x;
+			rays.my = (int)rays.ry / g_cube_size_y;
+			if ((rays.mx >= 0 && rays.mx < g_map_size_x) && (rays.my >= 0 && rays.my < g_map_size_y) && ((safe_map_read(g_map, rays.my, rays.mx) == '1') || (safe_map_read(g_map, rays.my, rays.mx) == ' ')))
 			{
-				vx = rx;
-				vy = ry;
-				disV = hyp_dist(g_px, g_py, vx, vy);
-				dof = g_map_size_y;
+				rays.vx = rays.rx;
+				rays.vy = rays.ry;
+				rays.disV = hyp_dist(g_px, g_py, rays.vx, rays.vy);
+				rays.dof = g_map_size_y;
 			}
 			else
 			{
-				rx += xo;
-				ry += yo;
-				dof += 1;
+				rays.rx += rays.xo;
+				rays.ry += rays.yo;
+				rays.dof += 1;
 			} 
 		}
 		// vertical wall hit
-		if (disV < disH)
+		if (rays.disV < rays.disH)
 		{
-			if (ra > P2 && ra < P3)
+			if (rays.ra > P2 && rays.ra < P3)
 				g_tmp = g_texture_we;
 			else 
 				g_tmp = g_texture_ea;
-			rx = vx;
-			ry = vy;
-			disT = disV;
-			shade = 0;
+			rays.rx = rays.vx;
+			rays.ry = rays.vy;
+			rays.disT = rays.disV;
+			rays.shade = 0;
 		}
 		// horizontal wall hit
-		else if (disH < disV)
+		else if (rays.disH < rays.disV)
 		{
-			if (ra >= 0 && ra <= PI)
+			if (rays.ra >= 0 && rays.ra <= PI)
 				g_tmp = g_texture_so;
 			else
 				g_tmp = g_texture_no;
-				rx = hx;
-				ry = hy;
-				disT = disH;
-				shade = 1;
+				rays.rx = rays.hx;
+				rays.ry = rays.hy;
+				rays.disT = rays.disH;
+				rays.shade = 1;
 			}
 		if (g_mode == 1)	
-			ft_draw_line(g_img, g_px, g_py, (int)rx, (int)ry, 0x00FF00FF);
+			ft_draw_line(g_img, g_px, g_py, (int)rays.rx, (int)rays.ry, 0x00FF00FF);
 		else
 		{
 			// ----------------------------
 			// draw 3d
 			// FIX FISHEYE
-			ca = g_pa - ra;
-			if (ca < 0)
-				ca += (2 * PI);
-			if (ca > (2 * PI))
-				ca -= (2 * PI);
-			disT = disT * cos(ca);
+			rays.ca = g_pa - rays.ra;
+			if (rays.ca < 0)
+				rays.ca += (2 * PI);
+			if (rays.ca > (2 * PI))
+				rays.ca -= (2 * PI);
+			rays.disT = rays.disT * cos(rays.ca);
 			// End fish eye
-			lineH = (g_cube_size_y * mlx->height * 0.66) / disT;
-			float tx = 0;
-			lineO = mlx->height * 0.35 - lineH / 2;
+			rays.lineH = (g_cube_size_y * mlx->height * 0.66) / rays.disT;
+			rays.tx = 0;
+			rays.lineO = mlx->height * 0.35 - rays.lineH / 2;
 			// -- Ray iterations
 			int iter_len = mlx->width / mlx->width;
 			// DRAW VERTICAL LINESs
-			while (iter < iter_len)
+			while (rays.iter < iter_len)
 			{
-				ft_draw_line(g_img, (r * iter_len) + iter, 0, (r * iter_len) + iter, lineO, 0x87CEEB); // ceiling
-				ft_draw_line(g_img, (r * iter_len) + iter, mlx->width, (r * iter_len) + iter, lineO + lineH, 0x808080FF); // floor
+				ft_draw_line(g_img, (rays.r * iter_len) + rays.iter, 0, (rays.r * iter_len) + rays.iter, rays.lineO, 0x87CEEB); // ceiling
+				ft_draw_line(g_img, (rays.r * iter_len) + rays.iter, mlx->width, (rays.r * iter_len) + rays.iter, rays.lineO + rays.lineH, 0x808080FF); // floor
 				// Mapping to texture
 				int y = 0;
-				float ty_step = g_tmp->height / lineH;
+				float ty_step = g_tmp->height / rays.lineH;
 				float ty = ty_step;
-				if (shade == 1)
-					tx = (int)((g_tmp->width * rx) / g_cube_size_x) % g_tmp->width;
+				if (rays.shade == 1)
+					rays.tx = (int)((g_tmp->width * rays.rx) / g_cube_size_x) % g_tmp->width;
 				else
-					tx = (int)((g_tmp->height * ry) / g_cube_size_y) % g_tmp->height;
-				while (y < lineH)
+					rays.tx = (int)((g_tmp->height * rays.ry) / g_cube_size_y) % g_tmp->height;
+				while (y < rays.lineH)
 				{
 					int BPP;
 					BPP = sizeof(int32_t);
-					int rc = safe_get_pixel(g_tmp, (BPP * (((int)ty) * g_tmp->height) + ((int)tx * BPP)) + 0);
-					int gc = safe_get_pixel(g_tmp, (BPP * (((int)ty) * g_tmp->height) + ((int)tx * BPP)) + 1);
-					int bc = safe_get_pixel(g_tmp, (BPP * (((int)ty) * g_tmp->height) + ((int)tx * BPP)) + 2);
-					int ac = safe_get_pixel(g_tmp, (BPP * (((int)ty) * g_tmp->height) + ((int)tx * BPP)) + 3);
-					ft_pixel_put(g_img, (r * iter_len) + iter, lineO + y, get_rgba(rc, gc, bc, ac));
+					int rc = safe_get_pixel(g_tmp, (BPP * (((int)ty) * g_tmp->height) + ((int)rays.tx * BPP)) + 0);
+					int gc = safe_get_pixel(g_tmp, (BPP * (((int)ty) * g_tmp->height) + ((int)rays.tx * BPP)) + 1);
+					int bc = safe_get_pixel(g_tmp, (BPP * (((int)ty) * g_tmp->height) + ((int)rays.tx * BPP)) + 2);
+					int ac = safe_get_pixel(g_tmp, (BPP * (((int)ty) * g_tmp->height) + ((int)rays.tx * BPP)) + 3);
+					ft_pixel_put(g_img, (rays.r * iter_len) + rays.iter, rays.lineO + y, get_rgba(rc, gc, bc, ac));
 					ty += ty_step;
 					y++;
 				}
-				iter++;
+				rays.iter++;
 			}
 		}
 		// incrementing deegree
-		ra += DEGREE / (mlx->width / 60);
+		rays.ra += DEGREE / (mlx->width / 60);
 		// Looping in a circle 
-		reset_360(&ra);
-		r++;
+		reset_360(&rays.ra);
+		rays.r++;
 	}
 }
 
