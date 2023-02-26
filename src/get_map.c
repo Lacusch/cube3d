@@ -41,6 +41,7 @@ void	map_valid_chars(t_cube3d	*data)
 
 	i = 0;
 	player = '\0';
+	(void)player;
 	if (data->map == NULL)
 		return (set_error(data));
 	while (data->map[i] != NULL)

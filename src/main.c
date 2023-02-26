@@ -5,6 +5,7 @@
 
 #include "../includes/cube3d.h"
 
+t_cube3d			data;
 mlx_image_t			*g_img;
 mlx_texture_t 		*g_texture_we;
 mlx_texture_t		*g_texture_ea;
@@ -118,7 +119,7 @@ void draw_rays_3d(mlx_t *mlx)
 		{
 			rays.mx = (int)rays.rx / g_cube_size_x;
 			rays.my = (int)rays.ry / g_cube_size_y;
-			if ((rays.mx >= 0 && rays.mx < g_map_size_x) && (rays.my >= 0 && rays.my < g_map_size_y) && ((safe_map_read(g_map, rays.my, rays.mx) == '1') || (safe_map_read(g_map, rays.my, rays.mx) == ' ')))
+			if ((rays.mx >= 0 && rays.mx < g_map_size_x) && (rays.my >= 0 && rays.my < g_map_size_y) && ((safe_map_read(g_map, rays.my, rays.mx) == '1')))
 			{
 				rays.vx = rays.rx;
 				rays.vy = rays.ry;
@@ -178,8 +179,8 @@ void draw_rays_3d(mlx_t *mlx)
 			// DRAW VERTICAL LINESs
 			while (rays.iter < iter_len)
 			{
-				ft_draw_line(g_img, (rays.r * iter_len) + rays.iter, 0, (rays.r * iter_len) + rays.iter, rays.lineO, 0x87CEEB); // ceiling
-				ft_draw_line(g_img, (rays.r * iter_len) + rays.iter, mlx->width, (rays.r * iter_len) + rays.iter, rays.lineO + rays.lineH, 0x808080FF); // floor
+				ft_draw_line(g_img, (rays.r * iter_len) + rays.iter, 0, (rays.r * iter_len) + rays.iter, rays.lineO, get_rgba(data.c_color[0], data.c_color[1], data.c_color[2], 255)); // ceiling
+				ft_draw_line(g_img, (rays.r * iter_len) + rays.iter, mlx->width, (rays.r * iter_len) + rays.iter, rays.lineO + rays.lineH, get_rgba(data.f_color[0], data.f_color[1], data.f_color[2], 255)); // floor
 				// Mapping to texture
 				int y = 0;
 				float ty_step = g_tmp->height / rays.lineH;
@@ -213,15 +214,9 @@ void draw_rays_3d(mlx_t *mlx)
 
 int32_t	main(int ac, char** av)
 {
-	t_cube3d		data;
 	mlx_t			*mlx;
 
 	init_data(&data);
-	g_map_size_y = 30;
-	g_map_size_x = 30;
-	g_width = 1680;
-	g_height = 1280;
-	g_map = muck_map();
 	if (check_arg(ac, av))
 	{
 		// system("leaks cub3D");
@@ -234,26 +229,44 @@ int32_t	main(int ac, char** av)
 		// system("leaks cub3D");
 		return (EXIT_FAILURE);
 	}
+	data_printf(&data);
+	g_map_size_y = data.map_data.height;
+    g_map_size_x = data.map_data.width;
+	// g_map_size_y = 30;
+	// g_map_size_x = 30;
+    g_width = 1680;
+    g_height = 1280;
+    g_map = data.map;
+    // g_map = muck_map();
 	if (!(mlx = mlx_init(g_width, g_height, "CUB3D", true)))
     		return (ft_error());
     	g_img = mlx_new_image(mlx, g_width, g_height);
     	if (!g_img)
     		perror("Error creating img");
     	map_cube_size(mlx);
-    	g_mode = 1;
-    	g_pa = -P2;
-    	g_px = 2 * g_cube_size_x;
-    	g_py = 2 * g_cube_size_y;
-    	g_pdx = cos(g_pa);
-    	g_pdy = sin(g_pa);
-    	g_texture_we = mlx_load_png("./textures/eagle.png");
-    	g_texture_ea = mlx_load_png("./textures/brick.png");
-    	g_texture_so = mlx_load_png("./textures/greystone.png");
-    	g_texture_no = mlx_load_png("./textures/wood.png");
-    	draw_3d(mlx);
-    	mlx_loop_hook(mlx, &hook, mlx);
-    	mlx_loop(mlx);
-    	mlx_terminate(mlx);
+    g_mode = 1;
+    if (data.start == 'N')
+    	g_pa = -P2 - DEGREE;
+	else if (data.start == 'S')
+		g_pa = P2 - DEGREE;
+	else if (data.start == 'E')
+		g_pa = 0 + DEGREE;
+	else if (data.start == 'W')
+		g_pa = PI - DEGREE;
+    g_px = data.player.x * g_cube_size_x;
+    g_py = data.player.y * g_cube_size_y;
+    // g_px = 2 * g_cube_size_x;
+    // g_py = 2 * g_cube_size_y;
+    g_pdx = cos(g_pa);
+    g_pdy = sin(g_pa);
+    g_texture_we = mlx_load_png(data.we);
+    g_texture_ea = mlx_load_png(data.ea);
+    g_texture_so = mlx_load_png(data.so);
+    g_texture_no = mlx_load_png(data.no);
+    draw_3d(mlx);
+    mlx_loop_hook(mlx, &hook, mlx);
+    mlx_loop(mlx);
+    mlx_terminate(mlx);
 	data_free(&data);
 	// system("leaks cub3D");
 	return (EXIT_SUCCESS);

@@ -14,6 +14,8 @@ void	could_be_valid(char	*str, t_cube3d	*data)
 
 	total = 0;
 	size = 0;
+	(void) size;
+	(void) total;
 	terminate_str(str);
 	if (*str == 'F' || *str == 'C')
 		str++;
