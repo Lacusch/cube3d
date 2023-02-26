@@ -77,7 +77,7 @@ void draw_rays_3d(mlx_t *mlx)
 		{
 			rays.mx = (int)rays.rx / g_cube_size_x;
 			rays.my = (int)rays.ry / g_cube_size_y;
-			if ((rays.mx >= 0 && rays.mx < g_map_size_x) && (rays.my >= 0 && rays.my < g_map_size_y) && (g_map[rays.my][rays.mx] == '1'))
+			if ((rays.mx >= 0 && rays.mx < g_map_size_x) && (rays.my >= 0 && rays.my < g_map_size_y) && ((safe_map_read(g_map, rays.my, rays.mx) == '1')))
 			{
 				rays.hx = rays.rx;
 				rays.hy = rays.ry;
@@ -119,7 +119,7 @@ void draw_rays_3d(mlx_t *mlx)
 		{
 			rays.mx = (int)rays.rx / g_cube_size_x;
 			rays.my = (int)rays.ry / g_cube_size_y;
-			if ((rays.mx >= 0 && rays.mx < g_map_size_x) && (rays.my >= 0 && rays.my < g_map_size_y) && ((safe_map_read(g_map, rays.my, rays.mx) == '1')))
+			if ((rays.mx >= 0 && rays.mx < g_map_size_x) && (rays.my >= 0 && rays.my < g_map_size_y) && ((safe_map_read(g_map, rays.my, rays.mx) == '1') || (safe_map_read(g_map, rays.my, rays.mx) == ' ')))
 			{
 				rays.vx = rays.rx;
 				rays.vy = rays.ry;
@@ -245,14 +245,15 @@ int32_t	main(int ac, char** av)
     		perror("Error creating img");
     	map_cube_size(mlx);
     g_mode = 1;
-    if (data.start == 'N')
-    	g_pa = -P2 - DEGREE;
-	else if (data.start == 'S')
-		g_pa = P2 - DEGREE;
-	else if (data.start == 'E')
-		g_pa = 0 + DEGREE;
-	else if (data.start == 'W')
-		g_pa = PI - DEGREE;
+	g_pa = 0;
+    // if (data.start == 'N')
+    // 	g_pa = -P2 - DEGREE;
+	// else if (data.start == 'S')
+	// 	g_pa = P2 - DEGREE;
+	// else if (data.start == 'E')
+	// 	g_pa = 0 + DEGREE;
+	// else if (data.start == 'W')
+	// 	g_pa = PI - DEGREE;
     g_px = data.player.x * g_cube_size_x;
     g_py = data.player.y * g_cube_size_y;
     // g_px = 2 * g_cube_size_x;
