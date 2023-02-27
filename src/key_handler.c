@@ -23,19 +23,19 @@ static void	add_rotation(mlx_t *mlx, enum keys key_pressed)
 {
 	if (key_pressed == MLX_KEY_LEFT)
 	{
-		g_pa -= 0.1;
+		g_pa -= 0.05;
 		if (g_pa < 0)
 			g_pa += 2 * PI;
-		g_pdx = cos(g_pa) * 5;
-		g_pdy = sin(g_pa) * 5;
+		g_pdx = cos(g_pa);
+		g_pdy = sin(g_pa);
 	}
 	else if (key_pressed == MLX_KEY_RIGHT)
 	{
-		g_pa += 0.1;
+		g_pa += 0.05;
 		if (g_pa > 2 * PI)
 			g_pa -= 2 * PI;
-		g_pdx = cos(g_pa) * 5;
-		g_pdy = sin(g_pa) * 5;
+		g_pdx = cos(g_pa);
+		g_pdy = sin(g_pa);
 	}
 	return (draw_3d(mlx));
 }
@@ -72,8 +72,8 @@ static void	handle_movement(mlx_t *mlx)
 	if (mlx_is_key_down(mlx, MLX_KEY_D))
 		next_pos_a += PI / 2;
 	reset_360(&next_pos_a);
-	next_pos_x = cos(next_pos_a) * (g_cube_size_x / 4);
-	next_pos_y = sin(next_pos_a) * (g_cube_size_y / 4);
+	next_pos_x = cos(next_pos_a) * (g_cube_size_x / 10);
+	next_pos_y = sin(next_pos_a) * (g_cube_size_y / 10);
 	c_map = g_map[pos_setter(g_py, next_pos_y, g_cube_size_y)][pos_setter(g_px, next_pos_x, g_cube_size_x)];
 	if (c_map == '1' || c_map == ' ')
 	{

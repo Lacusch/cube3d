@@ -9,7 +9,7 @@ void reset_360(float *val)
 	return ;
 }
 
-float hyp_dist(float ax, float ay, float bx, float by)
+double hyp_dist(float ax, float ay, float bx, float by)
 {
 	float a;
 	float b;

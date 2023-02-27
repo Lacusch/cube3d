@@ -43,6 +43,7 @@ void draw_rays_3d(mlx_t *mlx)
 	reset_360(&rays.ra);
 	while (rays.r < mlx->width)
 	{
+		// printf("here\n");
 		rays.dof = 0;
 		rays.iter = 0;
 		rays.aTan = -1 / tan(rays.ra);
@@ -52,17 +53,17 @@ void draw_rays_3d(mlx_t *mlx)
 		rays.vx = g_px;
 		rays.vy = g_py;
 
-		// horizontal line
+		// horizontal line -------
 		if (rays.ra > PI)
 		{
-			rays.ry = (((int)g_py / g_cube_size_y) * g_cube_size_y) - 0.0001;
+			rays.ry = (((int)(g_py / g_cube_size_y)) * g_cube_size_y) - 0.0001;
 			rays.rx = (g_py - rays.ry) * rays.aTan + g_px;
 			rays.yo = - g_cube_size_y;
 			rays.xo = - (rays.yo * rays.aTan);
 		}
 		if (rays.ra < PI)
 		{
-			rays.ry = (((int)g_py / g_cube_size_y) * g_cube_size_y) + g_cube_size_y;
+			rays.ry = (((int)(g_py / g_cube_size_y)) * g_cube_size_y) + g_cube_size_y;
 			rays.rx = (g_py - rays.ry) * rays.aTan + g_px;
 			rays.yo = g_cube_size_y;
 			rays.xo = - (rays.yo * rays.aTan);
@@ -75,9 +76,9 @@ void draw_rays_3d(mlx_t *mlx)
 		}
 		while (rays.dof < g_map_size_x)
 		{
-			rays.mx = (int)rays.rx / g_cube_size_x;
-			rays.my = (int)rays.ry / g_cube_size_y;
-			if ((rays.mx >= 0 && rays.mx < g_map_size_x) && (rays.my >= 0 && rays.my < g_map_size_y) && ((g_map[rays.my][rays.mx] == '1')))
+			rays.mx = (int)(rays.rx / g_cube_size_x);
+			rays.my = (int)(rays.ry / g_cube_size_y);
+			if ((rays.mx >= 0 && rays.mx < g_map_size_x) && (rays.my >= 0 && rays.my < g_map_size_y) && ((safe_map_read(g_map, rays.my, rays.mx) == '1')))
 			{
 				rays.hx = rays.rx;
 				rays.hy = rays.ry;
@@ -91,40 +92,51 @@ void draw_rays_3d(mlx_t *mlx)
 				rays.dof += 1;
 			}
 		}
-		// vertical line
+		// ft_draw_line(g_img, g_px, g_py, (int)rays.rx, (int)rays.ry, 0x00FF00FF);
+		// vertical line |
 		rays.dof = 0;
 		rays.nTan = -tan(rays.ra);
 		rays.disV = 1000000;
+		rays.rx = 0;
+		rays.ry = 0;
 		if (rays.ra > P2 && rays.ra < P3)
 		{
-			rays.rx = (((int)g_px / g_cube_size_x) * g_cube_size_x) - 0.0001;
+			// printf("rays.ra > P2 && rays.ra < P3 \n");
+			rays.rx = (((int)(g_px / g_cube_size_x)) * g_cube_size_x) - 0.0001;
 			rays.ry = (g_px - rays.rx) * rays.nTan + g_py;
-			rays.xo = - g_cube_size_x;
+			rays.xo = -g_cube_size_x;
 			rays.yo = - (rays.xo * rays.nTan);
 		}
 		if (rays.ra < P2 || rays.ra > P3)
 		{
-			rays.rx = (((int)g_px / g_cube_size_x) * g_cube_size_x) + g_cube_size_x;
+			// printf("rays.ra < P2 || rays.ra > P3 \n");
+			rays.rx = (((int)(g_px / g_cube_size_x)) * g_cube_size_x) + g_cube_size_x; 
 			rays.ry = (g_px - rays.rx) * rays.nTan + g_py;
 			rays.xo = g_cube_size_x;
 			rays.yo = - (rays.xo * rays.nTan);
 		}
 		if (rays.ra == 0 || rays.ra == PI)
 		{
+			// printf("asdfjasdkhfasdfhdsajkfksjdhfkjsflds\n");
 			rays.rx = g_px;
 			rays.ry = g_py;
 			rays.dof = g_map_size_y;
 		}
-		while (rays.dof < g_map_size_y)
+		// printf("g_map_size_y: %i\n", g_map_size_y);
+		// printf("vf - ray.y :%i - rays.x: %i\n", rays.my, rays.mx);
+		while (rays.dof < g_map_size_x)
 		{
-			rays.mx = (int)rays.rx / g_cube_size_x;
-			rays.my = (int)rays.ry / g_cube_size_y;
-			if ((rays.mx >= 0 && rays.mx < g_map_size_x) && (rays.my >= 0 && rays.my < g_map_size_y) && ((safe_map_read(g_map, rays.my, rays.mx) == '1') || (safe_map_read(g_map, rays.my, rays.mx) == ' ')))
+			// printf("1\n");
+			rays.mx = (int)(rays.rx / g_cube_size_x);
+			rays.my = (int)(rays.ry / g_cube_size_y);
+			// printf("pp - ray.y :%i - rays.x: %i\n", rays.my, rays.mx);
+			if ((rays.mx >= 0 && rays.mx < g_map_size_x) && (rays.my >= 0 && rays.my < g_map_size_y) && ((safe_map_read(g_map, rays.my, rays.mx) == '1')))
 			{
+				// printf("entre ray.y :%i - rays.x: %i\n", rays.my, rays.mx);
 				rays.vx = rays.rx;
 				rays.vy = rays.ry;
 				rays.disV = hyp_dist(g_px, g_py, rays.vx, rays.vy);
-				rays.dof = g_map_size_y;
+				rays.dof = g_map_size_x;
 			}
 			else
 			{
@@ -132,7 +144,9 @@ void draw_rays_3d(mlx_t *mlx)
 				rays.ry += rays.yo;
 				rays.dof += 1;
 			}
+			// printf("dof: %i\n", rays.dof);
 		}
+		// ft_draw_line(g_img, g_px, g_py, (int)rays.rx, (int)rays.ry, 0xFF0000FF);
 		// vertical wall hit
 		if (rays.disV < rays.disH)
 		{
@@ -152,13 +166,20 @@ void draw_rays_3d(mlx_t *mlx)
 				g_tmp = g_texture_so;
 			else
 				g_tmp = g_texture_no;
-				rays.rx = rays.hx;
-				rays.ry = rays.hy;
-				rays.disT = rays.disH;
-				rays.shade = 1;
-			}
+			rays.rx = rays.hx;
+			rays.ry = rays.hy;
+			rays.disT = rays.disH;
+			rays.shade = 1;
+		}
+		else 
+		{	
+			// rays.rx += 0.01;
+			// rays.ry += 0.01;
+		}
 		if (g_mode == 1)
+		{
 			ft_draw_line(g_img, g_px, g_py, (int)rays.rx, (int)rays.ry, 0x00FF00FF);
+		}
 		else
 		{
 			// ----------------------------
@@ -205,7 +226,8 @@ void draw_rays_3d(mlx_t *mlx)
 			}
 		}
 		// incrementing deegree
-		rays.ra += DEGREE / (mlx->width / 60);
+		rays.ra += (DEGREE / (mlx->width / 60));
+		// rays.ra += DEGREE;
 		// Looping in a circle
 		reset_360(&rays.ra);
 		rays.r++;

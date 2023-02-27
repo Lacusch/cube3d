@@ -66,11 +66,11 @@ typedef struct s_rays
 	float	distT;
 	float	lineH;
 	float	lineO;
-	float	disH;
+	double	disH;
 	float 	disT;
 	float	hx;
 	float 	hy;
-	float 	disV;
+	double 	disV;
 	float 	vx;
 	float 	vy;
 	float	ca;
@@ -178,7 +178,7 @@ void	hook(void* param);
 int		map_cube_size(mlx_t *mlx);
 /** calculation_utils */
 void 	reset_360(float *val);
-float 	hyp_dist(float ax, float ay, float bx, float by);
+double 	hyp_dist(float ax, float ay, float bx, float by);
 /** muck_map */
 char	**muck_map(void);
 /** safe_check */
