@@ -1,16 +1,10 @@
 #include "../includes/cube3d.h"
 
-extern int g_map_size_x;
-extern int g_map_size_y;
-extern int g_width;
-extern int g_height;
-
-char	safe_map_read(char **map, int x, int y)
+char	safe_map_read(t_cube3d *data, int x, int y)
 {
-	if (x > g_map_size_y || y > g_map_size_x)
+	if (x > data->map_size_y || y > data->map_size_x)
 		return ('1');
-	// printf("map[%i][%i]: %c\n", x, y, map[x][y]);
-	return (map[x][y]);
+	return (data->map[x][y]);
 }
 
 int		safe_get_pixel(mlx_texture_t *texture, int pixel)

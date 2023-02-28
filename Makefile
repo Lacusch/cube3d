@@ -27,7 +27,6 @@ SOURCE = src/check_map.c \
         src/cube_utils.c 	\
         src/rgba_utils.c 	\
         src/calculation_utils.c \
-        src/muck_map.c 			\
         src/safe_check.c 		\
         src/utils.c
 OBJECT = $(SOURCE:.c=.o)

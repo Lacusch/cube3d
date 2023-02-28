@@ -20,4 +20,23 @@ void	init_data(t_cube3d	*data)
 	data->map_data.width = -1;
 	data->player.x = -1;
 	data->player.y = -1;
+	data->map_size_x = 0;
+	data->map_size_y = 0;
+	data->cube_size_x = 0;
+	data->cube_size_y = 0;
+	data->screen_width = 1680;
+	data->screen_height = 1280;
+	data->px = 0;
+	data->py = 0;
+	data->pdx = 0;
+	data->pdy = 0;
+	data->pa = 0;
+	data->view_mode = 0;
+	data->img = NULL;
+	data->texture_we = NULL;
+	data->texture_ea = NULL;
+	data->texture_so = NULL;
+	data->texture_no = NULL;
+	data->texture_tmp = NULL;
+	data->mlx = NULL;
 }

@@ -1,35 +1,26 @@
 #include "../includes/cube3d.h"
 
-extern int g_width;
-extern int g_height;
-extern float g_px;
-extern float g_py;
-extern int g_cube_size_x;
-extern int g_cube_size_y;
-extern int g_map_size_x;
-extern int g_map_size_y;
-
-int map_cube_size(mlx_t *mlx)
+int map_cube_size(t_cube3d *data)
 {
 	int changed;
 	int player_pos_x;
 	int player_pos_y;
 
 	changed = 0;
-	player_pos_x = g_px / g_cube_size_x;
-	player_pos_y = g_py / g_cube_size_y;
-	if (g_width != mlx->width || g_height != mlx->height)
+	player_pos_x = data->px / data->cube_size_x;
+	player_pos_y = data->py / data->cube_size_y;
+	if (data->screen_width != (*data).mlx->width || data->screen_height != (*data).mlx->height)
 	{
-		g_width = mlx->width;
-		g_height = mlx->height;
+		data->screen_width = (*data).mlx->width;
+		data->screen_height = (*data).mlx->height;
 		changed = 1;
 	}
-	g_cube_size_x = mlx->width / g_map_size_x;
-	g_cube_size_y = mlx->height / g_map_size_y;
+	data->cube_size_x = (*data).mlx->width / data->map_size_x;
+	data->cube_size_y = (*data).mlx->height / data->map_size_y;
 	if (changed == 1)
 	{
-		g_px = player_pos_x * g_cube_size_x;
-		g_py = player_pos_y * g_cube_size_y;
+		data->px = player_pos_x * data->cube_size_x;
+		data->py = player_pos_y * data->cube_size_y;
 	}
 	return (changed);
 }

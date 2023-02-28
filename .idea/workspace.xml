@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01914201-9922-4bd0-946c-89053a214f1e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/maps/pdf_example.cub" beforeDir="false" afterPath="$PROJECT_DIR$/maps/pdf_example.cub" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/get_map.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/get_map.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/handle_buffer.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/handle_buffer.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/input2.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/input2.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/cube3d.h" beforeDir="false" afterPath="$PROJECT_DIR$/includes/cube3d.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/MLX42" beforeDir="false" afterPath="$PROJECT_DIR$/lib/MLX42" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/muck_map.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/muck_map.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/safe_check.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/safe_check.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +50,7 @@
       <option name="presentableId" value="Default" />
       <updated>1677419396651</updated>
       <workItem from="1677419398645" duration="3912000" />
+      <workItem from="1677580538084" duration="38000" />
     </task>
     <servers />
   </component>

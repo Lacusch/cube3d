@@ -2,8 +2,6 @@
 #ifndef CUBE3D_H
 # define CUBE3D_H
 
-// Includes
-
 # include <stdio.h>
 # include <stdbool.h>
 # include <stdlib.h>
@@ -12,14 +10,11 @@
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/libft/libft.h"
 # include "errors.h"
-//Declarations
 
 #define PI 3.1415926535
 #define P2 PI / 2
 #define P3 3 * PI /2
 #define DEGREE PI / 180
-
-// Declarations
 
 typedef struct s_map
 {
@@ -35,27 +30,47 @@ typedef struct s_player
 
 typedef struct s_cube3d
 {
-	char		**map;
-	char		*no;
-	char		*so;
-	char		*we;
-	char		*ea;
-	char		start;
-	bool		input_error;
-	t_map		map_data;
-	t_player	player;
-	int			f_color[3];
-	int			c_color[3];
+	char			**map;
+	char			*no;
+	char			*so;
+	char			*we;
+	char			*ea;
+	char			start;
+	bool			input_error;
+	int				f_color[3];
+	int				c_color[3];
+	int				view_mode;
+	int				map_size_x;
+	int 			map_size_y;
+	int 			cube_size_x;
+	int				cube_size_y;
+	int				screen_width;
+	int				screen_height;
+	float			px;
+	float			py;
+	float			pdx;
+	float 			pdy;
+	float			pa;
+	t_map			map_data;
+	t_player		player;
+	mlx_image_t		*img;
+	mlx_texture_t	*texture_we;
+	mlx_texture_t	*texture_ea;
+	mlx_texture_t	*texture_so;
+	mlx_texture_t	*texture_no;
+	mlx_texture_t	*texture_tmp;
+	mlx_t			*mlx;
 }	t_cube3d;
 
-typedef struct s_rays
+typedef struct s_ray
 {
-	int		shade;
 	int		r;
-	float 	iter;
+	int 	iter;
+	int		shade;
 	int		mx;
 	int		my;
-	int 	dof;
+	int 	dof_h;
+	int		dof_v;
 	float	rx;
 	float	ry;
 	float	ra;
@@ -75,7 +90,7 @@ typedef struct s_rays
 	float 	vy;
 	float	ca;
 	float 	tx;
-}	t_rays;
+}	t_ray;
 
 bool	check_arg(int ac, char **av);
 void	data_printf(t_cube3d *data);
@@ -171,22 +186,20 @@ int		get_rgba(int r, int g, int b, int a);
 void    ft_pixel_put(mlx_image_t *img, int x, int y, int color);
 void	ft_draw_line(mlx_image_t *img, int x0, int y0, int x1, int y1, int color);
 /** draw_2d */
-void	draw_background(mlx_t *mlx, mlx_image_t* img, char **map);
+void	draw_background(t_cube3d *data);
 /** key_handler */
 void	hook(void* param);
 /** cube_utils.c */
-int		map_cube_size(mlx_t *mlx);
+int 	map_cube_size(t_cube3d *data);
 /** calculation_utils */
 void 	reset_360(float *val);
 double 	hyp_dist(float ax, float ay, float bx, float by);
-/** muck_map */
-char	**muck_map(void);
 /** safe_check */
-char    safe_map_read(char **map, int x, int y);
+char	safe_map_read(t_cube3d *data, int x, int y);
 int		safe_get_pixel(mlx_texture_t *texture, int pixel);
 /** draw_3d */
-void	draw_3d(mlx_t	*mlx);
+void	draw_3d(t_cube3d *data);
 /** main */
-void	draw_rays_3d(mlx_t *mlx);
+void 	draw_rays_3d(t_cube3d *data);
 
 #endif
