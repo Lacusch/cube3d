@@ -171,6 +171,7 @@ bool	is_rectange(char	**map, int max_width);
 void	make_recktange(char	**map, int max_width);
 void	fill_string(char	**str_add, int max_width);
 void	player_position(t_cube3d *data);
+bool	is_closed(char	**map, t_map *map_data);
 void	player_position_sub(t_cube3d *data, int line);
 
 void	fill4(char **map, t_map *dimensions, int x, int y);

@@ -21,7 +21,10 @@ map and are up to you to handle.
 
 - [x] check for dublicates (in meta)
 - [x] scan the map
-- [ ] fill the empty space with some recognisable `char` (-1)
+- [x] fill the empty space with some recognisable `char` (-1)
 - [x] check if The map has only valid characters
 - [x] check for no and duplicate player
-- [ ] check if the map is closed or not
+- [x] check if the map is closed or not
+- [ ] check for coma in wrong places inside `rgb`
+- [x] check for empty spaces inside the map (like multible lines)
+- [ ] correct with `to_fix.cub` and `to_fix2.cub` so both throw an error.
