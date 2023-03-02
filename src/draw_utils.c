@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/02 02:15:09 by segarcia          #+#    #+#             */
+/*   Updated: 2023/03/02 06:16:32 by segarcia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cube3d.h"
 
 void	ft_pixel_put(mlx_image_t *img, int x, int y, int color)
@@ -23,7 +35,7 @@ void	ft_pixel_put(mlx_image_t *img, int x, int y, int color)
 	ft_memset(img->pixels + (y_size + 3) + x_sixe, get_a(color), 1);
 }
 
-void	ft_draw_line(mlx_image_t *img, int x0, int y0, int x1, int y1, int color)
+void	ft_draw_line(mlx_image_t *img, t_line line, int color)
 {
 	double	delta_x;
 	double	delta_y;
@@ -31,10 +43,10 @@ void	ft_draw_line(mlx_image_t *img, int x0, int y0, int x1, int y1, int color)
 	double	pixel_y;
 	int		pixels;
 
-	delta_x = x1 - x0;
-	delta_y = y1 - y0;
-	pixel_x = x0;
-	pixel_y = y0;
+	delta_x = line.x1 - line.x0;
+	delta_y = line.y1 - line.y0;
+	pixel_x = line.x0;
+	pixel_y = line.y0;
 	pixels = sqrt((delta_x * delta_x) + (delta_y * delta_y));
 	delta_x /= pixels;
 	delta_y /= pixels;
@@ -46,4 +58,15 @@ void	ft_draw_line(mlx_image_t *img, int x0, int y0, int x1, int y1, int color)
 		pixel_y += delta_y;
 		--pixels;
 	}
+}
+
+t_line	new_line(int x0, int y0, int x1, int y1)
+{
+	t_line	line;
+
+	line.x0 = x0;
+	line.y0 = y0;
+	line.x1 = x1;
+	line.y1 = y1;
+	return (line);
 }

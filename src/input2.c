@@ -1,4 +1,3 @@
-
 #include "../includes/cube3d.h"
 
 void	invalid_rgb(t_cube3d	*data)

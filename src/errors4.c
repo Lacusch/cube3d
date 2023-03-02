@@ -1,4 +1,3 @@
-
 #include "../includes/cube3d.h"
 
 bool	invalid_line(char	*str, t_cube3d	*data)

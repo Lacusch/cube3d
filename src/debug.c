@@ -1,4 +1,3 @@
-
 #include "../includes/cube3d.h"
 
 void	data_printf(t_cube3d *data)

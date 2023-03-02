@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key_handler.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/02 02:17:30 by segarcia          #+#    #+#             */
+/*   Updated: 2023/03/02 02:47:27 by segarcia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cube3d.h"
 
 static void	handle_view(t_cube3d *data, enum keys key_pressed)
@@ -5,7 +17,7 @@ static void	handle_view(t_cube3d *data, enum keys key_pressed)
 	if (key_pressed == MLX_KEY_M)
 		data->view_mode = 0;
 	else if (key_pressed == MLX_KEY_N)
-		data->view_mode  = 1;
+		data->view_mode = 1;
 	return (draw_3d(data));
 }
 
@@ -42,11 +54,6 @@ static int	valid_movement(mlx_t *mlx)
 	return (0);
 }
 
-static int	pos_setter(float pos, float incr, int div)
-{
-	return ((int)(pos + incr) / div);
-}
-
 static void	handle_movement(t_cube3d *data)
 {
 	float	next_pos_a;
@@ -54,20 +61,14 @@ static void	handle_movement(t_cube3d *data)
 	float	next_pos_y;
 	char	c_map;
 
-	next_pos_a = data->pa;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
-		next_pos_a += PI;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
-		next_pos_a -= PI / 2;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
-		next_pos_a += PI / 2;
-	reset_360(&next_pos_a);
+	next_pos_a = modify_pos_angle(data);
 	next_pos_x = cos(next_pos_a) * (data->cube_size_x / 10);
 	next_pos_y = sin(next_pos_a) * (data->cube_size_y / 10);
-	c_map = data->map[pos_setter(data->py, next_pos_y, data->cube_size_y)][pos_setter(data->px, next_pos_x, data->cube_size_x)];
+	c_map = keyh_read_map(data, next_pos_x, next_pos_y);
 	if (c_map == '1' || c_map == ' ')
 	{
-		if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT) || mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+		if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT)
+			|| mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 			return (draw_3d(data));
 		return ;
 	}

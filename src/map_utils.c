@@ -1,4 +1,3 @@
-
 #include "../includes/cube3d.h"
 
 int	get_max_width(char	**map)

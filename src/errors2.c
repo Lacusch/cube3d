@@ -1,4 +1,3 @@
-
 #include "../includes/cube3d.h"
 
 bool	open_error(char	*file)

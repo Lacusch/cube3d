@@ -1,4 +1,3 @@
-
 #include "../includes/cube3d.h"
 
 bool	check_extension(char	*av1, char	*extension)

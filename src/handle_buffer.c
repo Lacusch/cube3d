@@ -1,4 +1,3 @@
-
 #include "../includes/cube3d.h"
 
 void	handle_no(t_cube3d *data, char	*line)

@@ -56,7 +56,6 @@ void	map_valid_chars(t_cube3d	*data)
 
 /**
  * @brief Test to see if the map is valid
- * 
  * @param data main struct holding the map
  */
 void	test_map(t_cube3d	*data)

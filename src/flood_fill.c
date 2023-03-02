@@ -1,4 +1,3 @@
-
 #include "../includes/cube3d.h"
 
 void	fill4(char **map, t_map *dimensions, int x, int y)
