@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 02:35:54 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/02 03:10:24 by segarcia         ###   ########.fr       */
+/*   Updated: 2023/03/02 10:20:38 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	is_same_str(char *str1, char *str2)
 	return (1);
 }
 
-int cast_int(float num)
+int	cast_int(float num)
 {
 	return ((int)(num));
 }
