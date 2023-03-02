@@ -23,7 +23,7 @@ void	init_data(t_cube3d	*data)
 	data->map_size_y = 0;
 	data->cube_size_x = 0;
 	data->cube_size_y = 0;
-	data->s_width = 1680;
+	data->s_width = 2000;
 	data->s_height = 1280;
 	data->px = 0;
 	data->py = 0;

@@ -61,7 +61,7 @@ $(LIBFT):
 	@make -C lib/libft
 
 $(NAME): $(LIBFT) $(LIBMLX42) $(OBJECT)
-	@$(CC) $(LIBFT) $(OBJECT) $(LIBMLX42) $(GLFW3) $(FRAMEWORK) -o $(NAME)
+	@$(CC) $(LIBFT) -fsanitize=address $(OBJECT) $(LIBMLX42) $(GLFW3) $(FRAMEWORK) -o $(NAME)
 	@echo "$(NAME) created."
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 02:17:30 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/02 02:47:27 by segarcia         ###   ########.fr       */
+/*   Updated: 2023/03/02 10:19:22 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ static void	handle_movement(t_cube3d *data)
 	char	c_map;
 
 	next_pos_a = modify_pos_angle(data);
-	next_pos_x = cos(next_pos_a) * (data->cube_size_x / 10);
-	next_pos_y = sin(next_pos_a) * (data->cube_size_y / 10);
+	next_pos_x = cos(next_pos_a) * (data->cube_size_x / 5);
+	next_pos_y = sin(next_pos_a) * (data->cube_size_y / 5);
 	c_map = keyh_read_map(data, next_pos_x, next_pos_y);
 	if (c_map == '1' || c_map == ' ')
 	{
