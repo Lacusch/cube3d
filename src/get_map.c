@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_map.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/02 13:30:16 by slaszlo-          #+#    #+#             */
+/*   Updated: 2023/03/02 13:30:17 by slaszlo-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cube3d.h"
 
 void	get_map(t_cube3d	*data, char	*buff, int fd)
@@ -17,24 +29,16 @@ void	get_map(t_cube3d	*data, char	*buff, int fd)
 		while (buff && !data->input_error)
 		{
 			if (ft_strncmp(buff, "\n", 2) == 0)
-			{
-				write(STDERR_FILENO, EMPTY_LINE, 33);
-				return (free(tmp), free(buff), close(fd), set_error(data));
-			}
+				return (free_close(fd, buff, tmp), set_error(data), el());
 			tmp2 = tmp;
 			tmp = ft_strjoin(tmp2, buff);
-			free(tmp2);
-			free(buff);
+			free_close(-1, tmp2, buff);
 			buff = get_next_line(fd);
 		}
 		data->map = ft_split(tmp, '\n');
-		free(tmp);
-		free(buff);
-		close(fd);
+		free_close(fd, tmp, buff);
 	}
 	check_map(data);
-	if (!data->input_error)
-		data_printf(data);
 }
 
 void	check_map(t_cube3d	*data)
@@ -43,6 +47,8 @@ void	check_map(t_cube3d	*data)
 		return ;
 	map_valid_chars(data);
 	test_map(data);
+	if (!data->input_error)
+		data_printf(data);
 }
 
 void	map_valid_chars(t_cube3d	*data)
@@ -95,4 +101,3 @@ void	player_position(t_cube3d *data)
 		i++;
 	}
 }
-

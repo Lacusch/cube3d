@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/02 13:31:18 by slaszlo-          #+#    #+#             */
+/*   Updated: 2023/03/02 13:31:19 by slaszlo-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cube3d.h"
 
 void	input_data(t_cube3d	*data, char	*map)
@@ -20,7 +32,7 @@ void	input_data(t_cube3d	*data, char	*map)
 	if (!meta_full(data) && data->input_error == false)
 		run_error_func(buff, fd, missing_meta, (void *)data);
 	else if (invalid_meta(data) && data->input_error == false)
-		free_close(buff, fd);
+		free_close(fd, buff, NULL);
 	else
 		get_map(data, buff, fd);
 }
@@ -90,9 +102,12 @@ void	get_rgb_celling(int start, t_cube3d *data, char *buff, int loop)
 		get_rgb_celling(start + i2, data, buff, ++loop);
 }
 
-void	free_close(char	*buff, int fd)
+void	free_close(int c, char *s1, char *s2)
 {
-	free(buff);
-	buff = NULL;
-	close(fd);
+	if (c >= 0)
+		close(c);
+	if (s1 != NULL)
+		free(s1);
+	if (s2 != NULL)
+		free(s2);
 }

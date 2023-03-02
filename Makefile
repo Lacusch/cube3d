@@ -19,6 +19,7 @@ SOURCE = src/check_map.c 			\
 		src/errors2.c 				\
 		src/errors3.c 				\
 		src/errors4.c 				\
+		src/errors5.c				\
 		src/map_utils.c 			\
 		src/flood_fill.c 			\
 		src/draw_utils.c			\

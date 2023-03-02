@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 02:15:09 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/02 12:07:39 by segarcia         ###   ########.fr       */
+/*   Updated: 2023/03/02 13:28:22 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_pixel_put(mlx_image_t *img, int x, int y, int color)
 	ft_memset(img->pixels + (y_size) + x_sixe, get_r(color), 1);
 	ft_memset(img->pixels + (y_size + 1) + x_sixe, get_g(color), 1);
 	ft_memset(img->pixels + (y_size + 2) + x_sixe, get_b(color), 1);
-	ft_memset(img->pixels + (y_size + 3) + x_sixe, get_a(color), 1);	
+	ft_memset(img->pixels + (y_size + 3) + x_sixe, get_a(color), 1);
 }
 
 void	ft_draw_line(mlx_image_t *img, t_line line, int color)

@@ -143,7 +143,6 @@ bool	open_error(char	*file);
 
 bool	invalid_error(void);
 void	get_map(t_cube3d	*data, char	*buff, int fd);
-void	free_close(char	*buff, int fd);
 void	invalid_error2(t_cube3d	*data);
 void	set_error(t_cube3d	*data);
 void	digit_check(t_cube3d	*data, int loop, int start, char	*str);
@@ -233,5 +232,7 @@ void 	draw_rays_3d(t_cube3d *data);
 t_line	new_line(int x0, int y0, int x1, int y1);
 int		init_mlx(t_cube3d *data);
 int 	init_textures(t_cube3d *data);
+void	free_close(int c, char *s1, char *s2);
+void	el(void);
 
 #endif
