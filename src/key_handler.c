@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 02:17:30 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/02 12:18:26 by segarcia         ###   ########.fr       */
+/*   Updated: 2023/03/02 14:02:44 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	add_rotation(t_cube3d *data, enum keys key_pressed)
 {
 	if (key_pressed == MLX_KEY_LEFT)
 	{
-		data->pa -= 0.05;
+		data->pa -= 0.1;
 		if (data->pa < 0)
 			data->pa += 2 * PI;
 		data->pdx = cos(data->pa);
@@ -33,7 +33,7 @@ static void	add_rotation(t_cube3d *data, enum keys key_pressed)
 	}
 	else if (key_pressed == MLX_KEY_RIGHT)
 	{
-		data->pa += 0.05;
+		data->pa += 0.1;
 		if (data->pa > 2 * PI)
 			data->pa -= 2 * PI;
 		data->pdx = cos(data->pa);
