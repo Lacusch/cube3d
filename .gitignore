@@ -53,3 +53,4 @@ dkms.conf
 # Own stuff
 .vscode
 cub3D
+.idea
