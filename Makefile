@@ -4,8 +4,7 @@ GLFW3 = lib/MLX42/build/_deps/glfw-build/src/libglfw3.a
 LIBMLX42 = lib/MLX42/build/libmlx42.a
 FRAMEWORK = -framework Cocoa -framework OpenGL -framework IOKit
 EXAMPLE_MAP = maps/pdf_example.cub
-SOURCE = src/check_map.c 			\
-		src/debug.c 				\
+SOURCE = src/debug.c 				\
 		src/free.c 					\
 		src/get_map.c				\
 		src/handle_buffer.c 		\
