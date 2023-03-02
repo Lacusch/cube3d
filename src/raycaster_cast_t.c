@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_cast_t.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 05:52:55 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/02 14:32:36 by segarcia         ###   ########.fr       */
+/*   Updated: 2023/03/02 14:50:09 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ static int	pixel_channel(t_cube3d *data, t_ray *ray, float ty, int pixel)
 	int		bpp;
 	int		pixel_int;
 	int		pixel_color;
-	
+
 	bpp = sizeof(int32_t);
 	pixel_int = bpp * cast_int(ty) * data->texture_tmp->height;
-	pixel_int += (cast_int(ray->tx) * bpp); 
+	pixel_int += (cast_int(ray->tx) * bpp);
 	pixel_color = safe_get_pixel(data->texture_tmp, pixel_int + pixel);
 	return (pixel_color);
 }

@@ -27,4 +27,3 @@ map and are up to you to handle.
 - [x] check if the map is closed or not
 - [ ] check for coma in wrong places inside `rgb`
 - [x] check for empty spaces inside the map (like multible lines)
-- [ ] correct with `to_fix.cub` and so that it throws an error.

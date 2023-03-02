@@ -6,7 +6,7 @@
 /*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:31:11 by slaszlo-          #+#    #+#             */
-/*   Updated: 2023/03/02 13:31:12 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/02 14:47:50 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,15 @@ void	handle_ea(t_cube3d *data, char	*line)
 void	handle_color(t_cube3d	*data, char *buff)
 {
 	int	i;
-	int	i2;
 
 	i = 1;
-	i2 = 0;
-	(void)i2;
 	double_color(data, buff);
+	if (data->input_error)
+		return ;
+	if (!is_valid_nb_quete(buff))
+		return (set_error(data));
+	if (!is_valid_place_quete(buff))
+		return (set_error(data));
 	if (buff[0] == 'F' && data->input_error != true)
 	{
 		while (is_whilespace(&buff[i]) == true && buff[i])

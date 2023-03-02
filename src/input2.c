@@ -6,7 +6,7 @@
 /*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:31:24 by slaszlo-          #+#    #+#             */
-/*   Updated: 2023/03/02 13:31:25 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/02 14:29:12 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,6 @@ void	invalid_rgb(t_cube3d	*data)
 
 void	could_be_valid(char	*str, t_cube3d	*data)
 {
-	int	total;
-	int	size;
-
-	total = 0;
-	size = 0;
-	(void) size;
-	(void) total;
 	terminate_str(str);
 	if (*str == 'F' || *str == 'C')
 		str++;
@@ -36,7 +29,7 @@ void	could_be_valid(char	*str, t_cube3d	*data)
 		str++;
 	if (ft_strlen(str) > (size_t)11)
 	{
-		printf("%s", RGB_LONG);
+		write(STDERR_FILENO, RGB_LONG, 30);
 		return (set_error(data));
 	}
 	digit_check(data, 0, 0, str);
