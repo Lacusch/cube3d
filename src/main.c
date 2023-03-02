@@ -1,15 +1,16 @@
-// -----------------------------------------------------------------------------
-// Codam Coding College, Amsterdam @ 2022-2023 by W2Wizard.
-// See README in the root project for more information.
-// -----------------------------------------------------------------------------
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/02 08:13:11 by segarcia          #+#    #+#             */
+/*   Updated: 2023/03/02 08:13:46 by segarcia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/cube3d.h"
-
-static int ft_error(void)
-{
-	fprintf(stderr, "%s", mlx_strerror(mlx_errno));
-	return (EXIT_FAILURE);
-}
 
 int32_t	main(int ac, char** av)
 {
@@ -24,30 +25,12 @@ int32_t	main(int ac, char** av)
 		data_free(&data);
 		return (EXIT_FAILURE);
 	}
-	data.map_size_x = data.map_data.width;
-	data.map_size_y = data.map_data.height;
-	if (!(data.mlx = mlx_init(data.s_width, data.s_height, "CUB3D", true)))
-    		return (ft_error());
-    data.img = mlx_new_image(data.mlx, data.s_width, data.s_height);
-    if (!data.img)
-    	perror("Error creating img");
+	if (init_mlx(&data) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	if (init_textures(&data) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
     map_cube_size(&data);
-    // if (data.start == 'N')
-    // 	g_pa = -P2 - DEGREE;
-	// else if (data.start == 'S')
-	// 	g_pa = P2 - DEGREE;
-	// else if (data.start == 'E')
-	// 	g_pa = 0 + DEGREE;
-	// else if (data.start == 'W')
-	// 	g_pa = PI - DEGREE;
-    data.px = data.player.x * data.cube_size_x;
-    data.py = data.player.y * data.cube_size_y;
-    data.pdx = cos(data.pa);
-    data.pdy = sin(data.pa);
-   	data.texture_we = mlx_load_png(data.we);
-   	data.texture_ea = mlx_load_png(data.ea);
-   	data.texture_so = mlx_load_png(data.so);
-   	data.texture_no = mlx_load_png(data.no);
+ 	init_position(&data);
     draw_3d(&data);
     mlx_loop_hook(data.mlx, &hook, &data);
     mlx_loop(data.mlx);

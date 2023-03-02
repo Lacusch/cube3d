@@ -39,3 +39,19 @@ void	init_data(t_cube3d	*data)
 	data->texture_tmp = NULL;
 	data->mlx = NULL;
 }
+
+void	init_position(t_cube3d *data)
+{
+	data->px = data->player.x * data->cube_size_x;
+    data->py = data->player.y * data->cube_size_y;
+    data->pdx = cos(data->pa);
+    data->pdy = sin(data->pa);
+	 if (data->start == 'N')
+    	data->pa = -PI_HALF - DEGREE;
+	else if (data->start == 'S')
+		data->pa = PI_HALF - DEGREE;
+	else if (data->start == 'E')
+		data->pa = 0 + DEGREE;
+	else if (data->start == 'W')
+		data->pa = PI - DEGREE;
+}

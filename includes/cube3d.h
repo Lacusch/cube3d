@@ -10,11 +10,7 @@
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/libft/libft.h"
 # include "errors.h"
-
-#define PI 3.1415926535
-#define P2 PI / 2
-#define P3 3 * PI /2
-#define DEGREE PI / 180
+# include "constants.h"
 
 typedef struct s_map
 {
@@ -27,6 +23,14 @@ typedef struct s_player
 	int		x;
 	int		y;
 }	t_player;
+
+typedef struct	s_line
+{
+	int		x0;
+	int		y0;
+	int		x1;
+	int		y1;
+}	t_line;
 
 typedef struct s_cube3d
 {
@@ -44,8 +48,8 @@ typedef struct s_cube3d
 	int 			map_size_y;
 	int 			cube_size_x;
 	int				cube_size_y;
-	int				screen_width;
-	int				screen_height;
+	int				s_width;
+	int				s_height;
 	float			px;
 	float			py;
 	float			pdx;
@@ -176,30 +180,57 @@ bool	is_map_invalid(t_cube3d	*data, char	**matrix);
 void	invalid_map(void);
 
 int		is_same_str(char *str1, char *str2);
-/** rgba_utils */
+int		cast_int(float num);
+
 int		get_r(int rgba);
 int		get_g(int rgba);
 int		get_b(int rgba);
 int		get_a(int rgba);
 int		get_rgba(int r, int g, int b, int a);
-/** draw_utils */
+
 void    ft_pixel_put(mlx_image_t *img, int x, int y, int color);
-void	ft_draw_line(mlx_image_t *img, int x0, int y0, int x1, int y1, int color);
-/** draw_2d */
+void	ft_draw_line(mlx_image_t *img, t_line line, int color);
+
 void	draw_background(t_cube3d *data);
-/** key_handler */
+
 void	hook(void* param);
-/** cube_utils.c */
+
+char	keyh_read_map(t_cube3d *data, float x, float y);
+float	modify_pos_angle(t_cube3d *data);
+
 int 	map_cube_size(t_cube3d *data);
-/** calculation_utils */
+
 void 	reset_360(float *val);
-double 	hyp_dist(float ax, float ay, float bx, float by);
-/** safe_check */
+double	hyp_dist(float a_x, float a_y, float b_x, float b_y);
+
 char	safe_map_read(t_cube3d *data, int x, int y);
 int		safe_get_pixel(mlx_texture_t *texture, int pixel);
-/** draw_3d */
+
 void	draw_3d(t_cube3d *data);
-/** main */
+
+void	init_rays(t_cube3d *data, t_ray *ray);
+void	init_ray(t_cube3d *data, t_ray *ray);
+
+void	set_ray_h_up(t_cube3d *data, t_ray *ray);
+void	set_ray_h_down(t_cube3d *data, t_ray *ray);
+void	set_ray_v_left(t_cube3d *data, t_ray *ray);
+void	set_ray_v_right(t_cube3d *data, t_ray *ray);
+
+void	find_horizontal_hit(t_cube3d *data, t_ray *ray);
+void	find_vertical_hit(t_cube3d *data, t_ray *ray);
+
+void	cast_horizontal(t_cube3d *data, t_ray *ray);
+void	cast_vertical(t_cube3d *data, t_ray *ray);
+void	wall_hit(t_cube3d *data, t_ray *ray);
+
+void	draw_ceiling(t_cube3d *data, t_ray *ray);
+void	draw_floor(t_cube3d *data, t_ray *ray);
+
+void	cast_texture_to_screen(t_cube3d *data, t_ray *ray);
+void	init_position(t_cube3d *data);
 void 	draw_rays_3d(t_cube3d *data);
+t_line	new_line(int x0, int y0, int x1, int y1);
+int		init_mlx(t_cube3d *data);
+int 	init_textures(t_cube3d *data);
 
 #endif
