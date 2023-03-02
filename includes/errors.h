@@ -32,4 +32,5 @@
 # define NOT_CLOSED			"Error\nMap is not closed\n"
 # define EMPTY_LINE			"Error\nEmply line inside the map\n"
 # define INV_QUETE			"Error\nInvalid number of quetes in RGB\n"
+# define DOUBLE_COMA		"Error\nDouble coma in RGB\n"
 #endif

@@ -6,7 +6,7 @@
 /*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:30:49 by slaszlo-          #+#    #+#             */
-/*   Updated: 2023/03/02 14:49:36 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/02 16:14:52 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,31 @@ bool	is_valid_nb_quete(char	*buff)
 
 bool	is_valid_place_quete(char	*buff)
 {
-	(void)buff;
+	int	i;
+	int	count;
+	bool	last_coma;
+
+	last_coma = 0;
+	i = 0;
+	count = 0;
+	if (buff[i] == 'F' || buff[i] == 'C')
+		i++;
+	while (buff[i] == ' ' && buff[i])
+		i++;
+	while (buff[i])
+	{
+		if (buff[i] == ',')
+		{
+			if (last_coma == 1)
+			{
+				write(STDERR_FILENO, DOUBLE_COMA, 26);
+				return (false);
+			}
+			last_coma = 1;
+		}
+		else
+			last_coma = 0;
+		i++;
+	}
 	return (true);
 }
