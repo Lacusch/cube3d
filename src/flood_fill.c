@@ -16,17 +16,19 @@ void	fill4(char **map, t_map *dimensions, int x, int y)
 
 void	fill8(char **map, t_cube3d *data, int x, int y)
 {
-	t_map   dimensions;
-	dimensions.height = data->map_data.height;
-	dimensions.height = data->map_data.width;
-	if (y < 0 || y >= dimensions.height || x < 0 || x >= dimensions.width
+	t_map	*dimensions;
+
+	dimensions = malloc(sizeof(dimensions));
+	(*dimensions).height = data->map_data.height;
+	(*dimensions).width = data->map_data.width;
+	if (y < 0 || y >= dimensions->height || x < 0 || x >= dimensions->width
 		|| data->input_error)
-		return ;
+		return (free(dimensions));
 	if (map[y][x] == ' ')
-		return (set_error(data), invalid_map());
+		return (set_error(data), invalid_map(), free(dimensions));
 	if (map[y][x] != '0' && map[y][x] != 'N'
 	&& map[y][x] != 'S' && map[y][x] != 'E' && map[y][x] != 'W')
-		return ;
+		return (free(dimensions));
 	map[y][x] = 'F';
 	fill8(map, data, x + 1, y + 1);
 	fill8(map, data, x + 1, y);
@@ -36,6 +38,7 @@ void	fill8(char **map, t_cube3d *data, int x, int y)
 	fill8(map, data, x -1 , y + 1);
 	fill8(map, data, x -1, y);
 	fill8(map, data, x - 1, y - 1);
+	free(dimensions);
 }
 
 void	flood_fill(char **map, t_cube3d *data, int player_x, int player_y)

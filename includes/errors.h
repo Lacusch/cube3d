@@ -29,5 +29,5 @@
 # define MLX_ERROR			"Error\nProblem initializing mlx\n"
 # define MLX_IMG_ERROR		"Error\nProblem initializing image\n"
 # define MLX_TEXTURE		"Error\nProblem loading textures\n"
-
+# define NOT_CLOSED			"Error\nMap is not closed\n"
 #endif

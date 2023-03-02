@@ -7,7 +7,6 @@ void	get_map(t_cube3d	*data, char	*buff, int fd)
 
 	if (!data->input_error)
 	{
-		printf("get_map here\n");
 		check_buffer(buff, data);
 		tmp = ft_strdup("");
 		while (buff && !data->input_error)
@@ -36,12 +35,9 @@ void	check_map(t_cube3d	*data)
 
 void	map_valid_chars(t_cube3d	*data)
 {
-	char	player;
 	int		i;
 
 	i = 0;
-	player = '\0';
-	(void)player;
 	if (data->map == NULL)
 		return (set_error(data));
 	while (data->map[i] != NULL)
@@ -69,6 +65,8 @@ void	test_map(t_cube3d	*data)
 		make_recktange(data->map, data->map_data.width);
 	matrix = matrix_dub(data->map);
 	data->map_data.height = matrix_size(matrix);
+	if (!is_closed(matrix, &(data->map_data)))
+		return (set_error(data), matrix_free(matrix));
 	player_position(data);
 	flood_fill(matrix, data, data->player.x, data->player.y);
 	matrix_free(matrix);
@@ -85,3 +83,4 @@ void	player_position(t_cube3d *data)
 		i++;
 	}
 }
+

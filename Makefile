@@ -9,6 +9,7 @@ SOURCE = src/check_map.c 			\
 		src/free.c 					\
 		src/get_map.c				\
 		src/handle_buffer.c 		\
+		src/is.c					\
 		src/init.c 					\
 		src/input_utils.c 			\
 		src/input.c 				\
