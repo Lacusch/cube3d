@@ -26,5 +26,5 @@ map and are up to you to handle.
 - [x] check for no and duplicate player
 - [x] check if the map is closed or not
 - [ ] check for coma in wrong places inside `rgb`
-- [ ] check for empty spaces inside the map (like multible lines)
+- [x] check for empty spaces inside the map (like multible lines)
 - [ ] correct with `to_fix.cub` and `to_fix2.cub` so both throw an error.

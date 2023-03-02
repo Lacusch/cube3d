@@ -9,8 +9,18 @@ void	get_map(t_cube3d	*data, char	*buff, int fd)
 	{
 		check_buffer(buff, data);
 		tmp = ft_strdup("");
+		while (buff && ft_strncmp(buff, "\n", SIZE_T_MAX) == 0)
+		{
+			free(buff);
+			buff = get_next_line(fd);
+		}
 		while (buff && !data->input_error)
 		{
+			if (ft_strncmp(buff, "\n", 2) == 0)
+			{
+				write(STDERR_FILENO, EMPTY_LINE, 33);
+				return (free(tmp), free(buff), close(fd), set_error(data));
+			}
 			tmp2 = tmp;
 			tmp = ft_strjoin(tmp2, buff);
 			free(tmp2);
@@ -29,6 +39,8 @@ void	get_map(t_cube3d	*data, char	*buff, int fd)
 
 void	check_map(t_cube3d	*data)
 {
+	if (data->input_error)
+		return ;
 	map_valid_chars(data);
 	test_map(data);
 }
