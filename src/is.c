@@ -6,7 +6,7 @@
 /*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:30:49 by slaszlo-          #+#    #+#             */
-/*   Updated: 2023/03/02 16:14:52 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/02 16:24:09 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ bool	is_valid_place_quete(char	*buff)
 {
 	int	i;
 	int	count;
-	bool	last_coma;
+	int	last_coma;
 
-	last_coma = 0;
 	i = 0;
 	count = 0;
+	last_coma = 0;
 	if (buff[i] == 'F' || buff[i] == 'C')
 		i++;
 	while (buff[i] == ' ' && buff[i])
@@ -83,10 +83,7 @@ bool	is_valid_place_quete(char	*buff)
 		if (buff[i] == ',')
 		{
 			if (last_coma == 1)
-			{
-				write(STDERR_FILENO, DOUBLE_COMA, 26);
-				return (false);
-			}
+				return (double_coma());
 			last_coma = 1;
 		}
 		else
@@ -94,4 +91,10 @@ bool	is_valid_place_quete(char	*buff)
 		i++;
 	}
 	return (true);
+}
+
+bool	double_coma(void)
+{
+	write(STDERR_FILENO, DOUBLE_COMA, 26);
+	return (false);
 }

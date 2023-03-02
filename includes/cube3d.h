@@ -236,5 +236,6 @@ void	free_close(int c, char *s1, char *s2);
 void	el(void);
 bool	is_valid_nb_quete(char	*buff);
 bool	is_valid_place_quete(char	*buff);
+bool	double_coma(void);
 
 #endif
