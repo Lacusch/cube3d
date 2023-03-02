@@ -1,4 +1,3 @@
-
 #include "../includes/cube3d.h"
 
 void	matrix_free(char **matrix)

@@ -1,4 +1,3 @@
-
 #include "../includes/cube3d.h"
 
 void	input_data(t_cube3d	*data, char	*map)

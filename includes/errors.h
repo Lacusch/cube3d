@@ -26,4 +26,9 @@
 # define TO_MANY_PLAYER		"Error\nDuplicate player\n"
 # define NO_PLAYER			"Error\nNo player\n"
 # define INVALID_MAP		"Error\nInvalid map\n"
+# define MLX_ERROR			"Error\nProblem initializing mlx\n"
+# define MLX_IMG_ERROR		"Error\nProblem initializing image\n"
+# define MLX_TEXTURE		"Error\nProblem loading textures\n"
+# define NOT_CLOSED			"Error\nMap is not closed\n"
+# define EMPTY_LINE			"Error\nEmply line inside the map\n"
 #endif

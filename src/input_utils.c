@@ -1,4 +1,3 @@
-
 #include"../includes/cube3d.h"
 
 int	ft_line(char *map)

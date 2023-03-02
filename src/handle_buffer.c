@@ -1,4 +1,3 @@
-
 #include "../includes/cube3d.h"
 
 void	handle_no(t_cube3d *data, char	*line)
@@ -88,6 +87,7 @@ void	handle_color(t_cube3d	*data, char *buff)
 
 	i = 1;
 	i2 = 0;
+	(void)i2;
 	double_color(data, buff);
 	if (buff[0] == 'F' && data->input_error != true)
 	{

@@ -1,4 +1,3 @@
-
 #include "../includes/cube3d.h"
 
 void	fill4(char **map, t_map *dimensions, int x, int y)
@@ -36,7 +35,7 @@ void	fill8(char **map, t_cube3d *data, int x, int y)
 	fill8(map, data, x + 1, y - 1);
 	fill8(map, data, x, y + 1);
 	fill8(map, data, x, y - 1);
-	fill8(map, data, x -1 , y + 1);
+	fill8(map, data, x - 1, y + 1);
 	fill8(map, data, x -1, y);
 	fill8(map, data, x - 1, y - 1);
 	free(dimensions);

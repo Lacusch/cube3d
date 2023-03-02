@@ -1,0 +1,13 @@
+NO      ./textures/brick.png
+SO ./textures/eagle.png
+WE ./textures/greystone.png
+EA ./textures/bluestone.png
+
+F 220,100,0
+C 225,30,0
+
+1111111
+1000001
+11N1111
+1111111
+1111111
