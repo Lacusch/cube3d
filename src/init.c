@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 10:23:41 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/02 10:24:23 by segarcia         ###   ########.fr       */
+/*   Updated: 2023/03/02 12:23:25 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,10 @@ void	init_data(t_cube3d *data)
 
 void	init_position(t_cube3d *data)
 {
-	data->px = data->player.x * data->cube_size_x;
-	data->py = data->player.y * data->cube_size_y;
+	data->px = (data->player.x * data->cube_size_x);
+	data->px = data->px + data->cube_size_x / 2;
+	data->py = (data->player.y * data->cube_size_y);
+	data->py = data->py + data->cube_size_y / 2;
 	data->pdx = cos(data->pa);
 	data->pdy = sin(data->pa);
 	if (data->start == 'N')

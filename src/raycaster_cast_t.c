@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 05:52:55 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/02 06:33:00 by segarcia         ###   ########.fr       */
+/*   Updated: 2023/03/02 12:07:30 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	cast_texture_to_screen(t_cube3d *data, t_ray *ray)
 	while (y < ray->lineH)
 	{
 		pixel = texture_pixel(data, ray, ty);
-		ft_pixel_put(data->img, (ray->r) + ray->iter, ray->lineO + y, pixel);
+		ft_pixel_put(data->img, ray->r + ray->iter, ray->lineO + y, pixel);
 		ty += ty_step;
 		y++;
 	}

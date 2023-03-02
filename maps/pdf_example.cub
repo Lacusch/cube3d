@@ -1,9 +1,6 @@
-NO      ./textures/brick.png
-
+NO ./textures/brick.png
 SO ./textures/eagle.png
-
 WE ./textures/greystone.png
-
 EA ./textures/bluestone.png
 
 F 220,100,0

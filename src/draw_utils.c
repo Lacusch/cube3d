@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 02:15:09 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/02 06:16:32 by segarcia         ###   ########.fr       */
+/*   Updated: 2023/03/02 12:07:39 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ void	ft_pixel_put(mlx_image_t *img, int x, int y, int color)
 	max_size = img->width * img->height * 4;
 	x_sixe = x * bpp;
 	y_size = bpp * img->width * y;
-	if ((x_sixe + y_size) > max_size)
+	if ((x_sixe + y_size) >= max_size)
 		return ;
 	ft_memset(img->pixels + (y_size) + x_sixe, get_r(color), 1);
 	ft_memset(img->pixels + (y_size + 1) + x_sixe, get_g(color), 1);
 	ft_memset(img->pixels + (y_size + 2) + x_sixe, get_b(color), 1);
-	ft_memset(img->pixels + (y_size + 3) + x_sixe, get_a(color), 1);
+	ft_memset(img->pixels + (y_size + 3) + x_sixe, get_a(color), 1);	
 }
 
 void	ft_draw_line(mlx_image_t *img, t_line line, int color)
