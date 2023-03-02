@@ -1,7 +1,7 @@
 NO ./textures/brick.png
 SO ./textures/eagle.png
 WE ./textures/greystone.png
-EA ./textures/bluestone.png
+EA ./textures/minecraft-bee.png
 
 F 194,178,128
 C 135,206,235
