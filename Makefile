@@ -54,7 +54,7 @@ $(LIBFT):
 	git submodule update --init --remote
 	@make -C lib/libft
 
-$(NAME): $(LIBFT) $(LIBMLX42) $(OBJECT)
+$(NAME): $(LIBFT) $(OBJECT) $(LIBMLX42)
 	@$(CC) $(LIBFT) $(OBJECT) $(LIBMLX42) -lglfw -L $(GLFW3) $(FRAMEWORK) -o $(NAME)
 	@echo "$(NAME) created."
 
