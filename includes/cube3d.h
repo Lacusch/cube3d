@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 10:37:11 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/03 12:19:24 by segarcia         ###   ########.fr       */
+/*   Updated: 2023/03/03 13:09:35 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,7 @@ int		init_mlx(t_cube3d *data);
 int		init_textures(t_cube3d *data);
 void	free_close(int c, char *s1, char *s2);
 void	el(void);
+bool	can_open(char	*map);
 bool	is_valid_nb_quete(char	*buff);
 bool	is_valid_place_quete(char	*buff);
 bool	double_coma(void);

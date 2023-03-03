@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:29:23 by slaszlo-          #+#    #+#             */
-/*   Updated: 2023/03/03 11:08:28 by segarcia         ###   ########.fr       */
+/*   Updated: 2023/03/03 13:09:24 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ bool	check_arg(int ac, char **av)
 		}
 	}
 	else if (check_extension(av[1], ".cub"))
+		parce_error = true;
+	else if (!can_open(av[1]))
 		parce_error = true;
 	return (parce_error);
 }

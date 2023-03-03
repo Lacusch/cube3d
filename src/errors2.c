@@ -6,7 +6,7 @@
 /*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:29:29 by slaszlo-          #+#    #+#             */
-/*   Updated: 2023/03/02 13:29:30 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/03 13:05:59 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,23 @@ bool	check_can_open(t_cube3d	*data)
 	fd = open(data->no, O_RDONLY);
 	if (fd == -1)
 		return (!open_error(data->no));
+	else
+		close(fd);
 	fd = open(data->so, O_RDONLY);
 	if (fd == -1)
 		return (!open_error(data->so));
+	else
+		close(fd);
 	fd = open(data->ea, O_RDONLY);
 	if (fd == -1)
 		return (!open_error(data->ea));
+	else
+		close(fd);
 	fd = open(data->we, O_RDONLY);
 	if (fd == -1)
 		return (!open_error(data->we));
+	else
+		close(fd);
 	return (true);
 }
 
