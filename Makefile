@@ -1,6 +1,7 @@
+NAME = cub3D
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-GLFW3 = lib/MLX42/build/_deps/glfw-build/src/libglfw3.a
+GLFW3 = $$HOME/.brew/Cellar/glfw/3.3.8/lib/
 LIBMLX42 = lib/MLX42/build/libmlx42.a
 FRAMEWORK = -framework Cocoa -framework OpenGL -framework IOKit
 EXAMPLE_MAP = maps/pdf_example.cub
@@ -46,23 +47,25 @@ NAME = cub3D
 all: $(NAME)
 
 $(LIBMLX42):
-	@if [ -d ./lib/MLX42/glfw_lib ]; \
-    then echo "glfw3 already Exists"; \
-    else \
-	echo "Creating Makefiles." && \
-	sleep 1 && \
-	cmake -S lib/MLX42/ -B lib/MLX42/build -DGLFW_FETCH=1 && \
-	echo "Building glfw3 and MLX42." && \
-	sleep 1; \
-	make -C lib/MLX42/build; \
-	fi
+	cmake -S lib/MLX42/ -B lib/MLX42/build
+	make -C lib/MLX42/build
+#	@if [ -d ./lib/MLX42/build ]; \
+#    then echo "glfw3 already Exists"; \
+#    else \
+#	echo "Creating Makefiles." && \
+#	sleep 1 && \
+#	cmake -S lib/MLX42/ -B lib/MLX42/build -DGLFW_FETCH=1 && \
+#	echo "Building glfw3 and MLX42." && \
+#	sleep 1; \
+#	make -C lib/MLX42/build; \
+#	fi
 
 $(LIBFT):
 	git submodule update --init --remote
 	@make -C lib/libft
 
 $(NAME): $(LIBFT) $(LIBMLX42) $(OBJECT)
-	@$(CC) $(LIBFT) $(OBJECT) $(LIBMLX42) $(GLFW3) $(FRAMEWORK) -o $(NAME)
+	@$(CC) $(LIBFT) $(OBJECT) $(LIBMLX42) -lglfw -L $(GLFW3) $(FRAMEWORK) -o $(NAME)
 	@echo "$(NAME) created."
 
 clean:
@@ -74,7 +77,7 @@ fclean: clean
 	@echo "Removing executable."
 	@rm -rf src/*.o
 	@make fclean -C lib/libft
-	@rm -rf ./lib/MLX42/build $(GLFW3) $(LIBMLX42) $(NAME)
+	@rm -rf ./lib/MLX42/build $(LIBMLX42) $(NAME)
 re: fclean all
 
 run: $(NAME)
