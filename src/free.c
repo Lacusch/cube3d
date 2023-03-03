@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
+/*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:30:12 by slaszlo-          #+#    #+#             */
-/*   Updated: 2023/03/02 13:30:13 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/03 11:15:47 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,26 @@ void	matrix_free(char **matrix)
 	matrix = NULL;
 }
 
-void	data_free(t_cube3d	*data)
+int	data_free(t_cube3d	*data, int status)
 {
-	if (data->map != NULL)
+	if (data->map != NULL && data->map)
 		matrix_free(data->map);
-	if (data->no != NULL)
-		str_free(data->no);
-	if (data->so != NULL)
-		str_free(data->so);
-	if (data->we != NULL)
-		str_free(data->we);
-	if (data->ea != NULL)
-		str_free(data->ea);
+	if (data->no != NULL && data->no)
+		str_free(&data->no);
+	if (data->so != NULL && data->so)
+		str_free(&data->so);
+	if (data->we != NULL && data->we)
+		str_free(&data->we);
+	if (data->ea != NULL && data->ea)
+		str_free(&data->ea);
+	return (status);
 }
 
-void	str_free(char	*str)
+void	str_free(char	**str)
 {
-	free(str);
-	str = NULL;
+	if (*str != NULL)
+	{
+		free(*str);
+		*str = NULL;
+	}
 }

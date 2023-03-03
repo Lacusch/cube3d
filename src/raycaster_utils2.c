@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 04:03:16 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/02 04:23:53 by segarcia         ###   ########.fr       */
+/*   Updated: 2023/03/03 10:52:43 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	find_horizontal_hit(t_cube3d *data, t_ray *ray)
 	{
 		ray->hx = ray->rx;
 		ray->hy = ray->ry;
-		ray->disH = hyp_dist(data->px, data->py, ray->hx, ray->hy);
+		ray->dis_h = hyp_dist(data->px, data->py, ray->hx, ray->hy);
 		ray->dof_h = data->map_size_y;
 	}
 	else
@@ -48,7 +48,7 @@ void	find_vertical_hit(t_cube3d *data, t_ray *ray)
 	{
 		ray->vx = ray->rx;
 		ray->vy = ray->ry;
-		ray->disV = hyp_dist(data->px, data->py, ray->vx, ray->vy);
+		ray->dis_v = hyp_dist(data->px, data->py, ray->vx, ray->vy);
 		ray->dof_v = data->map_size_x;
 	}
 	else

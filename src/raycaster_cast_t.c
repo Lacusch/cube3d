@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_cast_t.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
+/*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 05:52:55 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/02 14:50:09 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/03 10:51:52 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ void	cast_texture_to_screen(t_cube3d *data, t_ray *ray)
 	float	ty_step;
 
 	y = 0;
-	ty_step = data->texture_tmp->height / ray->lineH;
+	ty_step = data->texture_tmp->height / ray->line_h;
 	ty = ty_step;
 	cast_new_tx(data, ray);
-	while (y < ray->lineH)
+	while (y < ray->line_h)
 	{
 		pixel = texture_pixel(data, ray, ty);
-		ft_pixel_put(data->img, ray->r + ray->iter, ray->lineO + y, pixel);
+		ft_pixel_put(data->img, ray->r, ray->line_offset + y, pixel);
 		ty += ty_step;
 		y++;
 	}

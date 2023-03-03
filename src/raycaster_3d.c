@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 04:29:49 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/02 14:33:14 by segarcia         ###   ########.fr       */
+/*   Updated: 2023/03/03 10:50:05 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ static void	handle_fish_eye(t_cube3d *data, t_ray *ray)
 {
 	ray->ca = data->pa - ray->ra;
 	reset_360(&(ray)->ca);
-	ray->disT = ray->disT * cos(ray->ca);
+	ray->dis_t = ray->dis_t * cos(ray->ca);
 }
 
 static void	ray_to_screen(t_cube3d *data, t_ray *ray)
 {
 	ray->tx = 0;
-	ray->lineH = (data->cube_size_y * data->mlx->height * 0.66) / ray->disT;
-	ray->lineO = data->mlx->height * 0.35 - ray->lineH / 2;
+	ray->line_h = (data->cube_size_y * data->mlx->height * 0.66) / ray->dis_t;
+	ray->line_offset = data->mlx->height * 0.35 - ray->line_h / 2;
 }
 
 static void	ft_draw_3d_line(t_cube3d *data, t_ray *ray)

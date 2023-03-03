@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
+/*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:29:23 by slaszlo-          #+#    #+#             */
-/*   Updated: 2023/03/02 13:29:25 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/03 11:08:28 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	missing_meta(void	*data)
 	else if (color_fine(tmp->c_color) == false)
 		write(STDERR_FILENO, CC_ERROR, ft_strlen(CC_ERROR));
 	tmp->input_error = true;
-	data_free(tmp);
+	data_free(tmp, EXIT_FAILURE);
 }
 
 bool	invalid_meta(t_cube3d	*data)

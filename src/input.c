@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
+/*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:31:18 by slaszlo-          #+#    #+#             */
-/*   Updated: 2023/03/03 10:25:37 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/03 11:16:07 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	input_data(t_cube3d	*data, char	*map)
 	while (buff && !data->input_error && !meta_full(data))
 	{
 		check_buffer(buff, data);
-		str_free(buff);
+		if (buff != NULL)
+			str_free(&buff);
 		buff = get_next_line(fd);
 		i++;
 	}

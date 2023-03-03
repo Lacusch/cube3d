@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:01:18 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/02 12:24:06 by segarcia         ###   ########.fr       */
+/*   Updated: 2023/03/03 10:35:50 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@ int	init_mlx(t_cube3d *data)
 	if (!data->mlx)
 	{
 		write(STDERR_FILENO, MLX_ERROR, 32);
-		return (EXIT_FAILURE);
+		return (data_free(data, EXIT_FAILURE));
 	}
 	data->img = mlx_new_image(data->mlx, data->s_width, data->s_height);
 	if (!data->img)
 	{
+		mlx_terminate(data->mlx);
 		write(STDERR_FILENO, MLX_IMG_ERROR, 34);
-		return (EXIT_FAILURE);
+		return (data_free(data, EXIT_FAILURE));
 	}
 	return (EXIT_SUCCESS);
 }
@@ -46,8 +47,9 @@ int	init_textures(t_cube3d *data)
 		|| !data->texture_so
 		|| !data->texture_no)
 	{
+		mlx_terminate(data->mlx);
 		write(STDERR_FILENO, MLX_TEXTURE, 32);
-		return (EXIT_FAILURE);
+		return (data_free(data, EXIT_FAILURE));
 	}
 	return (EXIT_SUCCESS);
 }

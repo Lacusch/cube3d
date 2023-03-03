@@ -58,7 +58,7 @@ $(LIBMLX42):
 	fi
 
 $(LIBFT):
-	git submodule update --init --recursive --remote
+	git submodule update --init --remote
 	@make -C lib/libft
 
 $(NAME): $(LIBFT) $(LIBMLX42) $(OBJECT)

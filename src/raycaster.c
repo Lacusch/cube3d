@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 02:55:07 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/02 04:27:18 by segarcia         ###   ########.fr       */
+/*   Updated: 2023/03/03 10:48:53 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	cast_vertical(t_cube3d *data, t_ray *ray)
 
 void	wall_hit(t_cube3d *data, t_ray *ray)
 {
-	if (ray->disV < ray->disH)
+	if (ray->dis_v < ray->dis_h)
 	{
 		if (ray->ra > PI_HALF && ray->ra < PI3_HALF)
 			data->texture_tmp = data->texture_we;
@@ -57,10 +57,10 @@ void	wall_hit(t_cube3d *data, t_ray *ray)
 			data->texture_tmp = data->texture_ea;
 		ray->rx = ray->vx;
 		ray->ry = ray->vy;
-		ray->disT = ray->disV;
+		ray->dis_t = ray->dis_v;
 		ray->shade = 0;
 	}
-	if (ray->disH < ray->disV)
+	if (ray->dis_h < ray->dis_v)
 	{
 		if (ray->ra >= 0 && ray->ra <= PI)
 			data->texture_tmp = data->texture_so;
@@ -68,7 +68,7 @@ void	wall_hit(t_cube3d *data, t_ray *ray)
 			data->texture_tmp = data->texture_no;
 		ray->rx = ray->hx;
 		ray->ry = ray->hy;
-		ray->disT = ray->disH;
+		ray->dis_t = ray->dis_h;
 		ray->shade = 1;
 	}
 }
