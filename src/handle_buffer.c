@@ -6,7 +6,7 @@
 /*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:31:11 by slaszlo-          #+#    #+#             */
-/*   Updated: 2023/03/02 14:47:50 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/03 10:24:00 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,12 @@ void	handle_color(t_cube3d	*data, char *buff)
 	{
 		while (is_whilespace(&buff[i]) == true && buff[i])
 			i++;
-		get_rgb_floor(i, data, buff, 0);
+		get_rgb_floor(0, data, &buff[i], 0);
 	}
 	else if (buff[0] == 'C' && data->input_error != true)
 	{
 		while (is_whilespace(&buff[i]) == true && buff[i])
 			i++;
-		get_rgb_celling(i, data, buff, 0);
+		get_rgb_celling(0, data, &buff[i], 0);
 	}
 }

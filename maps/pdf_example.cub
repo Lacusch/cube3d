@@ -3,7 +3,7 @@ SO ./textures/eagle.png
 WE ./textures/greystone.png
 EA ./textures/bluestone.png
 
-F ,220,1000
+F 220,10,00
 C 225,30,0
 
         1111111111111111111111111

@@ -6,7 +6,7 @@
 /*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:31:24 by slaszlo-          #+#    #+#             */
-/*   Updated: 2023/03/02 14:29:12 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/03 09:56:56 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	invalid_rgb(t_cube3d	*data)
 {
 	write(STDERR_FILENO, INVALID_RGB, 19);
-	data->input_error = true;
+	if (data != NULL)
+		data->input_error = true;
 }
 
 void	could_be_valid(char	*str, t_cube3d	*data)
