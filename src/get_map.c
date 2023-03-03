@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
+/*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:30:16 by slaszlo-          #+#    #+#             */
-/*   Updated: 2023/03/02 13:30:17 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/03 11:25:41 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ void	check_map(t_cube3d	*data)
 		return ;
 	map_valid_chars(data);
 	test_map(data);
-	if (!data->input_error)
-		data_printf(data);
 }
 
 void	map_valid_chars(t_cube3d	*data)

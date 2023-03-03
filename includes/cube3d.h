@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 10:37:11 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/03 11:15:17 by segarcia         ###   ########.fr       */
+/*   Updated: 2023/03/03 12:19:24 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,6 @@ void	player_position_sub(t_cube3d *data, int line);
 void	fill4(char **map, t_map *dimensions, int x, int y);
 void	fill8(char **map, t_cube3d *data, int x, int y);
 void	flood_fill(char **map, t_cube3d *data, int player_x, int player_y);
-bool	is_map_invalid(t_cube3d	*data, char	**matrix);
 void	invalid_map(void);
 int		is_same_str(char *str1, char *str2);
 int		cast_int(float num);
