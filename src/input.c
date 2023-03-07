@@ -6,7 +6,7 @@
 /*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:31:18 by slaszlo-          #+#    #+#             */
-/*   Updated: 2023/03/05 14:21:21 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/07 11:57:02 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ void	input_data(t_cube3d	*data, char	*map)
 {
 	int		fd;
 	char	*buff;
-	int		i;
 
-	i = 0;
 	buff = NULL;
 	fd = open(map, O_RDWR);
 	buff = get_next_line(fd);
@@ -27,8 +25,9 @@ void	input_data(t_cube3d	*data, char	*map)
 		check_buffer(buff, data);
 		if (buff != NULL)
 			str_free(&buff);
+		if (data->input_error)
+			return ;
 		buff = get_next_line(fd);
-		i++;
 	}
 	if (!meta_full(data) && data->input_error == false)
 		run_error_func(buff, fd, missing_meta, (void *)data);
