@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:13:11 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/07 12:05:27 by segarcia         ###   ########.fr       */
+/*   Updated: 2023/03/07 12:09:55 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ int32_t	main(int ac, char **av)
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
 	data_free(&data, EXIT_SUCCESS);
-	return (0);
+	return (EXIT_SUCCESS);
 }
