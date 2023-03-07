@@ -6,7 +6,7 @@
 /*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:29:29 by slaszlo-          #+#    #+#             */
-/*   Updated: 2023/03/03 13:05:59 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/07 14:41:14 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ bool	check_can_open(t_cube3d	*data)
 
 bool	is_whilespace(char	*c)
 {
-	if (*c == ' ' | *c == '\t')
+	if (*c == ' ' || *c == '\t')
 		return (true);
 	return (false);
 }
