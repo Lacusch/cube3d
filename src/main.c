@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:13:11 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/03 11:17:25 by segarcia         ###   ########.fr       */
+/*   Updated: 2023/03/07 12:09:55 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int32_t	main(int ac, char **av)
 	input_data(&data, av[1]);
 	if (data.input_error)
 		return (data_free(&data, EXIT_FAILURE));
-	if (init_mlx(&data) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
 	if (init_textures(&data) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	if (init_mlx(&data) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	map_cube_size(&data);
 	init_position(&data);
@@ -32,5 +32,6 @@ int32_t	main(int ac, char **av)
 	mlx_loop_hook(data.mlx, &hook, &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
-	return (data_free(&data, EXIT_SUCCESS));
+	data_free(&data, EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
