@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
+/*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:30:59 by slaszlo-          #+#    #+#             */
-/*   Updated: 2023/03/02 13:31:00 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/07 12:06:19 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ int	ft_line(char *map)
 	i = 0;
 	fd = open(map, O_RDONLY);
 	if (fd == -1)
-	{
-		printf("the file desriptor is:%i\n", fd);
 		return (1);
-	}
 	tmp = get_next_line(fd);
 	while (tmp != NULL)
 	{
