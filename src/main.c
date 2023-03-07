@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
+/*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:13:11 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/05 14:16:25 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/07 11:37:12 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ int32_t	main(int ac, char **av)
 		system ("leaks cub3D");
 		return (1);
 	}
-	if (init_mlx(&data) == EXIT_FAILURE)
+	if (init_textures(&data) == EXIT_FAILURE)
 	{
 		system ("leaks cub3D");
 		return (EXIT_FAILURE);
 	}
-	if (init_textures(&data) == EXIT_FAILURE)
+	if (init_mlx(&data) == EXIT_FAILURE)
 	{
 		system ("leaks cub3D");
 		return (EXIT_FAILURE);

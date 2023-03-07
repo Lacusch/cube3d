@@ -6,7 +6,7 @@
 /*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:01:18 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/03 10:35:50 by segarcia         ###   ########.fr       */
+/*   Updated: 2023/03/07 11:36:54 by segarcia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ int	init_textures(t_cube3d *data)
 		|| !data->texture_so
 		|| !data->texture_no)
 	{
-		mlx_terminate(data->mlx);
 		write(STDERR_FILENO, MLX_TEXTURE, 32);
-		return (data_free(data, EXIT_FAILURE));
+		data_free(data, EXIT_FAILURE);
+		system("leaks cub3D");	
+		return (1);
 	}
 	return (EXIT_SUCCESS);
 }
