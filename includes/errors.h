@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: segarcia <segarcia@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 10:37:39 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/07 11:33:07 by segarcia         ###   ########.fr       */
+/*   Updated: 2023/03/08 10:25:43 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,5 @@
 # define INV_QUETE			"Error\nInvalid number of quetes in RGB\n"
 # define DOUBLE_COMA		"Error\nDouble coma in RGB\n"
 # define NO_MAP				"Error\nCan't open map file\n"
+# define SMALL_MAP			"Error\nMap is to small\n"
 #endif

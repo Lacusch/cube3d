@@ -6,7 +6,7 @@
 /*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 10:37:11 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/03 13:09:35 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/10 13:07:35 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,5 +215,7 @@ bool	can_open(char	*map);
 bool	is_valid_nb_quete(char	*buff);
 bool	is_valid_place_quete(char	*buff);
 bool	double_coma(void);
+bool	has_zero(char		**matrix);
+t_map	get_space(char	**matrix);
 
 #endif
