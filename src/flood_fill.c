@@ -6,7 +6,7 @@
 /*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:30:06 by slaszlo-          #+#    #+#             */
-/*   Updated: 2023/03/10 13:24:49 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:31:40 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	flood_fill(char **map, t_cube3d *data, int player_x, int player_y)
 	t_map	map2;
 
 	fill8(map, data, player_x, player_y);
-	while (has_zero(map) == true)
+	while (has_zero(map) == true && data->input_error != 1)
 	{
 		map2 = get_space(map);
 		fill8(map, data, map2.width, map2.height);

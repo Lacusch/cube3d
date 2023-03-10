@@ -6,7 +6,7 @@
 /*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:13:11 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/10 15:38:33 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:00:40 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int32_t	main(int ac, char **av)
 	input_data(&data, av[1]);
 	if (data.input_error)
 	{
-		system("leaks cub3D");
 		data_free(&data, EXIT_FAILURE);
+		system("leaks cub3D");
 		return (1);
 	}
 	if (init_textures(&data) == EXIT_FAILURE)
@@ -45,7 +45,6 @@ int32_t	main(int ac, char **av)
 	mlx_loop_hook(data.mlx, &hook, &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
-	data_free(&data, EXIT_SUCCESS);
 	system("leaks cub3D");
 	return (EXIT_SUCCESS);
 }
