@@ -6,7 +6,7 @@
 /*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:30:16 by slaszlo-          #+#    #+#             */
-/*   Updated: 2023/03/10 16:37:11 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/10 19:29:34 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void	test_map(t_cube3d	*data)
 	if (!is_closed(matrix, &(data->map_data)))
 		return (set_error(data), matrix_free(matrix));
 	player_position(data);
+	if (check_position(&data->player, &data->map_data) == 1)
+		return (invalid_map(), matrix_free(matrix), set_error(data));
 	if (data->map_data.height < 3 || data->map_data.width < 3)
 	{
 		write (STDERR_FILENO, SMALL_MAP, 23);
