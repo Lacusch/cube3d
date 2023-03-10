@@ -6,11 +6,14 @@
 /*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 02:35:54 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/02 13:17:52 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/10 13:23:57 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3d.h"
+
+bool	has_zero(char		**matrix);
+t_map	get_space(char	**matrix);
 
 int	is_same_str(char *str1, char *str2)
 {
@@ -35,4 +38,48 @@ int	is_same_str(char *str1, char *str2)
 int	cast_int(float num)
 {
 	return ((int)(num));
+}
+
+bool	has_zero(char		**matrix)
+{
+	int	i;
+
+	i = 0;
+	if (matrix == NULL)
+		return (false);
+	while (matrix[i] != NULL)
+	{
+		if (ft_strchr(matrix[i], '0') != NULL)
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
+t_map	get_space(char	**matrix)
+{
+	int		i;
+	int		j;
+	t_map	xy;
+
+	xy.height = -1;
+	xy.width = -1;
+	i = 0;
+	j = 0;
+	while (matrix[i] != NULL)
+	{
+		while (matrix[i][j])
+		{
+			if (matrix[i][j] == '0')
+			{
+				xy.height = i;
+				xy.width = j;
+				return (xy);
+			}
+			j++;
+		}
+		i++;
+		j = 0;
+	}
+	return (xy);
 }
