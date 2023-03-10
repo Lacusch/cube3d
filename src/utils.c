@@ -6,7 +6,7 @@
 /*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 02:35:54 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/10 19:38:55 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/10 19:46:52 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,9 @@ t_map	get_space(char	**matrix)
 bool	check_position(t_player	*player, t_map *map)
 {
 	(void)map;
-	if (player->x + 1 == 0 || player->y + 1 == 0 || \
+	printf("map x is %i map y is %i\n", player->x, player->x);
+
+	if (player->x == 0 || player->y == 0 || \
 		player->x + 1 == map->width || player->y + 1 == map->height)
 		return (true);
 	return (false);
