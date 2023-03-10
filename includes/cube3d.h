@@ -6,7 +6,7 @@
 /*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 10:37:11 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/10 13:07:35 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/10 19:28:36 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,5 +217,8 @@ bool	is_valid_place_quete(char	*buff);
 bool	double_coma(void);
 bool	has_zero(char		**matrix);
 t_map	get_space(char	**matrix);
+bool	has_zero(char		**matrix);
+t_map	get_space(char	**matrix);
+bool	check_position(t_player	*player, t_map *map);
 
 #endif

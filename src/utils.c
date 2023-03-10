@@ -6,14 +6,11 @@
 /*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 02:35:54 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/10 13:23:57 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/10 19:38:55 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3d.h"
-
-bool	has_zero(char		**matrix);
-t_map	get_space(char	**matrix);
 
 int	is_same_str(char *str1, char *str2)
 {
@@ -82,4 +79,13 @@ t_map	get_space(char	**matrix)
 		j = 0;
 	}
 	return (xy);
+}
+
+bool	check_position(t_player	*player, t_map *map)
+{
+	(void)map;
+	if (player->x + 1 == 0 || player->y + 1 == 0 || \
+		player->x + 1 == map->width || player->y + 1 == map->height)
+		return (true);
+	return (false);
 }

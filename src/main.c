@@ -6,7 +6,7 @@
 /*   By: slaszlo- <slaszlo-@student.42heibronn.d    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 08:13:11 by segarcia          #+#    #+#             */
-/*   Updated: 2023/03/10 13:23:50 by slaszlo-         ###   ########.fr       */
+/*   Updated: 2023/03/10 19:38:10 by slaszlo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,5 @@ int32_t	main(int ac, char **av)
 	mlx_loop_hook(data.mlx, &hook, &data);
 	mlx_loop(data.mlx);
 	mlx_terminate(data.mlx);
-	data_free(&data, EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
 }
